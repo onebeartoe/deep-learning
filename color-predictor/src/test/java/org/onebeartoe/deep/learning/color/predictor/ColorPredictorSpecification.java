@@ -46,6 +46,14 @@ public class ColorPredictorSpecification
         assertEquals(actual, expected);
     }
     
+    @Test
+    public void testPredict_giveBuiltInDarkBackgrounds_expectLightForeground()
+    {
+        Color c;
+        
+//        Color.
+    }
+    
     /**
      * Test of doubleArrayOf method, of class ColorPredictor.
      */
