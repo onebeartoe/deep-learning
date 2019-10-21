@@ -118,9 +118,6 @@ public class ColorPredictor
 //    }
 
 
-
-        
-
 List<INDArray> exampleList = new ArrayList();
 inputs.forEach(input ->
 {
@@ -128,7 +125,7 @@ inputs.forEach(input ->
     
     exampleList.add(row);
 });
-int[] shape = { exampleList.size(), 1 };
+int[] shape = { exampleList.size(), 3 };
         INDArray examples =  Nd4j.create(exampleList, shape);
 //        val examples = inputs.asSequence()
 //                .map { colorAttributes(it.color) }
@@ -143,7 +140,7 @@ inputs.forEach(input ->
     
     outcomesList.add(row);
 });
-int [] outcomesShape = {outcomesList.size(), 1};
+int [] outcomesShape = {outcomesList.size(), 2};
         INDArray outcomes = Nd4j.create(outcomesList, outcomesShape);
 //        val outcomes = inputs.asSequence()
 //                .map { it.fontShade.outputValue }

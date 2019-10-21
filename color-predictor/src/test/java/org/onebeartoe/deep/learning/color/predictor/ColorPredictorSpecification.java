@@ -22,29 +22,34 @@ public class ColorPredictorSpecification
         implementation = new ColorPredictor();
     }
 
-
-
-    /**
-     * Test of predict method, of class ColorPredictor.
-     */
     @Test
     public void testPredict_givenLightBackground_expectDarkForeground() 
-    {
-        System.out.println("predict");
-        
-        Color color = Color.LIGHTYELLOW;
+    {        
+        Color inputColor = Color.LIGHTYELLOW;
         
         FontShade expected = FontShade.DARK;
         
-        FontShade actual = implementation.predict(color);
+        FontShade actual = implementation.predict(inputColor);
                 
         assertEquals(actual, expected);
     }
 
+    @Test
+    public void testPredict_givenDarkBackground_expectLightForeground()
+    {
+        Color inputColor = Color.DARKBLUE;
+        
+        FontShade expected = FontShade.LIGHT;
+        
+        FontShade actual = implementation.predict(inputColor);
+                
+        assertEquals(actual, expected);
+    }
+    
     /**
      * Test of doubleArrayOf method, of class ColorPredictor.
      */
-    @org.testng.annotations.Test
+    @Test
     public void testDoubleArrayOf() 
     {
         Double[] input = {1.0, 2.0, 3.0};
