@@ -2,7 +2,6 @@
 package org.onebeartoe.deep.learning.color.predictor;
 
 import javafx.scene.paint.Color;
-import org.onebeartoe.deep.learning.color.predictor.FontShade;
 
 /**
  *

@@ -38,8 +38,6 @@ import org.nd4j.linalg.factory.Nd4j;
 public class ColorPredictor
 {
     private boolean printPrediction;
-//    public List<CategorizedInput> inputs = FXCollections.observableArrayList();
-//    val inputs = FXCollections.observableArrayList<CategorizedInput>()
 
     private MultiLayerNetwork model = null;
 
@@ -76,13 +74,9 @@ public class ColorPredictor
 
                 
 
-
-
-
-
-
-
+//    val inputs = FXCollections.observableArrayList<CategorizedInput>()
     List<CategorizedInput> inputs = FXCollections.observableArrayList();
+    
     URL resource = getClass().getResource("/color_training_set.csv");    
     Path inpath = Paths.get(resource.toURI() );
     List<String> readLines = Files.readLines(inpath.toFile(), Charset.defaultCharset());
