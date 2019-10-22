@@ -33,7 +33,9 @@ public class ColorPredictorSpecification
         
         FontShade expected = FontShade.DARK;
         
-        FontShade actual = implementation.predict(inputColor);
+        boolean printPrediction = true;
+        
+        FontShade actual = implementation.predict(inputColor, printPrediction);
                 
         assertEquals(actual, expected);
     }

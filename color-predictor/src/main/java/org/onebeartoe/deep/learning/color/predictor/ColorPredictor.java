@@ -37,8 +37,6 @@ import org.nd4j.linalg.factory.Nd4j;
  */
 public class ColorPredictor
 {
-    private boolean printPrediction;
-
     private MultiLayerNetwork model = null;
 
     public void working()
@@ -51,9 +49,7 @@ public class ColorPredictor
     
 
     public ColorPredictor() throws URISyntaxException, IOException
-    {
-        printPrediction = false;
-        
+    {        
         MultiLayerConfiguration dl4jNN = 
 //        NeuralNetConfiguration dl4jNN = 
                 new NeuralNetConfiguration.Builder()
@@ -159,7 +155,14 @@ int [] outcomesShape = {outcomesList.size(), 2};
 
 //        override fun predict(color: Color): FontShade {    
     public FontShade predict(Color color)
-    {       
+    {
+        boolean printPrediction = false;
+        
+        return predict(color, printPrediction);
+    }
+    
+    public FontShade predict(Color color, boolean printPrediction)
+    {
         // Test the input color and predict it as LIGHT or DARK
         double [] result = 
                 model.output(
@@ -171,7 +174,7 @@ int [] outcomesShape = {outcomesList.size(), 2};
 
         if(printPrediction)
         {
-            System.out.print("result = ");// +  result.toString() );    
+            System.out.print("result = ");
             for(Double d : result)
             {
                 System.out.print(d + " - ");
