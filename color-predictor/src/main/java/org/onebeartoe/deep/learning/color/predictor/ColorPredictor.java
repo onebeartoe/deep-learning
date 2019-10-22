@@ -37,6 +37,7 @@ import org.nd4j.linalg.factory.Nd4j;
  */
 public class ColorPredictor
 {
+    private boolean printPrediction;
 //    public List<CategorizedInput> inputs = FXCollections.observableArrayList();
 //    val inputs = FXCollections.observableArrayList<CategorizedInput>()
 
@@ -53,6 +54,8 @@ public class ColorPredictor
 
     public ColorPredictor() throws URISyntaxException, IOException
     {
+        printPrediction = false;
+        
         MultiLayerConfiguration dl4jNN = 
 //        NeuralNetConfiguration dl4jNN = 
                 new NeuralNetConfiguration.Builder()
@@ -172,11 +175,15 @@ int [] outcomesShape = {outcomesList.size(), 2};
 
 
 
-                
-        System.out.println("result = " +  result.toString() );    
-//        System.out.println("result = " + String.join(", ", result) );    
-//        println(result.joinToString(",  "))
-
+        if(printPrediction)
+        {
+            System.out.print("result = ");// +  result.toString() );    
+            for(Double d : result)
+            {
+                System.out.print(d + " - ");
+            }
+            System.out.println();
+        }
                 
                 
 
