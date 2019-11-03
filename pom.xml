@@ -13,6 +13,10 @@
 
     <modules>
         <module>color-predictor</module>
+        <module>regression</module>
+        <!--
+        <module>do-not-commit</module>
+        -->
     </modules>
 
     <repositories>
@@ -45,6 +49,12 @@
             <groupId>org.nd4j</groupId>
             <artifactId>nd4j-native-platform</artifactId>
             <version>1.0.0-beta2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.encog</groupId>
+            <artifactId>encog-core</artifactId>
+            <version>3.4</version>
         </dependency>
     </dependencies>
     

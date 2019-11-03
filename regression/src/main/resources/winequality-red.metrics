@@ -1,0 +1,31 @@
+Sampled from intput file
+ 7.9; 0.35; 0.46; 3.6; 0.078; 15; 37; 0.9973;  3.35; 0.86; 12.8; 8
+10.3; 0.32; 0.45; 6.4; 0.073;  5; 13; 0.9976;  3.23; 0.82; 12.6; 8
+ 5.6; 0.85; 0.05; 1.4; 0.045; 12; 88; 0.9924;  3.56; 0.82; 12.9; 8
+              *                *                      *
+ 6.7; 0.76; 0.02; 1.8; 0.078;  6; 12; 0.996;   3.55; 0.63;  9.95; 3
+11.6; 0.58; 0.66; 2.2; 0.074; 10; 47; 1.0008;  3.25; 0.57;  9;    3
+ 8.3; 1.02; 0.02; 3.4; 0.084;  6; 11; 0.99892; 3.48; 0.49; 11;    3
+
+[NormalizationHelper:
+ [ColumnDefinition:fixed acidity(continuous);low=4.600000,high=15.900000,mean=8.319637,sd=1.740552]
+ [ColumnDefinition:volatile acidity(continuous);low=0.120000,high=1.580000,mean=0.527821,sd=0.179004]
+*[ColumnDefinition:citric acid(continuous);low=0.000000,high=1.000000,mean=0.270976,sd=0.194740]
+ [ColumnDefinition:residual sugar(continuous);low=0.900000,high=15.500000,mean=2.538806,sd=1.409487]
+ [ColumnDefinition:chlorides(continuous);low=0.012000,high=0.611000,mean=0.087467,sd=0.047051]
+*[ColumnDefinition:free sulfur dioxide(continuous);low=1.000000,high=72.000000,mean=15.874922,sd=10.456886]
+ [ColumnDefinition:total sulfur dioxide(continuous);low=6.000000,high=289.000000,mean=46.467792,sd=32.885037]
+ [ColumnDefinition:density(continuous);low=0.990070,high=1.003690,mean=0.996747,sd=0.001887]
+ [ColumnDefinition:pH(continuous);low=2.740000,high=4.010000,mean=3.311113,sd=0.154338]
+*[ColumnDefinition:sulphates(continuous);low=0.330000,high=2.000000,mean=0.658149,sd=0.169454]
+ [ColumnDefinition:alcohol(continuous);low=8.400000,high=14.900000,mean=10.422983,sd=1.065334]
+ [ColumnDefinition:quality(continuous);low=3.000000,high=8.000000,mean=5.636023,sd=0.807317]
+]
+
+
+massaged for low quality
+8.3; 1.02; 0.00; 3.4; 0.084;  0; 11; 0.99892; 3.48; 0.00; 11;    3
+
+
+massaged for high quality
+7.9; 0.35; 1.00; 3.6; 0.078; 72; 37; 0.9973;  3.35; 2.00; 12.8; 8

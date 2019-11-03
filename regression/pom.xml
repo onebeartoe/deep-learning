@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -10,18 +9,21 @@
         <version>1.0</version>
     </parent>
     
-    <artifactId>color-predictor</artifactId>
+    <artifactId>regression</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>onebeartoe-deep-learning-color-predictor</name>
-
+    <name>onebeartoe-deep-learning-regression</name>
+    
     <dependencies>
-        <dependency>
-            <groupId>org.onebeartoe</groupId>
-            <artifactId>onebeartoe-application</artifactId>
-            <version>1.0</version>
-        </dependency>
+        <!-- 
+            Uncomment this SLF4J dependency if you want DeepLearning4Java to use logging.
+        -->
+        <!--dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.25</version>
+        </dependency-->
 
         <dependency>
             <groupId>org.testng</groupId>
