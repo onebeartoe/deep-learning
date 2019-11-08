@@ -32,42 +32,43 @@ import org.onebeartoe.deep.learning.encog.RegressionArtifacts;
  */
 public class HackerRankHousePricesRegession
 {
-    private NormalizationHelper displayResults(NormalizedModel model, MLRegression bestMethod) 
-    {
-        // Display the training and validation errors.
-        System.out.println( "Training error: " + model.model.calculateError(bestMethod, model.model.getTrainingDataset()));
-        System.out.println( "Validation error: " + model.model.calculateError(bestMethod, model.model.getValidationDataset()));
+//    private NormalizationHelper displayResults(NormalizedModel model, MLRegression bestMethod) 
+//    {
+//        // Display the training and validation errors.
+//        System.out.println( "Training error: " + model.model.calculateError(bestMethod, model.model.getTrainingDataset()));
+//        System.out.println( "Validation error: " + model.model.calculateError(bestMethod, model.model.getValidationDataset()));
+//
+//        // Display our normalization parameters.
+//        NormalizationHelper helper = model.dataset.getNormHelper();
+//        System.out.println(helper.toString());
+//
+//        // Display the final model.
+//        System.out.println("Final model: " + bestMethod);
+//        
+//        return helper;        
+//    }
 
-        // Display our normalization parameters.
-        NormalizationHelper helper = model.dataset.getNormHelper();
-        System.out.println(helper.toString());
+//    private MLRegression fitModel(NormalizedModel normalizedModel)
+//    {
+//        EncogModel model = normalizedModel.model;
+//        
+//        VersatileMLDataSet dataset = normalizedModel.dataset;
+//        
+//        // Hold back some data for a final validation.
+//        // Shuffle the data into a random ordering.
+//        // Use a seed of 1001 so that we always use the same holdback and will get more consistent results.
+//        model.holdBackValidation(0.2, true, 1001);
+////        model.holdBackValidation(0.3, true, 1001);
+//
+//        // Choose whatever is the default training type for this model.
+//        model.selectTrainingType(dataset);
+//
+//        // Use a 5-fold cross-validated train.  Return the best method found.
+//        MLRegression bestMethod = (MLRegression)model.crossvalidate(5, true);
+//
+//        return bestMethod;
+//    }
 
-        // Display the final model.
-        System.out.println("Final model: " + bestMethod);
-        
-        return helper;        
-    }
-
-    private MLRegression fitModel(NormalizedModel normalizedModel)
-    {
-        EncogModel model = normalizedModel.model;
-        
-        VersatileMLDataSet dataset = normalizedModel.dataset;
-        
-        // Hold back some data for a final validation.
-        // Shuffle the data into a random ordering.
-        // Use a seed of 1001 so that we always use the same holdback and will get more consistent results.
-        model.holdBackValidation(0.2, true, 1001);
-//        model.holdBackValidation(0.3, true, 1001);
-
-        // Choose whatever is the default training type for this model.
-        model.selectTrainingType(dataset);
-
-        // Use a 5-fold cross-validated train.  Return the best method found.
-        MLRegression bestMethod = (MLRegression)model.crossvalidate(5, true);
-
-        return bestMethod;
-    }
     private MapResults mapInputFile() throws URISyntaxException 
     {
         URL resource = getClass().getResource("/hacker-rank/training-house-prices.csv");
@@ -168,9 +169,11 @@ public class HackerRankHousePricesRegession
         
         NormalizedModel model = specifyModelAndNormalize(results);
         
-        MLRegression regression = fitModel(model);
+        double holdBack = 0.2;
         
-        artifacts.helper = displayResults(model, regression);
+        MLRegression regression = model.fitModel(holdBack);
+        
+        artifacts.helper = model.displayResults(regression);
         
         artifacts.bestMethod = regression;
         
