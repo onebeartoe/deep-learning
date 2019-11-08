@@ -4,7 +4,8 @@
 
 <suite name="deep-learning-regression-test-suite" parallel="none">
     <test name="deep-learning-regression-unit-tests">
-        <packages>    
+        <packages>
+            <package name="org.onebeartoe.deep.learning.regression.linear.house.prices.hackerrank"/>    
             <package name="org.onebeartoe.deep.learning.regression.wine.quality"/>
         </packages>
     </test>    
