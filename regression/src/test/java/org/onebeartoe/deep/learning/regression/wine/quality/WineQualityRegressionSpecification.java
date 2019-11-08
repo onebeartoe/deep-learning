@@ -2,6 +2,7 @@
 package org.onebeartoe.deep.learning.regression.wine.quality;
 
 import java.net.URISyntaxException;
+import org.onebeartoe.deep.learning.encog.RegressionArtifacts;
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,8 +14,8 @@ public class WineQualityRegressionSpecification
 {
     private WineQualityRegression implementation;
     
-    private WineQualityRegression.RegressionArtifacts artifacts;
-            
+    private RegressionArtifacts artifacts;
+
     @BeforeClass
     public void initialize() throws URISyntaxException
     {

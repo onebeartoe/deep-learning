@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+
 import org.encog.ConsoleStatusReportable;
 import org.encog.Encog;
 import org.encog.ml.MLRegression;
@@ -21,6 +22,10 @@ import org.encog.ml.factory.MLMethodFactory;
 import org.encog.ml.model.EncogModel;
 import org.encog.util.csv.CSVFormat;
 import org.encog.util.csv.ReadCSV;
+
+import org.onebeartoe.deep.learning.encog.MapResults;
+import org.onebeartoe.deep.learning.encog.NormalizedModel;
+import org.onebeartoe.deep.learning.encog.RegressionArtifacts;
 import static org.onebeartoe.deep.learning.regression.wine.quality.Wine.FEATURE_COUNT;
 
 /**
@@ -89,7 +94,7 @@ public class WineQualityRegression
 
         boolean containsHeader = true;
         
-        CSVFormat format = new CSVFormat('.',';'); // decimal point and space separated
+        CSVFormat format = new CSVFormat('.',';'); // decimal point and semicolon separated
         VersatileDataSource source = new CSVDataSource(infile, containsHeader, format);
 
         VersatileMLDataSet data = new VersatileMLDataSet(source);
@@ -140,6 +145,7 @@ public class WineQualityRegression
     public double predict(RegressionArtifacts artifacts, Wine wine) 
     {
         String[] line = wine.toArray();
+
         MLData input = artifacts.helper.allocateInputVector();
 
         artifacts.helper.normalizeInputVector(line,input.getData(),false);
@@ -220,67 +226,33 @@ public class WineQualityRegression
 
         while(csv.next()) 
         {
-                StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
-                line[0] = csv.get(0);
-                line[1] = csv.get(1);
-                line[2] = csv.get(2);
-                line[3] = csv.get(3);
-                line[4] = csv.get(4);
-                line[5] = csv.get(5);
-                line[6] = csv.get(6);
-                line[7] = csv.get(7);
-                line[8] = csv.get(8);
-                line[9] = csv.get(9);
-                line[10] = csv.get(10);
+            line[0] = csv.get(0);
+            line[1] = csv.get(1);
+            line[2] = csv.get(2);
+            line[3] = csv.get(3);
+            line[4] = csv.get(4);
+            line[5] = csv.get(5);
+            line[6] = csv.get(6);
+            line[7] = csv.get(7);
+            line[8] = csv.get(8);
+            line[9] = csv.get(9);
+            line[10] = csv.get(10);
 
-                String correct = csv.get(11);
-                helper.normalizeInputVector(line,input.getData(),false);
-                MLData output = bestMethod.compute(input);
-                String predictedQuality = helper.denormalizeOutputVectorToString(output)[0];
+            String correct = csv.get(11);
+            helper.normalizeInputVector(line,input.getData(),false);
+            MLData output = bestMethod.compute(input);
+            String predictedQuality = helper.denormalizeOutputVectorToString(output)[0];
 
-                result.append(Arrays.toString(line));
-                result.append(" -> predicted: ");
-                result.append(predictedQuality);
-                result.append("(correct: ");
-                result.append(correct);
-                result.append(")");
+            result.append(Arrays.toString(line));
+            result.append(" -> predicted: ");
+            result.append(predictedQuality);
+            result.append("(correct: ");
+            result.append(correct);
+            result.append(")");
 
-                System.out.println(result.toString());
+            System.out.println(result.toString());
         }
-    }
-
-    class MapResults
-    {
-        ColumnDefinition output;
-        
-        VersatileMLDataSet dataset;
-        
-        RegressionArtifacts artifacts;
-        
-        public MapResults()
-        {
-            artifacts = new RegressionArtifacts();
-        }
-    }
-    
-    class NormalizedModel
-    {
-        EncogModel model;
-        
-        VersatileMLDataSet dataset;
-    }
-    
-    class RegressionArtifacts
-    {
-        File infile;
-        
-        boolean containsHeader;
-        
-        CSVFormat format;
-        
-        NormalizationHelper helper;
-        
-        MLRegression bestMethod;
     }
 }
