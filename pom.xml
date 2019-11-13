@@ -14,9 +14,7 @@
     <modules>
         <module>color-predictor</module>
         <module>regression</module>
-        <!--
-        <module>do-not-commit</module>
-        -->
+        <module>convolutional</module>
     </modules>
 
     <repositories>
