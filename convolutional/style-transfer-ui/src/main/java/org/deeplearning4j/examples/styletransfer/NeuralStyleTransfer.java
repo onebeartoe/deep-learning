@@ -32,8 +32,7 @@ import org.nd4j.linalg.indexing.conditions.Conditions;
 import org.nd4j.linalg.learning.AdamUpdater;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.ops.transforms.Transforms;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -43,6 +42,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Logger;
+import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 /**
  * Neural Style Transfer Algorithm References
@@ -70,11 +71,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NeuralStyleTransfer
 {
 //TODO: change this to a SysoutLogger    
-
-    protected static final Logger log = LoggerFactory.getLogger(NeuralStyleTransfer.class);
+    protected static final Logger logger = SysoutLoggerFactory.getLogger(NeuralStyleTransfer.class.getName() );
+//    protected static final Logger log = LoggerFactory.getLogger(NeuralStyleTransfer.class);
 
 //TODO update the string array definitions to not use the 'new' operator    
-    String[] strs =
+    String [] strs =
     {
         "s", "s"
     };
@@ -158,7 +159,9 @@ public class NeuralStyleTransfer
     {
 //TODO: Move this call out side of this method and save the ComputationGraph object 
 //      for reuse.        
+
         ComputationGraph vgg16FineTune = loadModel();
+
 //TODO: it looks like this can be saved between runs        
 //vgg16FineTune.save();
 
@@ -178,7 +181,7 @@ public class NeuralStyleTransfer
 
         for (int iteration = 0; iteration < ITERATIONS; iteration++)
         {
-            log.info("iteration  " + iteration);
+            logger.info("iteration  " + iteration);
 
             INDArray[] input = new INDArray[]
             {
@@ -192,7 +195,7 @@ public class NeuralStyleTransfer
             adamUpdater.applyUpdater(backPropAllValues, iteration, 0);
             combination.subi(backPropAllValues);
 
-            log.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap));
+            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap));
 
             if (iteration % SAVE_IMAGE_CHECKPOINT == 0)
             {
@@ -286,7 +289,7 @@ public class NeuralStyleTransfer
         File infile = new File(contentFile);
 //        File infile = new ClassPathResource(contentFile).getFile();
 
-        log.info("infile path: " + infile.getAbsolutePath());
+        logger.info("infile path: " + infile.getAbsolutePath());
 
         INDArray content = LOADER.asMatrix(infile);
 
@@ -507,7 +510,7 @@ public class NeuralStyleTransfer
         ZooModel zooModel = VGG16.builder().build();
         ComputationGraph vgg16 = (ComputationGraph) zooModel.initPretrained(PretrainedType.IMAGENET);
         vgg16.initGradientsView();
-        log.info(vgg16.summary());
+        logger.info(vgg16.summary());
         return vgg16;
     }
 
