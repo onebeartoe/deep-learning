@@ -16,7 +16,6 @@
  ***************************************************************************** */
 package org.deeplearning4j.examples.styletransfer;
 
-import org.datavec.api.util.ClassPathResource;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -41,7 +40,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;

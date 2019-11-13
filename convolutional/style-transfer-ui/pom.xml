@@ -9,14 +9,12 @@
         <artifactId>convolutional-deep-learning</artifactId>
         <version>1.0</version>
     </parent>
-
     
     <artifactId>style-transfer-ui</artifactId>
 
-
     <packaging>jar</packaging>
 
-    <name>onebeartoe-style-transfer-ui</name>
+    <name>onebeartoe-deep-learning-convolutional-style-transfer-ui</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +29,6 @@
     </properties>
 
     <organization>
-        <!-- Used as the 'Vendor' for JNLP generation -->
         <name>onebeartoe.org</name>
     </organization>
 
@@ -66,7 +63,6 @@
 <!--
 
 -->        
-
 
         <dependency>
             <groupId>org.onebeartoe</groupId>  
