@@ -2,8 +2,12 @@
 package org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +23,15 @@ import javafx.stage.FileChooserBuilder;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import org.onebeartoe.application.duration.DurationService;
 
-//TODO: add this back one the UI is ready
-import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
+//TODO: Add this back one the UI is ready.
+//import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
+//TODO: Revert back to the actual NeuralStyleTransfer implementation.
+import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
+
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 public class FXMLController implements Initializable 
@@ -38,7 +48,13 @@ public class FXMLController implements Initializable
     private Button styleButton;
     
     @FXML
+    private ImageView contentImage;
+    
+    @FXML
     private Label contentLabel;
+    
+    @FXML
+    private ImageView styleImage;
     
     @FXML
     private Label styleLabel;
@@ -54,9 +70,14 @@ public class FXMLController implements Initializable
     
     private File styleFile;
 
+    private DurationService durationService;
+    
 //TODO: add this back one the UI is ready
-    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
-            
+    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
+//TODO: move this instantiation to the initialize() method;
+//TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
+//    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
+
     private void applyStyle() throws IOException
     {
         String contentPath = contentFile.getAbsolutePath();
@@ -67,8 +88,10 @@ public class FXMLController implements Initializable
         
         logger.info("style: " + stylePath);
         
-//TODO: add this back one the UI is ready
+        Instant start = Instant.now();
         styleTransferer.transferStyle(contentPath, stylePath);
+        Instant end = Instant.now();
+        durationService.durationMessage(start, end);
     }
     
     @FXML
@@ -113,7 +136,7 @@ public class FXMLController implements Initializable
     }
 
     @FXML
-    private void handleContentButtonAction(ActionEvent event)
+    private void handleContentButtonAction(ActionEvent event) throws FileNotFoundException
     {
         logger.info("the content button was clicked");
         
@@ -123,12 +146,18 @@ public class FXMLController implements Initializable
         {
             String path = contentFile.getAbsolutePath();
             
+            InputStream inputStream = new FileInputStream(path);
+            
+            Image image = new Image(inputStream, 50, 50, true, true);
+            
+            contentImage.setImage(image);
+            
             contentLabel.setText(path);
         }
     }
     
     @FXML
-    private void handleStyleButtonAction(ActionEvent event) 
+    private void handleStyleButtonAction(ActionEvent event) throws FileNotFoundException 
     {
         logger.info("the style button was clicked");
 
@@ -139,6 +168,12 @@ public class FXMLController implements Initializable
         {
             String path = styleFile.getAbsolutePath();
 
+            InputStream inputStream = new FileInputStream(path);
+            
+            Image image = new Image(inputStream, 50, 50, true, true);
+
+            styleImage.setImage(image);            
+            
             styleLabel.setText(path);
         }
     }
@@ -160,6 +195,8 @@ public class FXMLController implements Initializable
             .title("Choose a style")
             .initialDirectory(currentDir)
             .build();
+        
+        durationService = new DurationService();
     }
 
     private void toggleButtons(boolean enabled)

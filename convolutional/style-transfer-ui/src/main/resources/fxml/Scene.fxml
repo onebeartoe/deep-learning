@@ -19,7 +19,7 @@
               <items>
                   <BorderPane prefHeight="289.0" prefWidth="216.0">
                      <center>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fx:id="contentImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </center>
                      <top>
                         <Label text="Content" BorderPane.alignment="CENTER" />
@@ -38,7 +38,7 @@
                           <Label fx:id="label" minHeight="16" minWidth="69" text="Style" BorderPane.alignment="CENTER" />
                      </top>
                      <center>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fx:id="styleImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </center>
                      <bottom>
                         <FlowPane prefHeight="36.0" prefWidth="210.0" BorderPane.alignment="CENTER">
