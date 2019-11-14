@@ -220,6 +220,11 @@ public class NeuralStyleTransfer
             {
                 //save image can be found at target/classes/styletransfer/out
                 saveImage(combination.dup(), iteration);
+                
+                for(ImageIterationListener listener : listeners)
+                {
+                    listener.imageCreated(styleFile);
+                }
             }
         }
     }
