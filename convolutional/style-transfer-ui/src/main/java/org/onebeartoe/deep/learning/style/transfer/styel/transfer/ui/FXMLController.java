@@ -72,7 +72,9 @@ public class FXMLController implements Initializable
 
     private DurationService durationService;
     
-//TODO: add this back one the UI is ready
+    private ImageIterationListener imageListener;
+    
+//TODO: add this back once the UI is ready
     private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
 //TODO: move this instantiation to the initialize() method;
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
@@ -114,7 +116,7 @@ public class FXMLController implements Initializable
         }
         else
         {
-            toggleButtons(false);
+            toggleButtons(true);
         
             try
             {
@@ -130,9 +132,11 @@ public class FXMLController implements Initializable
             }
             finally
             {
-                toggleButtons(true);
+                toggleButtons(false);
             }
         }
+        
+        System.out.println("apply style done");
     }
 
     @FXML
@@ -197,12 +201,16 @@ public class FXMLController implements Initializable
             .build();
         
         durationService = new DurationService();
+        
+        ImageIterationListener imageListener = new ImageIterationListener(gridPane);
+        
+        styleTransferer.addImageIterationListerner(imageListener);
     }
 
-    private void toggleButtons(boolean enabled)
+    private void toggleButtons(boolean disabled)
     {
-        applyStyleButton.setDisable(enabled);
-        contentButton.setDisable(enabled);
-        styleButton.setDisable(enabled);
+        applyStyleButton.setDisable(disabled);
+        contentButton.setDisable(disabled);
+        styleButton.setDisable(disabled);
     }
 }
