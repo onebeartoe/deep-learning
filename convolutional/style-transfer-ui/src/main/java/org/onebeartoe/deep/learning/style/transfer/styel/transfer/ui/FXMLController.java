@@ -34,9 +34,9 @@ import javafx.scene.layout.RowConstraints;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
-//import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
+import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 //TODO: Revert back to the actual NeuralStyleTransfer implementation.
-import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
+//import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
 
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
@@ -87,10 +87,10 @@ public class FXMLController implements Initializable
     private ImageIterationListener imageListener;
     
 //TODO: add this back once the UI is ready
-    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
+//    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
 //TODO: move this instantiation to the initialize() method;
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
-//    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
+    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
     
     private void applyStyle() throws IOException
     {
