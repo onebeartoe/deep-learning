@@ -18,7 +18,7 @@ public class ImageIterationListener
 {
     private GridPane gridPane;
     
-    private final int COLUMNS = 3;
+    private final int COLUMNS = 5;
 
     private int currentColumn = 0;
 
