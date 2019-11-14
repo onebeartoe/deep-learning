@@ -544,7 +544,7 @@ public class NeuralStyleTransfer
 
         outdir.mkdir();
 
-        String outName = "iteration" + iteration + ".jpg";
+        String outName = contentFile.getName() + "-iteration-" + iteration + ".jpg";
 
         File outfile = new File(outdir, outName);
 

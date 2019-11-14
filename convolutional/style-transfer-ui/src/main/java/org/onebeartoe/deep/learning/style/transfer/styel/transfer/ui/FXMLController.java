@@ -135,6 +135,8 @@ public class FXMLController implements Initializable
         
             try
             {
+                gridPane.getChildren().clear();
+                
                 applyStyle();
             }
             catch(Exception e)
@@ -222,6 +224,8 @@ public class FXMLController implements Initializable
         col1.setHgrow(Priority.NEVER);
         col1.setHalignment(HPos.CENTER);
 
+        gridPane.setGridLinesVisible(true);
+        
         gridPane.getColumnConstraints().addAll(col1);
 //        gridPane.getColumnConstraints().addAll(col1, col1, col1, col1, col1, col1);
         
