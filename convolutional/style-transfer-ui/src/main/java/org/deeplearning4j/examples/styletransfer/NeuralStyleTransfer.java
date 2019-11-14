@@ -16,6 +16,7 @@
  ***************************************************************************** */
 package org.deeplearning4j.examples.styletransfer;
 
+import java.awt.Color;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -32,18 +33,20 @@ import org.nd4j.linalg.indexing.conditions.Conditions;
 import org.nd4j.linalg.learning.AdamUpdater;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.ops.transforms.Transforms;
-//import org.slf4j.Logger;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
+import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
 
 /**
  * Neural Style Transfer Algorithm References
@@ -134,7 +137,7 @@ public class NeuralStyleTransfer
 
     private static final int SAVE_IMAGE_CHECKPOINT = 5;
 
-    private static final String OUTPUT_PATH = "/styletransfer/out/";
+//    private static final String OUTPUT_PATH = "/styletransfer/out/";
 
     private static final int HEIGHT = 224;
     private static final int WIDTH = 224;
@@ -143,6 +146,18 @@ public class NeuralStyleTransfer
     private static final NativeImageLoader LOADER = new NativeImageLoader(HEIGHT, WIDTH, CHANNELS);
 
     private File contentFile;
+
+    public List<ImageIterationListener> listeners;
+
+    public NeuralStyleTransfer()
+    {
+        listeners = new ArrayList();
+    }
+    
+    public void addImageIterationListerner(ImageIterationListener imageListener)
+    {
+        
+    }
 
     public static void main(String[] args) throws IOException
     {
