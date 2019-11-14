@@ -23,8 +23,11 @@ import javafx.stage.FileChooserBuilder;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
@@ -38,6 +41,12 @@ public class FXMLController implements Initializable
 {
     private Logger logger;
 
+    @FXML
+    private AnchorPane root;
+    
+    @FXML
+    private SplitPane outerSplitPane;
+    
     @FXML
     private Button applyStyleButton;
     
@@ -80,6 +89,8 @@ public class FXMLController implements Initializable
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
 //    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
 
+    Stage stage;
+    
     private void applyStyle() throws IOException
     {
         String contentPath = contentFile.getAbsolutePath();
@@ -205,6 +216,12 @@ public class FXMLController implements Initializable
         ImageIterationListener imageListener = new ImageIterationListener(gridPane);
         
         styleTransferer.addImageIterationListerner(imageListener);
+
+        // have the scroll pane grow with the window resizing
+        AnchorPane.setTopAnchor(outerSplitPane, 0.0);
+        AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
+        AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
+        AnchorPane.setRightAnchor(outerSplitPane, 0.0);
     }
 
     private void toggleButtons(boolean disabled)
