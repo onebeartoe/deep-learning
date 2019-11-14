@@ -146,6 +146,8 @@ public class NeuralStyleTransfer
     private static final NativeImageLoader LOADER = new NativeImageLoader(HEIGHT, WIDTH, CHANNELS);
 
     private File contentFile;
+    
+    private File styleFile;
 
     public List<ImageIterationListener> listeners;
 
@@ -181,6 +183,8 @@ public class NeuralStyleTransfer
 //vgg16FineTune.save();
 
         contentFile = new File(contentPath);
+        
+        styleFile = new File(stylePath);
 
         INDArray content = loadImage(contentPath);
 
@@ -544,7 +548,9 @@ public class NeuralStyleTransfer
 
         outdir.mkdir();
 
-        String outName = contentFile.getName() + "-iteration-" + iteration + ".jpg";
+        String outName = contentFile.getName() 
+                         + "-" + styleFile.getName()
+                         + "-iteration-" + iteration + ".jpg";
 
         File outfile = new File(outdir, outName);
 
