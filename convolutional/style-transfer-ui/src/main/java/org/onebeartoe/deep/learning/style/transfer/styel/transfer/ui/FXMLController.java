@@ -44,8 +44,8 @@ public class FXMLController implements Initializable
 {
     private Logger logger;
 
-    @FXML
-    private AnchorPane root;
+//    @FXML
+//    private AnchorPane root;
     
     @FXML
     private SplitPane outerSplitPane;
@@ -91,8 +91,6 @@ public class FXMLController implements Initializable
 //TODO: move this instantiation to the initialize() method;
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
 //    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
-
-//    Stage stage;
     
     private void applyStyle() throws IOException
     {
