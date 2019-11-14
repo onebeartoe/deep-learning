@@ -27,7 +27,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
@@ -89,7 +90,7 @@ public class FXMLController implements Initializable
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
 //    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
 
-    Stage stage;
+//    Stage stage;
     
     private void applyStyle() throws IOException
     {
@@ -212,6 +213,22 @@ public class FXMLController implements Initializable
             .build();
         
         durationService = new DurationService();
+        
+//        gridPane.setHgap(15.0);
+//        gridPane.setVgap(15.0);
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(99);
+//        RowConstraints row2 = new RowConstraints();
+//        row2.setPercentHeight(75);
+
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(0.20);
+//        ColumnConstraints col2 = new ColumnConstraints();
+//        col2.setPercentWidth(75);
+
+//        gridPane.getRowConstraints().addAll(row1);//,row2);
+//        gridPane.getColumnConstraints().addAll(col1, col1, col1, col1, col1);//,col2);
+//        gridPane.setMaxWidth(Double.MAX_VALUE);
         
         ImageIterationListener imageListener = new ImageIterationListener(gridPane);
         
