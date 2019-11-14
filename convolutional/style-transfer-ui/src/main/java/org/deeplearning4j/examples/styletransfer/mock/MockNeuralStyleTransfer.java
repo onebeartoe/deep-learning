@@ -1,16 +1,28 @@
 
 package org.deeplearning4j.examples.styletransfer.mock;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
+
 /**
  * This class is used during GUI development to avoid long build/run times for the 
  * actual neural network.
  */
 public class MockNeuralStyleTransfer
 {
-
-    public void transferStyle(String contentPath, String stylePath)
+    private ImageIterationListener imageListener;
+    
+    public void transferStyle(String contentPath, String stylePath) throws FileNotFoundException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        File imageFile = new File(contentPath);
+
+        imageListener.imageCreated(imageFile);
+    }
+
+    public void addImageIterationListerner(ImageIterationListener imageListener)
+    {
+        this.imageListener = imageListener;
     }
     
 }
