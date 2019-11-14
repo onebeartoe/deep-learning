@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
 
 /**
- * This class is used during GUI development to avoid long build/run times for the 
+ * This class is used during GUI development to avoid long build/run times of the 
  * actual neural network.
  */
 public class MockNeuralStyleTransfer
