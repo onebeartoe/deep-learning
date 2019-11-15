@@ -137,7 +137,8 @@ public class NeuralStyleTransfer
 
     private static final double NOISE_RATION = 0.1;
 
-    private static final int ITERATIONS = 50;
+    private static final int ITERATIONS = 10;
+//    private static final int ITERATIONS = 50;
 //    private static final int ITERATIONS = 100;
 
     private static final int SAVE_IMAGE_CHECKPOINT = 5;
@@ -189,8 +190,9 @@ public class NeuralStyleTransfer
         
         ComputationGraph vgg16FineTune = loadModel();
 
-//TODO: it looks like this can be saved between runs        
-//vgg16FineTune.save();  Or it looks like ModelSerializer is the way to go for saving.
+//TODO: it looks like this can be saved between runs   
+//      https://deeplearning4j.org/docs/latest/deeplearning4j-nn-model-persistence
+//      is it this -> vgg16FineTune.save();  Or it looks like ModelSerializer is the way to go for saving.
         Instant end = Instant.now();
         String durationMessage = durationService.durationMessage(start, end);
         logger.info(durationMessage);

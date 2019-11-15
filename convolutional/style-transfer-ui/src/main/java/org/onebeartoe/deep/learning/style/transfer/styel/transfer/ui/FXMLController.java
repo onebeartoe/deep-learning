@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,8 +104,18 @@ public class FXMLController implements Initializable
         logger.info("style: " + stylePath);
         
         Instant start = Instant.now();
-
-        styleTransferer.transferStyle(contentPath, stylePath);
+//Platform.runLater( () ->
+//{
+logger.info("in applyStyle() in Platform");
+            try
+            {
+                styleTransferer.transferStyle(contentPath, stylePath);
+            } catch (IOException ex)
+            {
+logger.log(Level.SEVERE, "error transfering style", ex);                
+            }
+logger.info("at end of applyStyle() in Platform");            
+//});
 
         Instant end = Instant.now();
         String durationMessage = durationService.durationMessage(start, end);
@@ -131,35 +142,65 @@ public class FXMLController implements Initializable
         }
         else
         {
-            toggleButtons(true);
-        
-            gridPane.getChildren().clear();
-
-logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+logger.info("creating task thread");            
             
-            Platform.runLater( () ->
+            Task<Void> task = new Task<Void>() 
             {
-                try
+                @Override 
+                public Void call() throws Exception 
                 {
-logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
-                    applyStyle();
-                }
-                catch(Exception e)
-                {
-                    String message = e.getMessage();
+logger.info("in call of task thread--");
+                    toggleButtons(true);
 
-                    logger.log(Level.SEVERE, message, e);
+logger.info("clearing grid");
+                    Platform.runLater( () ->
+                    {
+                    gridPane.getChildren().clear();
+logger.info("grid cleared");
 
-                    applyStyleButton.setText("Error: see log");
+        logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+
+
+                        try
+                        {
+        logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+                            applyStyle();
+                        }
+                        catch(Exception e)
+                        {
+                            String message = e.getMessage();
+
+                            logger.log(Level.SEVERE, message, e);
+
+                            applyStyleButton.setText("Error: see log");
+                        }
+                        finally
+                        {
+                            toggleButtons(false);
+                        }                    
+                    });
+                    
+logger.info("end of call of task thread");                    
+                    
+                    
+                    return null ;
                 }
-                finally
-                {
-                    toggleButtons(false);
-                }                    
+            };
+            
+logger.info("setting message listener of task thread");            
+            task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
+            {
+                logger.info("task message: " + newMessage);
             });
+
+logger.info("starting task thread");
+            
+            new Thread(task).start();
+            
+logger.info("task thread started");
         }
         
-        System.out.println("apply style done");
+        logger.info("apply style done");
     }
 
     @FXML
@@ -248,8 +289,10 @@ logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
 
     private void toggleButtons(boolean disabled)
     {
+logger.info("--toggle buttons: " + disabled);        
         applyStyleButton.setDisable(disabled);
         contentButton.setDisable(disabled);
         styleButton.setDisable(disabled);
+logger.info("__end of toggle buttons");        
     }
 }
