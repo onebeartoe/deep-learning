@@ -5,9 +5,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 /**
  * This class receives messages about when an image is created.
@@ -25,8 +28,12 @@ public class ImageIterationListener
 
     private int currentRow = 0;
     
+    private Logger logger;
+    
     ImageIterationListener(GridPane gridPane)
     {
+        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
+
         this.gridPane = gridPane;
     }
 
@@ -37,10 +44,21 @@ public class ImageIterationListener
         Image image = new Image(inputStream, 50, 50, true, true);
             
         ImageView imageView = new ImageView();
-        
+
         imageView.setImage(image);
 
-        gridPane.add(imageView, currentColumn, currentRow);
+//        Platform.runLater( new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+                logger.info("adding styled image to gridpane\n");
+
+                gridPane.add(imageView, currentColumn, currentRow);
+                
+                gridPane.layout();
+//            }
+//        });        
         
         currentColumn++;
         
