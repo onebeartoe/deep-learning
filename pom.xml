@@ -35,47 +35,18 @@
 		
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <nd4j.backend>nd4j-native-platform</nd4j.backend>
-        <nd4j.version>1.0.0-beta4</nd4j.version>        
+
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>org.datavec</groupId>
-            <artifactId>datavec-api</artifactId>
-            <version>1.0.0-beta4</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.datavec</groupId>
-            <artifactId>datavec-data-image</artifactId>
-            <version>1.0.0-beta4</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.deeplearning4j</groupId>
-            <artifactId>deeplearning4j-zoo</artifactId>
-            <version>1.0.0-beta4</version>
-        </dependency>
-<!--
-
--->
-
-        <!-- ND4J backend. You need one in every DL4J project. Normally define artifactId as either nd4j-native-platform or nd4j-cuda-X.X-platform to use CUDA GPUs (check parent pom for supported cuda versions) -->
-        <dependency>
-            <groupId>org.nd4j</groupId>
-            <artifactId>${nd4j.backend}</artifactId>
-            <version>${nd4j.version}</version>
-        </dependency>
-<!--
-
--->
 
         
                         
 <!--TODO: do not commit-->
 <!--TODO: reenable this encog dependency, once it is GUI development is done-->
-<!--        
+<!--
+NOT THIS STUFF                
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
