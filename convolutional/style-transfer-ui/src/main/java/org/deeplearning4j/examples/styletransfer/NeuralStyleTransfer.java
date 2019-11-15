@@ -39,12 +39,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
+import org.onebeartoe.application.duration.DurationService;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
 
@@ -132,17 +134,20 @@ public class NeuralStyleTransfer
     private static final double BETA = 5.0;
 
     private static final double LEARNING_RATE = 2;
+
     private static final double NOISE_RATION = 0.1;
-    private static final int ITERATIONS = 100;//1000;
+
+    private static final int ITERATIONS = 12;
+//    private static final int ITERATIONS = 100;
 
     private static final int SAVE_IMAGE_CHECKPOINT = 5;
-
-//    private static final String OUTPUT_PATH = "/styletransfer/out/";
 
     private static final int HEIGHT = 224;
     private static final int WIDTH = 224;
     private static final int CHANNELS = 3;
+
     private static final DataNormalization IMAGE_PRE_PROCESSOR = new VGG16ImagePreProcessor();
+
     private static final NativeImageLoader LOADER = new NativeImageLoader(HEIGHT, WIDTH, CHANNELS);
 
     private File contentFile;
@@ -151,14 +156,18 @@ public class NeuralStyleTransfer
 
     public List<ImageIterationListener> listeners;
 
+    private DurationService durationService;
+    
     public NeuralStyleTransfer()
     {
         listeners = new ArrayList();
+
+        durationService = new  DurationService();
     }
     
     public void addImageIterationListerner(ImageIterationListener imageListener)
     {
-        
+        listeners.add(imageListener);
     }
 
     public static void main(String[] args) throws IOException
@@ -176,11 +185,15 @@ public class NeuralStyleTransfer
     {
 //TODO: Move this call out side of this method and save the ComputationGraph object 
 //      for reuse.        
-
+        Instant start = Instant.now();
+        
         ComputationGraph vgg16FineTune = loadModel();
 
 //TODO: it looks like this can be saved between runs        
-//vgg16FineTune.save();
+//vgg16FineTune.save();  Or it looks like ModelSerializer is the way to go for saving.
+        Instant end = Instant.now();
+        String durationMessage = durationService.durationMessage(start, end);
+        logger.info(durationMessage);
 
         contentFile = new File(contentPath);
         
@@ -214,16 +227,16 @@ public class NeuralStyleTransfer
             adamUpdater.applyUpdater(backPropAllValues, iteration, 0);
             combination.subi(backPropAllValues);
 
-            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap));
+            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap) + "\n");
 
             if (iteration % SAVE_IMAGE_CHECKPOINT == 0)
             {
                 //save image can be found at target/classes/styletransfer/out
-                saveImage(combination.dup(), iteration);
+                File outfile = saveImage(combination.dup(), iteration);
                 
                 for(ImageIterationListener listener : listeners)
                 {
-                    listener.imageCreated(styleFile);
+                    listener.imageCreated(outfile);
                 }
             }
         }
@@ -538,7 +551,7 @@ public class NeuralStyleTransfer
         return vgg16;
     }
 
-    private void saveImage(INDArray combination, int iteration) throws IOException
+    private File saveImage(INDArray combination, int iteration) throws IOException
     {
         IMAGE_PRE_PROCESSOR.revertFeatures(combination);
 
@@ -563,6 +576,8 @@ public class NeuralStyleTransfer
 //        File file = new File(outpath);
         ImageIO.write(output, "jpg", outfile);
 //        ImageIO.write(output, "jpg", file);
+
+        return outfile;
     }
 
     /**
