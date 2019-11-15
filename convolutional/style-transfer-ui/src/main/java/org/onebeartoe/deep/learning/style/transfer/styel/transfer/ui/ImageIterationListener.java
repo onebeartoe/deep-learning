@@ -54,6 +54,8 @@ public class ImageIterationListener
 //            {
                 logger.info("adding styled image to gridpane\n");
 
+logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
+                
                 gridPane.add(imageView, currentColumn, currentRow);
                 
                 gridPane.layout();

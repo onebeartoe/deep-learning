@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
@@ -133,24 +133,30 @@ public class FXMLController implements Initializable
         {
             toggleButtons(true);
         
-            try
-            {
-                gridPane.getChildren().clear();
-                
-                applyStyle();
-            }
-            catch(Exception e)
-            {
-                String message = e.getMessage();
+            gridPane.getChildren().clear();
 
-                logger.log(Level.SEVERE, message, e);
-
-                applyStyleButton.setText("Error: see log");
-            }
-            finally
+logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+            
+            Platform.runLater( () ->
             {
-                toggleButtons(false);
-            }
+                try
+                {
+logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+                    applyStyle();
+                }
+                catch(Exception e)
+                {
+                    String message = e.getMessage();
+
+                    logger.log(Level.SEVERE, message, e);
+
+                    applyStyleButton.setText("Error: see log");
+                }
+                finally
+                {
+                    toggleButtons(false);
+                }                    
+            });
         }
         
         System.out.println("apply style done");
