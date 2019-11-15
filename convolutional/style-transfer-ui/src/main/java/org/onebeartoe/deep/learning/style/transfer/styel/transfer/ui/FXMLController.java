@@ -84,7 +84,7 @@ public class FXMLController implements Initializable
 
     private DurationService durationService;
     
-    private ImageIterationListener imageListener;
+//    private ImageIterationListener imageListener;
     
 //TODO: add this back once the UI is ready
 //    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();

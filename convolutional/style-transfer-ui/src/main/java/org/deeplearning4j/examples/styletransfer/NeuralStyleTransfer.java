@@ -137,7 +137,7 @@ public class NeuralStyleTransfer
 
     private static final double NOISE_RATION = 0.1;
 
-    private static final int ITERATIONS = 12;
+    private static final int ITERATIONS = 50;
 //    private static final int ITERATIONS = 100;
 
     private static final int SAVE_IMAGE_CHECKPOINT = 5;
