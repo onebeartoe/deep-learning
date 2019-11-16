@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
@@ -26,7 +25,7 @@ public class ImageIterationListener
 
     private int currentColumn = 0;
 
-    private int currentRow = 0;
+//    private int currentRow = 0;
     
     private Logger logger;
     
@@ -47,49 +46,25 @@ public class ImageIterationListener
 
         imageView.setImage(image);
 
-//Task<Void> task = new Task<Void>() 
-//{
-//    @Override 
-//    public Void call() throws Exception 
-//    {        
-        
-        
-//        Platform.runLater( new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
+
 
 //                logger.info("adding styled image to gridpane+++\n");
 
 //logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
                 
 
-//this current change does notwork, try doing on a Platform.runLater()        
+
                 tilePane.getChildren()
                         .add(imageView);
-//                gridPane.add(imageView, currentColumn, currentRow);
-     
 
-
-                
-//                gridPane.layout();
-
-//            }
-//        });        
-
-//        return null;
-//    }
-//};
-//new Thread(task).start();
         
         currentColumn++;
         
         if(currentColumn == COLUMNS)
         {
             currentColumn = 0;
-            
-            currentRow++;
+
+//            currentRow++;
         }
     }
 }
