@@ -6,11 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 /**
@@ -20,9 +19,9 @@ import org.onebeartoe.application.logging.SysoutLoggerFactory;
  */
 public class ImageIterationListener
 {
-    private GridPane gridPane;
+    private TilePane tilePane;
     
-    private final int COLUMNS = 10;
+    private final int COLUMNS = 11;
 //    private final int COLUMNS = 6;
 
     private int currentColumn = 0;
@@ -31,11 +30,11 @@ public class ImageIterationListener
     
     private Logger logger;
     
-    ImageIterationListener(GridPane gridPane)
+    ImageIterationListener(TilePane tilePane)
     {
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
 
-        this.gridPane = gridPane;
+        this.tilePane = tilePane;
     }
 
     public void imageCreated(File imageFile) throws FileNotFoundException
@@ -67,7 +66,9 @@ public class ImageIterationListener
                 
 
 //this current change does notwork, try doing on a Platform.runLater()        
-                gridPane.add(imageView, currentColumn, currentRow);
+                tilePane.getChildren()
+                        .add(imageView);
+//                gridPane.add(imageView, currentColumn, currentRow);
      
 
 

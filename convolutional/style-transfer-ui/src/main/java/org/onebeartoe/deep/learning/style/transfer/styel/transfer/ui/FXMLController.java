@@ -12,15 +12,16 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooserBuilder;
 
@@ -32,6 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.TilePane;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
@@ -73,7 +75,7 @@ public class FXMLController implements Initializable
     private Label styleLabel;
     
     @FXML
-    private GridPane gridPane;
+    private TilePane tilePane;
     
     private File currentDir;
 
@@ -167,7 +169,12 @@ new Thread(task).start();
 //logger.info("clearing grid");
                     Platform.runLater( () ->
                     {
-                    gridPane.getChildren().clear();
+                        ObservableList<Node> children = tilePane.getChildren();
+                        children.clear();
+
+//                        tilePane.getChildren().clear();
+                            
+                            
 //logger.info("grid cleared");
 
 //        logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
@@ -284,12 +291,12 @@ new Thread(task).start();
         col1.setHgrow(Priority.NEVER);
         col1.setHalignment(HPos.CENTER);
 
-        gridPane.setGridLinesVisible(true);
+//        tilePane.setGridLinesVisible(true);
         
-        gridPane.getColumnConstraints().addAll(col1);
+//        tilePane.getColumnConstraints().addAll(col1);
 //        gridPane.getColumnConstraints().addAll(col1, col1, col1, col1, col1, col1);
         
-        ImageIterationListener imageListener = new ImageIterationListener(gridPane);
+        ImageIterationListener imageListener = new ImageIterationListener(tilePane);
         
         styleTransferer.addImageIterationListerner(imageListener);
 
