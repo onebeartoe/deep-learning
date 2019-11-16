@@ -97,29 +97,41 @@ public class FXMLController implements Initializable
     {
         String contentPath = contentFile.getAbsolutePath();
 
-        logger.info("content: " + contentPath);
+//        logger.info("content: " + contentPath);
         
         String stylePath = styleFile.getAbsolutePath();
+
+//        logger.info("style: " + stylePath);
         
-        logger.info("style: " + stylePath);
-        
+
+Task<Void> task = new Task<Void>() 
+{
+    @Override 
+    public Void call() throws Exception 
+    {        
         Instant start = Instant.now();
-//Platform.runLater( () ->
-//{
-logger.info("in applyStyle() in Platform");
+Platform.runLater( () ->
+{
+//logger.info("in applyStyle() in Platform");
             try
             {
                 styleTransferer.transferStyle(contentPath, stylePath);
-            } catch (IOException ex)
+            } 
+            catch (IOException ex)
             {
-logger.log(Level.SEVERE, "error transfering style", ex);                
+                logger.log(Level.SEVERE, "error transfering style", ex);                
             }
-logger.info("at end of applyStyle() in Platform");            
-//});
-
+            
         Instant end = Instant.now();
         String durationMessage = durationService.durationMessage(start, end);
-        logger.info(durationMessage);
+        logger.info(durationMessage);            
+            
+//logger.info("at end of applyStyle() in Platform");            
+});
+        return null;
+    }
+};
+new Thread(task).start();
     }
     
     @FXML
@@ -142,28 +154,28 @@ logger.info("at end of applyStyle() in Platform");
         }
         else
         {
-logger.info("creating task thread");            
+//logger.info("creating task thread");            
             
             Task<Void> task = new Task<Void>() 
             {
                 @Override 
                 public Void call() throws Exception 
                 {
-logger.info("in call of task thread--");
+//logger.info("in call of task thread--");
                     toggleButtons(true);
 
-logger.info("clearing grid");
+//logger.info("clearing grid");
                     Platform.runLater( () ->
                     {
                     gridPane.getChildren().clear();
-logger.info("grid cleared");
+//logger.info("grid cleared");
 
-        logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+//        logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
 
 
                         try
                         {
-        logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
+//        logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
                             applyStyle();
                         }
                         catch(Exception e)
@@ -179,28 +191,29 @@ logger.info("grid cleared");
                             toggleButtons(false);
                         }                    
                     });
+
+//logger.info("end of call of task thread");                    
                     
-logger.info("end of call of task thread");                    
-                    
+
                     
                     return null ;
                 }
             };
-            
-logger.info("setting message listener of task thread");            
+
+//logger.info("setting message listener of task thread");            
             task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
             {
-                logger.info("task message: " + newMessage);
+//                logger.info("task message: " + newMessage);
             });
 
-logger.info("starting task thread");
+//logger.info("starting task thread");
             
             new Thread(task).start();
             
-logger.info("task thread started");
+//logger.info("task thread started");
         }
         
-        logger.info("apply style done");
+//        logger.info("apply style done");
     }
 
     @FXML
@@ -289,10 +302,10 @@ logger.info("task thread started");
 
     private void toggleButtons(boolean disabled)
     {
-logger.info("--toggle buttons: " + disabled);        
+//logger.info("--toggle buttons: " + disabled);        
         applyStyleButton.setDisable(disabled);
         contentButton.setDisable(disabled);
         styleButton.setDisable(disabled);
-logger.info("__end of toggle buttons");        
+//logger.info("__end of toggle buttons");        
     }
 }

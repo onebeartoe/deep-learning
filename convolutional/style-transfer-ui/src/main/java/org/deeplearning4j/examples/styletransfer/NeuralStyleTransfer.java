@@ -215,7 +215,7 @@ public class NeuralStyleTransfer
 
         for (int iteration = 0; iteration < ITERATIONS; iteration++)
         {
-            logger.info("iteration  " + iteration);
+//            logger.info("iteration  " + iteration);
 
             INDArray[] input = new INDArray[]
             {
@@ -229,7 +229,7 @@ public class NeuralStyleTransfer
             adamUpdater.applyUpdater(backPropAllValues, iteration, 0);
             combination.subi(backPropAllValues);
 
-            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap) + "\n");
+//            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap) + "\n");
 
             if (iteration % SAVE_IMAGE_CHECKPOINT == 0)
             {
@@ -242,6 +242,8 @@ public class NeuralStyleTransfer
                 }
             }
         }
+        
+        logger.info("iterations complete");
     }
 
     private INDArray backPropagateStyles(ComputationGraph vgg16FineTune, HashMap<String, INDArray> activationsStyleGramMap, Map<String, INDArray> activationsCombMap)

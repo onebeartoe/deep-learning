@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -47,20 +48,39 @@ public class ImageIterationListener
 
         imageView.setImage(image);
 
+//Task<Void> task = new Task<Void>() 
+//{
+//    @Override 
+//    public Void call() throws Exception 
+//    {        
+        
+        
 //        Platform.runLater( new Runnable()
 //        {
 //            @Override
 //            public void run()
 //            {
-                logger.info("adding styled image to gridpane\n");
 
-logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
+//                logger.info("adding styled image to gridpane+++\n");
+
+//logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
                 
+
+//this current change does notwork, try doing on a Platform.runLater()        
                 gridPane.add(imageView, currentColumn, currentRow);
+     
+
+
                 
-                gridPane.layout();
+//                gridPane.layout();
+
 //            }
 //        });        
+
+//        return null;
+//    }
+//};
+//new Thread(task).start();
         
         currentColumn++;
         
