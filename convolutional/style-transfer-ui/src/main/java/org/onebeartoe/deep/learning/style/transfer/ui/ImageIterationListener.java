@@ -21,13 +21,6 @@ import org.onebeartoe.application.logging.SysoutLoggerFactory;
 public class ImageIterationListener
 {
     private TilePane tilePane;
-
-//    private final int COLUMNS = 11;
-//    private final int COLUMNS = 6;
-
-//    private int currentColumn = 0;
-
-//    private int currentRow = 0;
     
     private Logger logger;
     
@@ -48,14 +41,7 @@ public class ImageIterationListener
 
         imageView.setImage(image);
 
-
-
-//                logger.info("adding styled image to gridpane+++\n");
-
-//logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
-                
-
-Task<Void> task = new Task<Void>() 
+        Task<Void> task = new Task<Void>() 
             {
                 @Override 
                 public Void call() throws Exception 
@@ -68,27 +54,15 @@ Task<Void> task = new Task<Void>()
                     return null ;
                 }
             };                
-                
-                
+
             task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
             {                
                 logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
-                
-                
-                
+
                 tilePane.getChildren()
                         .add(imageView);
             });
 
             new Thread(task).start();
-
-//        currentColumn++;
-
-//        if(currentColumn == COLUMNS)
-        {
-//            currentColumn = 0;
-
-//            currentRow++;
-        }
     }
 }
