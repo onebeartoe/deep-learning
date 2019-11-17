@@ -20,8 +20,9 @@ public class MockNeuralStyleTransfer
 
         for(int i = 0; i < 30; i++)
         {
-            long oneMinute = 60 * 1000;
-            Sleeper.sleepo(oneMinute);
+            long fiveSeconds = 5 * 1000;
+
+            Sleeper.sleepo(fiveSeconds);
             
             imageListener.imageCreated(imageFile);
         }
