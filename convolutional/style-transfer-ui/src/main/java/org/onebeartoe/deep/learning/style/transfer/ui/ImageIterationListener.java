@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,11 +21,11 @@ import org.onebeartoe.application.logging.SysoutLoggerFactory;
 public class ImageIterationListener
 {
     private TilePane tilePane;
-    
-    private final int COLUMNS = 11;
+
+//    private final int COLUMNS = 11;
 //    private final int COLUMNS = 6;
 
-    private int currentColumn = 0;
+//    private int currentColumn = 0;
 
 //    private int currentRow = 0;
     
@@ -70,8 +71,8 @@ Task<Void> task = new Task<Void>()
                 
                 
             task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
-            {
-                logger.info("-+-task message: " + newMessage);
+            {                
+                logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
                 
                 
                 
@@ -79,15 +80,13 @@ Task<Void> task = new Task<Void>()
                         .add(imageView);
             });
 
-//logger.info("starting task thread");
-
             new Thread(task).start();
-        
-        currentColumn++;
-        
-        if(currentColumn == COLUMNS)
+
+//        currentColumn++;
+
+//        if(currentColumn == COLUMNS)
         {
-            currentColumn = 0;
+//            currentColumn = 0;
 
 //            currentRow++;
         }

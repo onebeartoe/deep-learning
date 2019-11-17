@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 
-//import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -44,9 +43,9 @@ import javafx.stage.FileChooserBuilder;
 import org.onebeartoe.application.duration.DurationService;
 
 //TODO: Add this back one the UI is ready.
-import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
+//import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 //TODO: Revert back to the actual NeuralStyleTransfer implementation.
-//import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
+import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
 
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
@@ -94,10 +93,10 @@ public class FXMLController implements Initializable
 //    private ImageIterationListener imageListener;
     
 //TODO: add this back once the UI is ready
-//    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
+    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
 //TODO: move this instantiation to the initialize() method;
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
-    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
+//    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
     
     private void applyStyle() throws IOException
     {
@@ -148,28 +147,15 @@ public class FXMLController implements Initializable
         }
         else
         {
-
             Platform.runLater( () ->
             {
-
-
-                    
-
                     toggleButtons(true);
-
-
 
                         ObservableList<Node> children = tilePane.getChildren();
                         children.clear();
 
-//logger.info("grid cleared");
-
-//        logger.info("outside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
-
-
                         try
                         {
-//        logger.info("inside, on FX thread: " + Platform.isFxApplicationThread() +"\n");
                             applyStyle();
                         }
                         catch(Exception e)
@@ -184,18 +170,10 @@ public class FXMLController implements Initializable
                         {
                             toggleButtons(false);
                         }                    
-
-//logger.info("end of call of task thread");                    
             });
-            
-// Keep this until adding to the tilePane in the updateMessage is tried.            
-//                    return null ;
-//                }
-//            };
-//            new Thread(task).start();
         }
         
-//        logger.info("apply style done");
+        logger.info("apply style done");
     }
 
     @FXML
