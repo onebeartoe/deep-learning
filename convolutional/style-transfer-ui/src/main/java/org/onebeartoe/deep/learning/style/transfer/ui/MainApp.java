@@ -1,5 +1,5 @@
 //TODO: correct this package name
-package org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui;
+package org.onebeartoe.deep.learning.style.transfer.ui;
 
 import java.net.URL;
 import javafx.application.Application;

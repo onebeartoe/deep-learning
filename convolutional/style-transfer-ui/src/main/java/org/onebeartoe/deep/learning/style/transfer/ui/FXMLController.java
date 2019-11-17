@@ -1,5 +1,5 @@
 
-package org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui;
+package org.onebeartoe.deep.learning.style.transfer.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -188,6 +188,8 @@ public class FXMLController implements Initializable
 
 //logger.info("end of call of task thread");                    
             });
+            
+// Keep this until adding to the tilePane in the updateMessage is tried.            
 //                    return null ;
 //                }
 //            };

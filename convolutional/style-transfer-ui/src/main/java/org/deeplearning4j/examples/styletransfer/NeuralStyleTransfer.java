@@ -48,7 +48,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import org.onebeartoe.application.duration.DurationService;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
-import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
+import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 
 /**
  * Neural Style Transfer Algorithm References

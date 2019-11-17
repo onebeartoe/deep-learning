@@ -3,7 +3,7 @@ package org.deeplearning4j.examples.styletransfer.mock;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui.ImageIterationListener;
+import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 
 /**
  * This class is used during GUI development to avoid long build/run times of the 

@@ -1,5 +1,5 @@
 
-package org.onebeartoe.deep.learning.style.transfer.styel.transfer.ui;
+package org.onebeartoe.deep.learning.style.transfer.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
