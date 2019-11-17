@@ -68,7 +68,7 @@ import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 //TODO: find the github issue where the dude fixed the double/float issue 
  *      - use the double/float fix said dude made
  *
-//TODO: - save the nerual network model between runs to lessen startup time
+//TODO: - save the neural network model between runs to lessen startup time
  *
  * convolutional 
  * 
@@ -158,6 +158,8 @@ public class NeuralStyleTransfer
     public List<ImageIterationListener> listeners;
 
     private DurationService durationService;
+
+    private boolean cancel;
     
     public NeuralStyleTransfer()
     {
@@ -169,6 +171,11 @@ public class NeuralStyleTransfer
     public void addImageIterationListerner(ImageIterationListener imageListener)
     {
         listeners.add(imageListener);
+    }
+
+    public void cancel()
+    {
+        cancel = true;
     }
 
     public static void main(String[] args) throws IOException
@@ -183,11 +190,13 @@ public class NeuralStyleTransfer
     }
 
     public void transferStyle(String contentPath, String stylePath) throws IOException
-    {
-//TODO: Move this call out side of this method and save the ComputationGraph object 
-//      for reuse.        
+    {   
         Instant start = Instant.now();
         
+        cancel = false;
+
+//TODO: Move this call out side of this method and save the ComputationGraph object 
+//      for reuse.     
         ComputationGraph vgg16FineTune = loadModel();
 
 //TODO: it looks like this can be saved between runs   
@@ -216,6 +225,13 @@ public class NeuralStyleTransfer
         for (int iteration = 0; iteration < ITERATIONS; iteration++)
         {
 //            logger.info("iteration  " + iteration);
+
+            if(cancel)
+            {
+                logger.info("cancelling style transfer");
+                
+                break;
+            }
 
             INDArray[] input = new INDArray[]
             {

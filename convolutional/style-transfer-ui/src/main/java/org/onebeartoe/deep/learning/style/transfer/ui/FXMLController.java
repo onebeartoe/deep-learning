@@ -147,6 +147,8 @@ logger.info("applying style");
             waitAlert.setOnCloseRequest( (closeWaitEvent) ->
             {
                 logger.info("the wait dialog was closed");
+                
+                styleTransferer.cancel();
             });
             
             toggleButtons(true);
