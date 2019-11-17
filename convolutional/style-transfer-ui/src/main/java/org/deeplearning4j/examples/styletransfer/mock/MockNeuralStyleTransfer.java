@@ -4,6 +4,7 @@ package org.deeplearning4j.examples.styletransfer.mock;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
+import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 import org.onebeartoe.system.Sleeper;
@@ -12,7 +13,7 @@ import org.onebeartoe.system.Sleeper;
  * This class is used during GUI development to avoid long build/run times of the 
  * actual neural network.
  */
-public class MockNeuralStyleTransfer
+public class MockNeuralStyleTransfer implements NeuralStyleTransfer
 {
     private ImageIterationListener imageListener;
     
@@ -25,6 +26,7 @@ public class MockNeuralStyleTransfer
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
     }
     
+    @Override
     public void transferStyle(String contentPath, String stylePath) throws FileNotFoundException
     {
         cancel = false;
@@ -48,11 +50,13 @@ public class MockNeuralStyleTransfer
         }
     }
 
+    @Override
     public void addImageIterationListerner(ImageIterationListener imageListener)
     {
         this.imageListener = imageListener;
     }
 
+    @Override
     public void cancel()
     {
         cancel = true;

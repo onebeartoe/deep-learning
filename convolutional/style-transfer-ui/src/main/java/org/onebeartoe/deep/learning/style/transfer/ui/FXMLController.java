@@ -1,5 +1,5 @@
 
-//TODO: if need be use this 'please wait' image:
+//TODO: use this 'please wait' image:
 //           file:///home/roberto/Versioning/owner/github/onebeartoe/lizard-enclosure/sensor-readings-visualizer/dist/run2001416386/web-files/javafx-loading-100x100.gif
 
 package org.onebeartoe.deep.learning.style.transfer.ui;
@@ -14,7 +14,6 @@ import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -26,7 +25,6 @@ import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
@@ -39,6 +37,8 @@ import javafx.scene.layout.TilePane;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooserBuilder;
+import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
+import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 
 import org.onebeartoe.application.duration.DurationService;
 
@@ -89,18 +89,15 @@ public class FXMLController implements Initializable
     private File styleFile;
 
     private DurationService durationService;
+
+    private final boolean guiDevelopment = false;
     
-//    private ImageIterationListener imageListener;
-    
-//TODO: add this back once the UI is ready
-    private MockNeuralStyleTransfer styleTransferer = new MockNeuralStyleTransfer();
-//TODO: move this instantiation to the initialize() method;
-//TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
-//    private NeuralStyleTransfer styleTransferer = new NeuralStyleTransfer();
+    private NeuralStyleTransfer styleTransferer;
     
     private void applyStyle() throws IOException
     {
-logger.info("applying style");
+        logger.info("applying style");
+        
         String contentPath = contentFile.getAbsolutePath();
         
         String stylePath = styleFile.getAbsolutePath();
@@ -240,6 +237,16 @@ logger.info("applying style");
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
         
         logger.info("url: " + url.toString() );
+        
+        if(guiDevelopment)
+        {
+            styleTransferer = new MockNeuralStyleTransfer();
+        }
+        else
+        {
+//TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
+            styleTransferer = new ConvolutionalNeuralStyleTransfer();
+        }
         
         fileChooser = FileChooserBuilder.create()
             .title("Choose a style")
