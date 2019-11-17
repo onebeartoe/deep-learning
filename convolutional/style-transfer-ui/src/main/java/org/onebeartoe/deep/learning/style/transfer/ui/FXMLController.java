@@ -100,6 +100,7 @@ public class FXMLController implements Initializable
     
     private void applyStyle() throws IOException
     {
+logger.info("applying style");
         String contentPath = contentFile.getAbsolutePath();
         
         String stylePath = styleFile.getAbsolutePath();
@@ -150,10 +151,15 @@ public class FXMLController implements Initializable
             
             toggleButtons(true);
             
-            Platform.runLater( () ->
+            ObservableList<Node> children = tilePane.getChildren();
+            children.clear();
+
+        Task<Void> task = new Task<Void>() 
+        {
+            @Override 
+            public Void call() throws Exception 
             {
-                ObservableList<Node> children = tilePane.getChildren();
-                children.clear();
+                logger.info("in call");
 
                 try
                 {
@@ -173,10 +179,14 @@ public class FXMLController implements Initializable
 
                     toggleButtons(false);
                 }
-            });
-        }
+
+                return null ;
+            }
+        };
+        new Thread(task).start();
         
         logger.info("apply style done");
+        }
     }
 
     @FXML
