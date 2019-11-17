@@ -101,30 +101,23 @@ public class FXMLController implements Initializable
     private void applyStyle() throws IOException
     {
         String contentPath = contentFile.getAbsolutePath();
-
-//        logger.info("content: " + contentPath);
         
         String stylePath = styleFile.getAbsolutePath();
-
-//        logger.info("style: " + stylePath);
         
         Instant start = Instant.now();
 
-//logger.info("in applyStyle() in Platform");
-            try
-            {
-                styleTransferer.transferStyle(contentPath, stylePath);
-            } 
-            catch (IOException ex)
-            {
-                logger.log(Level.SEVERE, "error transfering style", ex);                
-            }
+        try
+        {
+            styleTransferer.transferStyle(contentPath, stylePath);
+        } 
+        catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, "error transfering style", ex);                
+        }
             
         Instant end = Instant.now();
         String durationMessage = durationService.durationMessage(start, end);
-        logger.info(durationMessage);            
-            
-//logger.info("at end of applyStyle() in Platform");            
+        logger.info(durationMessage);
     }
     
     @FXML
@@ -147,29 +140,39 @@ public class FXMLController implements Initializable
         }
         else
         {
+            Alert waitAlert = new Alert(AlertType.INFORMATION);
+            waitAlert.setTitle("Please wait");
+            waitAlert.show();
+            waitAlert.setOnCloseRequest( (closeWaitEvent) ->
+            {
+                logger.info("the wait dialog was closed");
+            });
+            
+            toggleButtons(true);
+            
             Platform.runLater( () ->
             {
-                    toggleButtons(true);
+                ObservableList<Node> children = tilePane.getChildren();
+                children.clear();
 
-                        ObservableList<Node> children = tilePane.getChildren();
-                        children.clear();
+                try
+                {
+                    applyStyle();
+                }
+                catch(Exception e)
+                {
+                    String message = e.getMessage();
 
-                        try
-                        {
-                            applyStyle();
-                        }
-                        catch(Exception e)
-                        {
-                            String message = e.getMessage();
+                    logger.log(Level.SEVERE, message, e);
 
-                            logger.log(Level.SEVERE, message, e);
+                    applyStyleButton.setText("Error: see log");
+                }
+                finally
+                {
+                    waitAlert.close();
 
-                            applyStyleButton.setText("Error: see log");
-                        }
-                        finally
-                        {
-                            toggleButtons(false);
-                        }                    
+                    toggleButtons(false);
+                }
             });
         }
         
@@ -238,6 +241,7 @@ public class FXMLController implements Initializable
         col1.setHgrow(Priority.NEVER);
         col1.setHalignment(HPos.CENTER);
 
+        tilePane.setPrefWidth(Double.MAX_VALUE);
         
         ImageIterationListener imageListener = new ImageIterationListener(tilePane);
         
