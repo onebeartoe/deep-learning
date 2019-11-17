@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.logging.Logger;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -53,10 +54,34 @@ public class ImageIterationListener
 //logger.info("at update, on FX thread: " + Platform.isFxApplicationThread() +"\n");                
                 
 
+Task<Void> task = new Task<Void>() 
+            {
+                @Override 
+                public Void call() throws Exception 
+                {
+                    String message = "calling within task";
+                    logger.info(message);
 
+                    updateMessage(message);
+                    
+                    return null ;
+                }
+            };                
+                
+                
+            task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
+            {
+                logger.info("-+-task message: " + newMessage);
+                
+                
+                
                 tilePane.getChildren()
                         .add(imageView);
+            });
 
+//logger.info("starting task thread");
+
+            new Thread(task).start();
         
         currentColumn++;
         

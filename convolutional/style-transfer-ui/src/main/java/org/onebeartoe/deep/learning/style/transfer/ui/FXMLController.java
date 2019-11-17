@@ -1,4 +1,7 @@
 
+//TODO: if need be use this 'please wait' image:
+//           file:///home/roberto/Versioning/owner/github/onebeartoe/lizard-enclosure/sensor-readings-visualizer/dist/run2001416386/web-files/javafx-loading-100x100.gif
+
 package org.onebeartoe.deep.learning.style.transfer.ui;
 
 import java.io.File;
@@ -145,20 +148,16 @@ public class FXMLController implements Initializable
         }
         else
         {
-//logger.info("creating task thread");            
+
             Platform.runLater( () ->
             {
 
-//            Task<Void> task = new Task<Void>() 
-//            {
-//                @Override 
-//                public Void call() throws Exception 
-//                {
+
                     
-//logger.info("in call of task thread--");
+
                     toggleButtons(true);
 
-//logger.info("clearing grid");
+
 
                         ObservableList<Node> children = tilePane.getChildren();
                         children.clear();
