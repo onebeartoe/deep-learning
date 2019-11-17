@@ -42,27 +42,27 @@ public class ImageIterationListener
         imageView.setImage(image);
 
         Task<Void> task = new Task<Void>() 
+        {
+            @Override 
+            public Void call() throws Exception 
             {
-                @Override 
-                public Void call() throws Exception 
-                {
-                    String message = "calling within task";
-                    logger.info(message);
+                String message = "calling within task";
+                logger.info(message);
 
-                    updateMessage(message);
-                    
-                    return null ;
-                }
-            };                
+                updateMessage(message);
 
-            task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
-            {                
-                logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
+                return null ;
+            }
+        };                
 
-                tilePane.getChildren()
-                        .add(imageView);
-            });
+        task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
+        {                
+            logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
 
-            new Thread(task).start();
+            tilePane.getChildren()
+                    .add(imageView);
+        });
+
+        new Thread(task).start();
     }
 }
