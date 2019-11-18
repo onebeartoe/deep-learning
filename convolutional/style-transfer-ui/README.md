@@ -2,7 +2,9 @@
 This application adds a GUI to the style transfer convolutional neural network found 
 in the DeepLearning4J examples.
 
-For more information see the project page at http://onebeartoe.org/software/development/deep-learning/convolutional/style-transfer/
+For more information see the project page
+
+http://onebeartoe.org/software/development/deep-learning/convolutional/style-transfer/
 
 Usage: Select a content image, select a style image, then click the 'Apply Style' 
 button.  Once the processing completes, the 'please wait' dialog closes.  The output 
