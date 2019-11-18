@@ -21,7 +21,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,13 +31,11 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooserBuilder;
-//import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
+import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 
 import org.onebeartoe.application.duration.DurationService;
@@ -91,14 +88,12 @@ public class FXMLController implements Initializable
 
     private DurationService durationService;
 
-    private final boolean guiDevelopment = true;
+    private final boolean guiDevelopment = false;
     
     private NeuralStyleTransfer styleTransferer;
     
     private void applyStyle() throws IOException
-    {
-//        logger.info("applying style");
-        
+    {        
         String contentPath = contentFile.getAbsolutePath();
         
         String stylePath = styleFile.getAbsolutePath();
@@ -251,7 +246,7 @@ public class FXMLController implements Initializable
         else
         {
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
-//            styleTransferer = new ConvolutionalNeuralStyleTransfer();
+            styleTransferer = new ConvolutionalNeuralStyleTransfer();
         }
         
         fileChooser = FileChooserBuilder.create()

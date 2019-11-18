@@ -137,7 +137,7 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 
     private static final double NOISE_RATION = 0.1;
 
-    private static final int ITERATIONS = 11;
+    private static final int ITERATIONS = 36;
 //    private static final int ITERATIONS = 50;
 //    private static final int ITERATIONS = 100;
 
@@ -205,6 +205,7 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 //TODO: it looks like this can be saved between runs   
 //      https://deeplearning4j.org/docs/latest/deeplearning4j-nn-model-persistence
 //      is it this -> vgg16FineTune.save();  Or it looks like ModelSerializer is the way to go for saving.
+
         Instant end = Instant.now();
         String durationMessage = durationService.durationMessage(start, end);
         logger.info(durationMessage);
