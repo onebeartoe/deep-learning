@@ -27,7 +27,7 @@
                         <FlowPane prefHeight="30.0" prefWidth="210.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label fx:id="contentLabel" prefHeight="16.0" prefWidth="140.0" text="Label" />
-                              <Button fx:id="contentButton" mnemonicParsing="false" onAction="#handleContentButtonAction" text="Button" />
+                              <Button fx:id="contentButton" mnemonicParsing="false" onAction="#handleContentButtonAction" text="Select" />
                            </children>
                         </FlowPane>
                      </bottom>

@@ -1,6 +1,10 @@
 
-This application add a GUI to the style transfer convolutional neural network found 
+This application adds a GUI to the style transfer convolutional neural network found 
 in the DeepLearning4J examples.
+
+Usage: Select a content image, select a style image, then click the 'Apply Style' 
+button.  Once the processing completes, the 'please wait' dialog closes.  The output 
+images are placed alongside the content image under a directory named 'styled'.
 
 Here is a screenshot:
 
