@@ -249,6 +249,7 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
             adamUpdater.applyUpdater(backPropAllValues, iteration, 0);
             combination.subi(backPropAllValues);
 
+//TODO: re-enable this log statement
 //            logger.info("Total Loss: " + totalLoss(activationsStyleMap, activationsCombMap, activationsContentMap) + "\n");
 
             if (iteration % SAVE_IMAGE_CHECKPOINT == 0)
@@ -590,16 +591,15 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 
         outdir.mkdir();
 
+        String zeroPadding = iteration < 10 ? "0" : "";
+        
         String outName = contentFile.getName() 
                          + "-" + styleFile.getName()
-                         + "-iteration-" + iteration + ".jpg";
+                         + "-iteration-" + zeroPadding + iteration + ".jpg";
 
         File outfile = new File(outdir, outName);
 
-//        String outpath = resource.getPath() + "/iteration" + iteration + ".jpg";
-//        File file = new File(outpath);
         ImageIO.write(output, "jpg", outfile);
-//        ImageIO.write(output, "jpg", file);
 
         return outfile;
     }
