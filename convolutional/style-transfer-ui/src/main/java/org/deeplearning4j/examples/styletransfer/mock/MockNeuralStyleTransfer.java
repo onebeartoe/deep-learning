@@ -33,7 +33,7 @@ public class MockNeuralStyleTransfer implements NeuralStyleTransfer
         
         File imageFile = new File(contentPath);
 
-        for(int i = 0; i < 30; i++)
+        for(int i = 0; i < 11; i++)
         {
             if(cancel)
             {
