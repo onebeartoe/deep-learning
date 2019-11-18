@@ -20,19 +20,13 @@ public class MainApp extends Application
         FXMLLoader loader = new FXMLLoader(url);
         
         Parent root = loader.load();
-        
-//        Parent root = FXMLLoader.load(getClass()
-//                        .getResource("/fxml/Scene.fxml"));
-        
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
         stage.setTitle("Style Transfer with Convolutional Neural Networks");
         stage.setScene(scene);
         stage.show();
-
-//        FXMLController controller = loader.getController();
-//        controller.stage = stage;
     }
 
     /**
