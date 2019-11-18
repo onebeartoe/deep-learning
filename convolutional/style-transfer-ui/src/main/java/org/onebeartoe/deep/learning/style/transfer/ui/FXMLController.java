@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -37,7 +38,7 @@ import javafx.scene.layout.TilePane;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooserBuilder;
-import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
+//import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 
 import org.onebeartoe.application.duration.DurationService;
@@ -90,13 +91,13 @@ public class FXMLController implements Initializable
 
     private DurationService durationService;
 
-    private final boolean guiDevelopment = false;
+    private final boolean guiDevelopment = true;
     
     private NeuralStyleTransfer styleTransferer;
     
     private void applyStyle() throws IOException
     {
-        logger.info("applying style");
+//        logger.info("applying style");
         
         String contentPath = contentFile.getAbsolutePath();
         
@@ -146,6 +147,8 @@ public class FXMLController implements Initializable
                 logger.info("the wait dialog was closed");
                 
                 styleTransferer.cancel();
+                
+                waitAlert.close();
             });
             
             toggleButtons(true);
@@ -158,7 +161,7 @@ public class FXMLController implements Initializable
             @Override 
             public Void call() throws Exception 
             {
-                logger.info("in call");
+                logger.info("-in call");
 
                 try
                 {
@@ -174,9 +177,12 @@ public class FXMLController implements Initializable
                 }
                 finally
                 {
-                    waitAlert.close();
+                    Platform.runLater(() ->
+                    {
+                        waitAlert.close();
 
-                    toggleButtons(false);
+                        toggleButtons(false);
+                    });
                 }
 
                 return null ;
@@ -245,7 +251,7 @@ public class FXMLController implements Initializable
         else
         {
 //TODO: Log how long it takes to initalize the NeuralStyleTransfer object.    
-            styleTransferer = new ConvolutionalNeuralStyleTransfer();
+//            styleTransferer = new ConvolutionalNeuralStyleTransfer();
         }
         
         fileChooser = FileChooserBuilder.create()
@@ -254,13 +260,6 @@ public class FXMLController implements Initializable
             .build();
         
         durationService = new DurationService();
-
-        ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(21);
-        col1.setHgrow(Priority.NEVER);
-        col1.setHalignment(HPos.CENTER);
-
-        tilePane.setPrefWidth(Double.MAX_VALUE);
         
         ImageIterationListener imageListener = new ImageIterationListener(tilePane);
         
@@ -275,10 +274,8 @@ public class FXMLController implements Initializable
 
     private void toggleButtons(boolean disabled)
     {
-//logger.info("--toggle buttons: " + disabled);        
         applyStyleButton.setDisable(disabled);
         contentButton.setDisable(disabled);
         styleButton.setDisable(disabled);
-//logger.info("__end of toggle buttons");        
     }
 }

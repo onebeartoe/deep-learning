@@ -47,7 +47,7 @@ public class ImageIterationListener
             public Void call() throws Exception 
             {
                 String message = "calling within task";
-                logger.info(message);
+//                logger.info(message);
 
                 updateMessage(message);
 
@@ -57,10 +57,12 @@ public class ImageIterationListener
 
         task.messageProperty().addListener((obs, oldMessage, newMessage) -> 
         {                
-            logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
+            
 
             tilePane.getChildren()
                     .add(imageView);
+            
+            logger.info("-+-task message: " + newMessage + "on FX thread: " + Platform.isFxApplicationThread() +"\n");
         });
 
         new Thread(task).start();
