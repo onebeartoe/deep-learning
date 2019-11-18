@@ -37,14 +37,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooserBuilder;
 import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
-
-import org.onebeartoe.application.duration.DurationService;
-
-//TODO: Add this back one the UI is ready.
-//import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
-//TODO: Revert back to the actual NeuralStyleTransfer implementation.
 import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
 
+import org.onebeartoe.application.duration.DurationService;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 public class FXMLController implements Initializable 
