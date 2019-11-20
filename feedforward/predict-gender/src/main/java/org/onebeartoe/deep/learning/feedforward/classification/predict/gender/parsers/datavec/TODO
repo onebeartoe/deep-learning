@@ -1,0 +1,7 @@
+
+Create a datavec parser.
+
+See this as an example:
+
+    org.datavec.transform.basic.BasicDataVecExampleLocal
+
