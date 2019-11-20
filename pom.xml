@@ -13,6 +13,7 @@
 
     <modules>
         <module>color-predictor</module>
+        <module>feedforward</module>
         <module>regression</module>
         <module>convolutional</module>
     </modules>
@@ -34,8 +35,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>        
 		
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-
     </properties>
     
     <dependencies>
