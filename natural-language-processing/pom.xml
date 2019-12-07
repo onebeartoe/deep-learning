@@ -12,5 +12,6 @@
     <modules>
         <module>language-detection</module>
         <module>chatbot-cli</module>
+        <module>sentiment</module>
     </modules>
 </project>
