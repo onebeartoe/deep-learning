@@ -16,6 +16,7 @@
         <module>feedforward</module>
         <module>regression</module>
         <module>convolutional</module>
+        <module>natural-language-processing</module>
     </modules>
 
     <repositories>
