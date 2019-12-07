@@ -4,6 +4,9 @@ package org.onebeartoe.deep.learning.chatbot.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -13,6 +16,13 @@ public class NaturalLanguageProcessingChatbotCli
 {
     public static void main(String[] args) throws IOException
     {
+        System.out.println("ploop");
+        final List l = new ArrayList();
+        
+        l.add("w");
+        
+        System.out.println("l = " + l.toString());
+        
         System.out.println("Welcome to chatbot.  How are you?");
         
         InputStreamReader instreamReader = new InputStreamReader(System.in);
