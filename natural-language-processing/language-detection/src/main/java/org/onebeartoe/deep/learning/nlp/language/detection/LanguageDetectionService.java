@@ -1,3 +1,9 @@
+
+package org.onebeartoe.deep.learning.nlp.language.detection;
+
+
+
+
 import java.io.File;
 import java.io.IOException;
 
@@ -6,13 +12,13 @@ import opennlp.tools.langdetect.LanguageDetector;
 
 public class LanguageDetectionService
 {
- 
-	    public static void main(String[] args) throws IOException{
-	    	
-	    	LanguageMapper languageMapper = new LanguageMapper();
+//TODO: convert this main methjod to a unit test
+    public static void main(String[] args) throws IOException
+    {
+//            LanguageMapper languageMapper = new LanguageMapper();
 	    	
 	    	// load the trained Language Detector Model file
-	    	File modelFile = new File(".\\resources\\langdetect-183.bin");
+	    	File modelFile = new File("src/main/resources/language/langdetect-183.bin");
 	    	
 	    	LanguageDetectorModel trainedModel = new LanguageDetectorModel(modelFile);
 	    	
@@ -21,19 +27,41 @@ public class LanguageDetectionService
 	    	
 	        // use the model for predicting the language
 	    	//Spanish
-	        Language[] languages = languageDetector.predictLanguages("Puedo darte ejemplos de los métodos");
+//	        Language[] languages = languageDetector.predictLanguages("Puedo darte ejemplos de los métodos");
 	    	
 	        // French
 	    	//Language[] languages = ld.predictLanguages("Je peux vous donner quelques exemples de méthodes qui ont fonctionné pour moi.");
 	    	
 	    	// English
-	    	//Language[] languages = ld.predictLanguages("I can give you some examples of methods that have worked for me.");
+	    	Language[] languages = languageDetector.predictLanguages("I can give you some examples of methods that have worked for me.");
 	    		        
-	        System.out.println("Predicted language: "+ languageMapper.getLanguage(languages[0].getLang()));
+                String language = languages[0].getLang();
+                
+                String laguage = mapLanguage(language);
+                
+	        System.out.println("Predicted language: "+ laguage);
 	        
-	        // uncomment to know confidence for rest of the languages
-	       /* for(Language language:languages){
-	            System.out.println(language.getLang()+"  confidence:"+language.getConfidence());
-	        }*/
+// confidence for rest of the languages
+	        for(Language l : languages)
+                {
+	            System.out.println(l.getLang() + "  confidence:" + l.getConfidence());
+	        }
 	    }
+    
+//TODO: make this not a static method    
+    public static String mapLanguage(String code)
+    {
+        String language = null;
+        
+        if(code.equals("eng"))
+        {
+            language = "English";
+        }
+        else
+        {
+            language = "Unknown Language";
+        }
+        
+        return language;
+    }
 }
