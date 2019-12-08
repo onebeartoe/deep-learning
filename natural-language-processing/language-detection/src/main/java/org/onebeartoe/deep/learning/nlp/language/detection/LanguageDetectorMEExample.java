@@ -1,59 +1,39 @@
+import java.io.File;
+import java.io.IOException;
 
-// This an example program provided by the tutorialkart.com
-//
-//      https://www.tutorialkart.com/opennlp/language-detector-example-in-apache-opennlp/
-
-package org.onebeartoe.deep.learning.nlp.language.detection;
-
-import java.io.*;
 import opennlp.tools.langdetect.*;
-import opennlp.tools.util.*;
-/**
-* Language Detector Example in Apache OpenNLP
-*/
-public class LanguageDetectorMEExample {
-    private static LanguageDetectorModel model;
-    public static void main(String[] args){
-        // loading the training data to LanguageDetectorSampleStream
-        LanguageDetectorSampleStream sampleStream = null;
-        try 
-        {
-            File infile = new File("src/main/resources/training-data/" + "DoccatSample.txt");
-                    
-            InputStreamFactory dataIn = new MarkableFileInputStreamFactory( infile );
-            ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
-            sampleStream = new LanguageDetectorSampleStream(lineStream);
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // training parameters
-        TrainingParameters params = new TrainingParameters();
-        params.put(TrainingParameters.ITERATIONS_PARAM, 100);
-        params.put(TrainingParameters.CUTOFF_PARAM, 5);
-        params.put("DataIndexer", "TwoPass");
-        params.put(TrainingParameters.ALGORITHM_PARAM, "NAIVEBAYES");
-        // train the model
-        try {
-            model = LanguageDetectorME.train(sampleStream, params, new LanguageDetectorFactory());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Completed");
-        // load the model
-        LanguageDetector ld = new LanguageDetectorME(model);
-        // use model for predicting the language
-        
-        String textBlurb = "estava em uma marcenaria na Rua Bruno";
-        
-        textBlurb = "my name is Bob";
-        
-        Language[] languages = ld.predictLanguages(textBlurb);
-        System.out.println("Predicted languages..");
-        for(Language language:languages){
-            // printing the language and the confidence score for the test data to belong to the language
-            System.out.println(language.getLang()+"  confidence:"+language.getConfidence());
-        }
-    }
+import opennlp.tools.langdetect.LanguageDetector;
+
+public class LanguageDetectionService
+{
+ 
+	    public static void main(String[] args) throws IOException{
+	    	
+	    	LanguageMapper languageMapper = new LanguageMapper();
+	    	
+	    	// load the trained Language Detector Model file
+	    	File modelFile = new File(".\\resources\\langdetect-183.bin");
+	    	
+	    	LanguageDetectorModel trainedModel = new LanguageDetectorModel(modelFile);
+	    	
+	        // load the model
+	    	LanguageDetector languageDetector = new LanguageDetectorME(trainedModel);
+	    	
+	        // use the model for predicting the language
+	    	//Spanish
+	        Language[] languages = languageDetector.predictLanguages("Puedo darte ejemplos de los métodos");
+	    	
+	        // French
+	    	//Language[] languages = ld.predictLanguages("Je peux vous donner quelques exemples de méthodes qui ont fonctionné pour moi.");
+	    	
+	    	// English
+	    	//Language[] languages = ld.predictLanguages("I can give you some examples of methods that have worked for me.");
+	    		        
+	        System.out.println("Predicted language: "+ languageMapper.getLanguage(languages[0].getLang()));
+	        
+	        // uncomment to know confidence for rest of the languages
+	       /* for(Language language:languages){
+	            System.out.println(language.getLang()+"  confidence:"+language.getConfidence());
+	        }*/
+	    }
 }
