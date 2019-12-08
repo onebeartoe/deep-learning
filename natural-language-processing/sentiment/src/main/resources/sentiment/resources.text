@@ -1,0 +1,8 @@
+
+The 'trained-model.zip' file was trained from this dataset:
+
+    https://deeplearning4jblob.blob.core.windows.net/resources/wordvectors/GoogleNews-vectors-negative300.bin.gz
+
+Thanks wm_eddie for the download link to the word vectors, from this StackOverflow 
+comment on Feb 18 at 9:24:
+    https://stackoverflow.com/a/49610274/803890
