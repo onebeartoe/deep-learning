@@ -5,6 +5,8 @@ so that I can evaluate their effectiveness.
 
 Acceptance Criteria:
 
+All these user stories are complete:
+    User Asks a Question 
 The application communicates with the user by asking questions in interview format and
 the app records responses and 
 the app asks how the user is doing and gives an encouraging response and
@@ -21,6 +23,4 @@ the app asks the user what product they like and what budget amount they have fo
     items within that budget and
 the app asks the user their name and
 the app asks the user what is their current or favorite organization and recommends 
-    Web sites and/or locations near their current or favorite location and
-if the user asks a question then the application makes a best attempt to answer but then
-    continues with its interview.
+    Web sites and/or locations near their current or favorite location.
