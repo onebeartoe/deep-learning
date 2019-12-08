@@ -20,37 +20,9 @@ import org.nd4j.linalg.indexing.NDArrayIndex;
  * @author Roberto Marquez
  */
 public class Word2VecSentimentRnnEvaluate
-{
-//TODO: clean up this main method so that it uses Apache CLI and uses some OO concepts    
-    public static void main(String[] args) throws Exception 
-    {
-        System.out.println("----- Evaluation initializing -----");
-        
-        String trainedModelPath = null;
-        
-        if(args.length != 0)
-        {
-            trainedModelPath = args[0];
-            
-            System.out.println("using command line arguement for trained model path: " + trainedModelPath);
-        }
-        else
-        {
-            System.out.println("please provide the path the trained model as an command line argument.");
-            System.exit(1);
-        }
-        
-        if(args.length > 1)
-        {
-//TODO: eek!  stop using this class member this way.  it hurts my soul!            
-            WORD_VECTORS_PATH = args[1];
-        }
-        else
-        {
-            System.out.println("please provide the word vectors path as the second argument to the command line.");
-            System.exit(1);
-        }
-        
+{    
+    private void executeEvaluations(String trainedModelPath) throws IOException
+    {        
         System.out.println("----- Evaluation starting -----");
         
         Word2VecSentimentRnnEvaluate deepLearner = new Word2VecSentimentRnnEvaluate();
@@ -76,6 +48,44 @@ public class Word2VecSentimentRnnEvaluate
         System.out.println("----- Evaluation complete -----");
     }
 
+//TODO: clean up this main method so that it uses Apache CLI and uses some OO concepts    
+    public static void main(String[] args) throws IOException
+    {
+
+        System.out.println("----- Evaluation initializing -----");
+        
+        String trainedModelPath = null;
+        
+        if(args.length != 0)
+        {
+            trainedModelPath = args[0];
+            
+            System.out.println("using command line arguement for trained model path: " + trainedModelPath);
+        }
+        else
+        {
+            System.out.println("please provide the path the trained model as an command line argument.");
+
+            System.exit(1);
+        }
+        
+        if(args.length > 1)
+        {
+//TODO: eek!  stop using this class member this way.  it hurts my soul!            
+            WORD_VECTORS_PATH = args[1];
+        }
+        else
+        {
+            System.out.println("please provide the word vectors path as the second argument to the command line.");
+
+            System.exit(1);
+        }
+
+        Word2VecSentimentRnnEvaluate app = new Word2VecSentimentRnnEvaluate();
+        
+        app.executeEvaluations(trainedModelPath);
+    }
+
     /**
      * After training: load a single example and generate predictions
      * @param test
@@ -99,5 +109,5 @@ public class Word2VecSentimentRnnEvaluate
         System.out.println("p(negative): " + probabilitiesAtLastWord.getDouble(1));
 
         System.out.println("----- Evaluate complete -----");
-    }    
+    }
 }
