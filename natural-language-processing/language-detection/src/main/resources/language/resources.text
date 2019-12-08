@@ -1,0 +1,33 @@
+
+# Language Detector model for Apache OpenNLP #
+
+The model were trained with the Leipzig corpus, which can be found here: http://wortschatz.uni-leipzig.de/en/download/
+The model can detect 103 languages in ISO 639-3 standard. The languages are:
+
+```
+
+```
+
+There are more than 103 languages, it was decided to not to include all available languages from the Leipzig corpus into the model. If an important language is missing please contact us on the Apache OpenNLP dev mailing list (dev@opennlp.apache.org).
+
+## Reproducing the work
+
+### Preparing the data
+
+* Checkout Leipzig corpus
+
+```
+svn co https://svn.apache.org/repos/bigdata/opennlp/trunk opennlp-corpus
+```
+
+### Training and evaluation
+
+Execute 
+```
+export OPENNLP_HOME=<path to Apache OpenNLP installation>
+cd opennlp-corpus/leipzig
+sh create_langdetect_model.sh <model name>
+```
+
+The training result will be at `target` folder.
+
