@@ -52,10 +52,12 @@ public class GoogleCustomSearch implements WebSearch
     {
 //TODO: move this property reading code to its own method        
         Properties properties = new Properties();
-        
+
+        // see 'src/main/resources/google-custom-search.properties' for the expected 
+        // values in this properties file
         String propertiesPath = "/home/roberto/.onebeartoe/google-custom-search/google-custom-search.properties";
         
-//        propertiesPath = "src/main/resources/google-custom-search.properties";
+
         
         File propertiesFile = new File(propertiesPath);
         
@@ -64,16 +66,13 @@ public class GoogleCustomSearch implements WebSearch
         properties.load(inStream);
         
         String searchQuery = "space opera"; //The query to search
+        
+        String cx = properties.getProperty("cx"); // the search engin ID
 
-        
-        
-String cx = properties.getProperty("cx"); // the search engin ID
-        
-//!!!!!!!!!!!!!!!!!!!!  DO NOT COMMIT!!!!!!!!!!!!!!!!!        
-String apiKey = properties.getProperty("apiKey");
+        String apiKey = properties.getProperty("apiKey");
+
         CustomsearchRequestInitializer requestInitializer = new CustomsearchRequestInitializer(apiKey);        
-        
-        
+                
         String applicationName = properties.getProperty("applicationName");
         
         //Instance Customsearch
