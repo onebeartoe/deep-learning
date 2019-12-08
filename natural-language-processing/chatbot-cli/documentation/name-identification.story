@@ -5,4 +5,5 @@ so that I can identify names in any give sentence.
 
 Acceptance Criteria
 
-The application queries Google for contemporaries of the person detected.
+A service method exists to detect a name in any give sentence and
+the detected name is stored in the interview record.
