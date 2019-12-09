@@ -4,9 +4,8 @@ package org.onebeartoe.deep.learning.chatbot.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import org.onebeartoe.deep.learning.chatbot.InterviewService;
+import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 
 /**
  *
@@ -15,13 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class NaturalLanguageProcessingChatbotCli
 {
     public static void main(String[] args) throws IOException
-    {
-        System.out.println("ploop");
-        final List l = new ArrayList();
+    {        
+        InterviewService interviewService = new InterviewService();
         
-        l.add("w");
-        
-        System.out.println("l = " + l.toString());
+        Interview interview = interviewService.get();
         
         System.out.println("Welcome to chatbot.  How are you?");
         
@@ -31,7 +27,7 @@ public class NaturalLanguageProcessingChatbotCli
                 
         String line = lineReader.readLine();
         
-        while(true)
+        while( !interview.isComplete() )
         {
             System.out.println("Great.  You jus typed: ");
             System.out.println(line);

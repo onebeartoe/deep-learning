@@ -14,7 +14,7 @@ public class Interview
     
     private boolean complete = false;
     
-    Interview(List<InterviewQuestion> questions)
+    public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
         
@@ -36,7 +36,7 @@ public class Interview
         return questions;
     }
     
-    boolean isComplete()
+    public boolean isComplete()
     {
 //        boolean complete = true;
 //        
