@@ -11,6 +11,8 @@ All these user stories are complete:
 
     Interview Format
 
+the app asks how the user is doing and gives an encouraging response and
+
 the app detects if the user is typing in English and 
 
 if the user is not using English then the application informs the user that it 
@@ -18,8 +20,6 @@ if the user is not using English then the application informs the user that it
 
 the app asks the user if they want recommendations after each question or all of recommendations 
     at the end of the interview and
-
-the app asks how the user is doing and gives an encouraging response and
 
 the app asks about a project the user is working including it percentage of completion and
 
