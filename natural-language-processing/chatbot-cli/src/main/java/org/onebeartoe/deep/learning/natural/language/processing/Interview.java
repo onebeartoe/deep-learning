@@ -20,21 +20,17 @@ public class Interview
         
         currentQuestion = 0;
     }
-
+    
     InterviewQuestion currentQuestion()
     {
         InterviewQuestion ours = questions.get(currentQuestion);
         
-        InterviewQuestion theirs = new InterviewQuestion();
-        
-        theirs.setImperative( ours.getImperative() );
-        theirs.setResponse( ours.getResponse() );
-        theirs.setAnswered( ours.getAnswered());
+        InterviewQuestion theirs = ours.clone();
         
         return theirs;
     }
 
-//TODO: is this needed?    
+//TODO: !!!!!!!!!!!!!! clone all the questions and return the clones !!!!!!!!!!!!
     public List<InterviewQuestion> getQuestions()
     {
         return questions;

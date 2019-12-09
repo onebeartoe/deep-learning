@@ -17,12 +17,12 @@ public class InterviewSpecification
     
     private int questionCount;
     
-    private List<InterviewQuestion> questions;
+    private List<InterviewQuestion> sampleQuestions;
     
     @BeforeMethod
     public void setupMethodData()
     {
-        questions = new ArrayList();
+        sampleQuestions = new ArrayList();
         
         InterviewQuestion q1 = new InterviewQuestion();
         q1.setImperative("how are you?");
@@ -30,12 +30,12 @@ public class InterviewSpecification
         InterviewQuestion q2 = new InterviewQuestion();
         q2.setImperative("what is your favorite color?");
         
-        questions.add(q1);
-        questions.add(q2);
+        sampleQuestions.add(q1);
+        sampleQuestions.add(q2);
         
-        questionCount = questions.size();
+        questionCount = sampleQuestions.size();
         
-        specification = new Interview(questions);        
+        specification = new Interview(sampleQuestions);        
     }
     
     @Test
@@ -80,7 +80,7 @@ public class InterviewSpecification
     @Test
     public void isComplete_allQuestionsAnswred()
     {
-        int iterationCount = questions.size();
+        int iterationCount = sampleQuestions.size();
         
         String response = "this is a very valid answer";
         
@@ -93,6 +93,26 @@ public class InterviewSpecification
         
         boolean expected = true;
         
-        assertEquals(actual, expected);        
+        assertEquals(actual, expected);
+    }
+    
+    @Test
+    public void setResponse()
+    {
+        String response = "this is a pretty valid response";
+        
+        int questionIndex = 0;
+        
+        specification.setResponse(questionIndex, response);
+        
+        List<InterviewQuestion> questions = specification.getQuestions();
+        
+        InterviewQuestion question = questions.get(questionIndex);
+        
+        String actual = question.getResponse();
+        
+        String expected = response;
+        
+        assertEquals(actual, expected);
     }
 }

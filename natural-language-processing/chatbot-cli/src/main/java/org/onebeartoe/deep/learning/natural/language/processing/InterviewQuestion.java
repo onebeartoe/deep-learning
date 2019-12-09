@@ -11,7 +11,19 @@ public class InterviewQuestion
     private String response;
     
     private boolean isAnswered;
-    
+
+    @Override
+    public InterviewQuestion clone()
+    {
+        InterviewQuestion clone = new InterviewQuestion();
+        
+        clone.setImperative( getImperative() );
+        clone.setResponse( getResponse() );
+        clone.setAnswered( getAnswered() );
+        
+        return clone;
+    }
+                    
     public boolean isAnswered()
     {
         return isAnswered;
