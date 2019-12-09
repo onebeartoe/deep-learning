@@ -9,9 +9,7 @@ All these user stories are complete:
 
     User Asks a Question 
 
-The application communicates with the user by asking questions in interview format and
-
-the app records responses and 
+    Interview Format
 
 the app detects if the user is typing in English and 
 
