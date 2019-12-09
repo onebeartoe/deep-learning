@@ -7,3 +7,9 @@ Acceptance Criteria
 
 A service method exists to detect a name in any give sentence and
 the detected name is stored in the interview record.
+
+
+
+RESOURCES:
+
+    https://blog.thedigitalgroup.com/open-nlp-name-finder-model-training

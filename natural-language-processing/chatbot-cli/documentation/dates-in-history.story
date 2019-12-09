@@ -6,3 +6,14 @@ so that the app bot lets users know happened on the date detected
 Acceptance Criteria
 
 the app lets users other itmes that occured on the given date
+
+
+resources:
+
+    this one looks good
+
+        https://byabbe.se/on-this-day/
+
+    or maybe this one
+
+        https://history.muffinlabs.com/
