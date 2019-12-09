@@ -4,8 +4,6 @@
 
 <suite name="deep-learning-color-prediction-test-suite" parallel="none">
     <test name="deep-learning-color-unit-tests">
-      
-
         <packages>    
             <package name="org.onebeartoe.deep.learning.color.predictor"/>
         </packages>
