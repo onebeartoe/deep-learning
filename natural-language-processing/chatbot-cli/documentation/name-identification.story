@@ -1,15 +1,10 @@
 
 As a natural language processing developer,
 I need to detect person names,
-so that I can identify names in any give sentence.
+so that I can identify names in any given sentence.
 
 Acceptance Criteria
 
 A service method exists to detect a name in any give sentence and
+the application asks the user their name and
 the detected name is stored in the interview record.
-
-
-
-RESOURCES:
-
-    https://blog.thedigitalgroup.com/open-nlp-name-finder-model-training
