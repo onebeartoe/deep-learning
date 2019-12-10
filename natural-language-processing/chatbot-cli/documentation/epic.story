@@ -25,9 +25,6 @@ the app asks the user's month and day of birth and provides other folks with the
 
 the app asks the user their current or favorite location and provides points of interest near there and
 
-the app asks the user what product they like and what budget amount they have for shopping and recommends 
-    items within that budget and
-
 the app asks the user what is their current or favorite organization and recommends 
     Web sites and/or locations near their current or favorite location and
 
