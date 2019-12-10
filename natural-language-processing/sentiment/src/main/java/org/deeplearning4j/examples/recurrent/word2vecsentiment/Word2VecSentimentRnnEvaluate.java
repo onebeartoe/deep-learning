@@ -33,6 +33,7 @@ public class Word2VecSentimentRnnEvaluate
         
         SentimentExampleIterator test = new SentimentExampleIterator(DATA_PATH, wordVectors, batchSize, truncateReviewsToLength, false);
         
+//TODO: get the review values from src/test/resources/sentiments.text        
         // expected bad review
         String shortNegativeReview = "Boy, did that movie suck. It was like a bad version of my least favorite cartoon.";        
         evaluate(test, model, truncateReviewsToLength, shortNegativeReview);

@@ -74,7 +74,13 @@ public class Word2VecSentimentRnnTrain
     /** Location to save and extract the training/testing data */
     public static final String DATA_PATH = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "dl4j_w2vSentiment/");
 
-    /** Location (local file system) for the Google News vectors. Set this manually. */
+    /**
+     * this is the location of the Google sentiment WordVec download URL:
+     *
+     *      https://deeplearning4jblob.blob.core.windows.net/resources/wordvectors/GoogleNews-vectors-negative300.bin.gz
+     * 
+     * Location (local file system) for the Google News vectors. Set this manually. 
+     */    
     public static String WORD_VECTORS_PATH = "/PATH/TO/YOUR/VECTORS/GoogleNews-vectors-negative300.bin.gz";
 
     public static int truncateReviewsToLength = 256;  //Truncate reviews with length (# words) greater than this
