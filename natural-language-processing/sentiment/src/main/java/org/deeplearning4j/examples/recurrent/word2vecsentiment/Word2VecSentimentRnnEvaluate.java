@@ -25,7 +25,7 @@ public class Word2VecSentimentRnnEvaluate
     {        
         System.out.println("----- Evaluation starting -----");
         
-        Word2VecSentimentRnnEvaluate deepLearner = new Word2VecSentimentRnnEvaluate();
+//        Word2VecSentimentRnnEvaluate deepLearner = new Word2VecSentimentRnnEvaluate();
         
         MultiLayerNetwork model = ModelSerializer.restoreMultiLayerNetwork(trainedModelPath);                
 
@@ -35,15 +35,15 @@ public class Word2VecSentimentRnnEvaluate
         
         // expected bad review
         String shortNegativeReview = "Boy, did that movie suck. It was like a bad version of my least favorite cartoon.";        
-        deepLearner.evaluate(test, model, truncateReviewsToLength, shortNegativeReview);
+        evaluate(test, model, truncateReviewsToLength, shortNegativeReview);
         
         // another expected bad review
         String secondBadReview = "Homer - Yeah Moe that team sure did suck last night. They just plain sucked! I've seen teams suck before, but they were the suckiest bunch of sucks that ever sucked.";                
-        deepLearner.evaluate(test, model, truncateReviewsToLength, secondBadReview);
+        evaluate(test, model, truncateReviewsToLength, secondBadReview);
         
         // a good review follows (hopefully)
         String goodReview = "Boy, did I sure enjoy that movie.  It was great!";        
-        deepLearner.evaluate(test, model, truncateReviewsToLength, goodReview);
+        evaluate(test, model, truncateReviewsToLength, goodReview);
         
         System.out.println("----- Evaluation complete -----");
     }
@@ -98,6 +98,9 @@ public class Word2VecSentimentRnnEvaluate
                             int truncateReviewsToLength, String review) throws IOException
     {
         INDArray features = test.loadFeaturesFromString(review, truncateReviewsToLength);
+        
+        
+        
         INDArray networkOutput = model.output(features);
         long timeSeriesLength = networkOutput.size(2);
         INDArray probabilitiesAtLastWord = networkOutput.get(NDArrayIndex.point(0), NDArrayIndex.all(), NDArrayIndex.point(timeSeriesLength - 1));
