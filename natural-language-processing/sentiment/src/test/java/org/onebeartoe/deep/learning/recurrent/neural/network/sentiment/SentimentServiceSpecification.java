@@ -6,5 +6,5 @@ package org.onebeartoe.deep.learning.recurrent.neural.network.sentiment;
  */
 public class SentimentServiceSpecification
 {
-    
+    private SentimentService implementation;
 }
