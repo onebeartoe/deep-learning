@@ -5,5 +5,5 @@ so that I can identify names in any given sentence.
 
 Acceptance Criteria
 
-A service method exists to detect a name in any give sentence and
+A service method exists to detect a name in any given sentence and
 the detected name is stored in the interview record.

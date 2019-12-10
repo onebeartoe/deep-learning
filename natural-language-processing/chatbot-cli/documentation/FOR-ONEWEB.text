@@ -2,3 +2,9 @@
 The OpenNLP manual for Apache:
 
     https://opennlp.apache.org/docs/1.8.4/manual/opennlp.html
+
+
+
+Going Further
+
+    Find a way to load multiple language models for the name finder.
