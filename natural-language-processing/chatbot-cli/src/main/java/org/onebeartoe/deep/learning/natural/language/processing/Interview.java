@@ -21,7 +21,7 @@ public class Interview
         currentQuestion = 0;
     }
     
-    InterviewQuestion currentQuestion()
+    public InterviewQuestion currentQuestion()
     {
         InterviewQuestion ours = questions.get(currentQuestion);
         
@@ -41,7 +41,7 @@ public class Interview
         return complete;
     }
     
-    void setResponse(int index, String resonse)
+    public void setResponse(int index, String resonse)
     {
         InterviewQuestion question = questions.get(index);
 

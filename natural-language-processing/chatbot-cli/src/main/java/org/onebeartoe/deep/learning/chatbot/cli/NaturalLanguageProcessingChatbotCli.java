@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import org.onebeartoe.deep.learning.chatbot.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
+import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 
 /**
  *
@@ -24,15 +25,27 @@ public class NaturalLanguageProcessingChatbotCli
         InputStreamReader instreamReader = new InputStreamReader(System.in);
         
         BufferedReader lineReader = new BufferedReader(instreamReader);
-                
-        String line = lineReader.readLine();
+        
+        int questionIndex = 0;
         
         while( !interview.isComplete() )
         {
+            InterviewQuestion currentQuestion = interview.currentQuestion();
+            
+            String imperitive = currentQuestion.getImperative();
+            
+            System.out.println(imperitive);
+            
+            String line = lineReader.readLine();
+            
             System.out.println("Great.  You jus typed: ");
             System.out.println(line);
             
-            line = lineReader.readLine();
+            interview.setResponse(questionIndex, line);
+            
+            questionIndex++;
         }
+        
+        System.out.println("Thanks for participating in the interview!");
     }
 }
