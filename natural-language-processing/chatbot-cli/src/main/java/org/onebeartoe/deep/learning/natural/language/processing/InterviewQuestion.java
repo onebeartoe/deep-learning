@@ -2,7 +2,7 @@
 package org.onebeartoe.deep.learning.natural.language.processing;
 
 /**
- * This pojo is an abstraction for an interview question.
+ * This POJO is an abstraction for an interview question.
  */
 public class InterviewQuestion
 {

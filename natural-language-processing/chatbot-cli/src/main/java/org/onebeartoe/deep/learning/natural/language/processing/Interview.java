@@ -37,21 +37,7 @@ public class Interview
     }
     
     public boolean isComplete()
-    {
-//        boolean complete = true;
-//        
-//        for(InterviewQuestion question : questions)
-//        {
-//            if( !question.isAnswered() )
-//            {
-//                // a question is not answered and the interview is not complete
-//                
-//                complete = false;
-//                
-//                break;
-//            }
-//        }
-        
+    {        
         return complete;
     }
     
