@@ -1,6 +1,6 @@
 
 As a natural language processing developer,
-I need a chatbot application to test different APIs, 
+I need an interview chatbot application to test different APIs, 
 so that I can evaluate their effectiveness.
 
 Acceptance Criteria:
@@ -13,12 +13,7 @@ All these user stories are complete:
 
     Name Identification
 
-the app asks how the user is doing and gives an encouraging response and
-
-the app detects if the user is typing in English and 
-
-if the user is not using English then the application informs the user that it 
-    only supports English and
+    Language Detection
 
 the app asks the user if they want recommendations after each question or all of recommendations 
     at the end of the interview and
