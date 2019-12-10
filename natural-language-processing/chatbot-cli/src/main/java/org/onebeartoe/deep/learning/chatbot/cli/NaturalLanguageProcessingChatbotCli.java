@@ -19,7 +19,7 @@ public class NaturalLanguageProcessingChatbotCli
         
         Interview interview = interviewService.get();
         
-        System.out.println("Welcome to chatbot.  How are you?");
+        System.out.println("Welcome to the chatbot interview!  How are you?");
         
         InputStreamReader instreamReader = new InputStreamReader(System.in);
         
