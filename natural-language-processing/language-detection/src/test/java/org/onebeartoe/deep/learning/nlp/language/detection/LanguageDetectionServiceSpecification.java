@@ -16,7 +16,7 @@ Use as a sample sentence:
     Declarative:
 
         Lorem ipsum 
-
+//TODO:
     Imperative:
 
         What you talking about, Willis?     
@@ -26,6 +26,7 @@ Use as a sample sentence:
      * Test of mapLanguage method, of class LanguageDetectionService.
      */
     @Test
+(enabled = false)
     public void testMapLanguage()
     {
         System.out.println("mapLanguage");
