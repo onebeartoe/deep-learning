@@ -13,7 +13,7 @@
 
     <packaging>jar</packaging>
 
-    <name>onebeartoe-deep-learning-nlp-named-entity</name>
+    <name>onebeartoe-deep-learning-nlp-named-entity-recognition</name>
 
     <dependencies>
         <dependency>
