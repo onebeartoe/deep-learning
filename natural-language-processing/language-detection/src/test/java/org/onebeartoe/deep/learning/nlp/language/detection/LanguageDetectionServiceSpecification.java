@@ -34,6 +34,5 @@ Use as a sample sentence:
         String expResult = "";
         String result = LanguageDetectionService.mapLanguage(code);
         assertEquals(result, expResult);
-    }
-    
+    }    
 }
