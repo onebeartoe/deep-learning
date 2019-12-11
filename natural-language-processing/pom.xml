@@ -11,7 +11,7 @@
     <name>onebeartoe-deep-learning-natural-language-processing</name>
     <modules>
         <module>language-detection</module>
-        <module>chatbot-cli</module>
+        <module>interview-cli</module>
         <module>sentiment</module>
         <module>named-entity</module>
     </modules>
