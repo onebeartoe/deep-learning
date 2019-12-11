@@ -8,3 +8,5 @@ Acceptance Criteria:
 An application exists to parse the user stories and
 the user stories are denoted with the '.story' file extension and
 a user story is considered complete if it contains an 'ACCEPTED' marker in its text.
+
+-*=ACCEPTED=*-
