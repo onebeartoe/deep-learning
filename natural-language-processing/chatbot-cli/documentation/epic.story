@@ -28,4 +28,4 @@ the app asks the user their current or favorite location and provides points of 
 the app asks the user what is their current or favorite organization and recommends 
     Web sites and/or locations near their current or favorite location and
 
-a unit test exists to verify all user stories are complete.
+a method exists to verify all user stories are complete.
