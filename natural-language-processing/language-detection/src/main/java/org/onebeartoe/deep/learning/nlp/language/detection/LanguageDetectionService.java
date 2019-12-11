@@ -1,9 +1,6 @@
 
 package org.onebeartoe.deep.learning.nlp.language.detection;
 
-
-
-
 import java.io.File;
 import java.io.IOException;
 
