@@ -9,6 +9,11 @@ Unexpected Observations
     'January 1st' out of the box.   But they did not.  Although the date model 
     detects dates in this format: 'November 12 2010'.  And the time model detects
     times in this format: '1:30" and "1 o'clock"
+
+    One possible workaround for dates and times in this format is to use this class
+
+        https://opennlp.apache.org/docs/1.8.4/apidocs/opennlp-tools/opennlp/tools/namefind/RegexNameFinder.html
+
 Going Further
 
     Find a way to load multiple language models for the name finder.
