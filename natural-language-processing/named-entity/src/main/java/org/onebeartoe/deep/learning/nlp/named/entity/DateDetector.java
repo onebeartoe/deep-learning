@@ -30,4 +30,3 @@ public class DateDetector extends NamedEntityRecognizer
         return findNames(sentence);
     }
 }
-                  

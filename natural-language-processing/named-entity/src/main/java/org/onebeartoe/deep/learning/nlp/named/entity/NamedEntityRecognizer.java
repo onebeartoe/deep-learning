@@ -71,9 +71,10 @@ public abstract class NamedEntityRecognizer
             {
                 sb.append(tokens[i]);
                 
-                if(i != endExclusive - 1)
+                if( separateTokensWithSpace()
+                        && i != endExclusive - 1)
                 {
-                    // only append if there is more than one token
+                    // only append a space if there is more than one token
                     sb.append(" ");
                 }
             }
@@ -95,4 +96,9 @@ public abstract class NamedEntityRecognizer
     }
 
     protected abstract String getModelClasspathLocation();
+    
+    protected boolean separateTokensWithSpace()
+    {
+        return true;
+    }
 }
