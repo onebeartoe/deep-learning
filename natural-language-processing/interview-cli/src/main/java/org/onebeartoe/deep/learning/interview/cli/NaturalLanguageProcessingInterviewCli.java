@@ -9,10 +9,10 @@ import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 
 /**
- *
- * @author Roberto Marquez
+ * This class is the main entry point for the command line interface for the 
+ * natural language processing interview chatbot.
  */
-public class NaturalLanguageProcessingChatbotCli
+public class NaturalLanguageProcessingInterviewCli
 {
     public static void main(String[] args) throws IOException
     {        
