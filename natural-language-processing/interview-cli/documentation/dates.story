@@ -21,7 +21,3 @@ RESOURCES:
     or maybe this one
 
         https://history.muffinlabs.com/
-
-    or even
-
-        https://stackoverflow.com/questions/27182040/how-to-detect-dates-with-opennlp
