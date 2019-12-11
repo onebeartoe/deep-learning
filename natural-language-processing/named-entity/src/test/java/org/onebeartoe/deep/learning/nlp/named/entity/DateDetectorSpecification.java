@@ -84,6 +84,42 @@ enabled = false)
         findSingleDate(expected);
     }
     
+//TODO: re-enable this test by using RegexNameFinder
+//                                  
+//          https://opennlp.apache.org/docs/1.8.4/apidocs/opennlp-tools/opennlp/tools/namefind/RegexNameFinder.html
+    @Test(
+enabled = false)
+    public void findDates_single_longDateFormat() throws IOException
+    {
+        String expected = "2019/12/10";
+//        String expected = "2019-12-10";
+        
+        findSingleDate(expected);
+    }
+    
+    @Test
+    public void findDates_single_dateNoYear() throws IOException
+    {
+//        December
+        String expected = "November 14";
+//        String expected = "12 of November";
+        
+        findSingleDate(expected);
+    }
+    
+    @Test(
+enabled = false)
+    public void findDates_single_dateNoYear_cardinal() throws IOException
+    {
+//        December
+        String expected = "November 14th";
+//        String expected = "12 of November";
+        
+        findSingleDate(expected);
+    }
+    
+    
+    
     @Test
     public void findDates_single_Date() throws IOException
     {
