@@ -1,10 +1,10 @@
 
-package org.onebeartoe.deep.learning.chatbot.cli;
+package org.onebeartoe.deep.learning.interview.cli;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import org.onebeartoe.deep.learning.chatbot.InterviewService;
+import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 

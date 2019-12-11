@@ -5,7 +5,7 @@
 <suite name="deep-learning-color-prediction-test-suite" parallel="none">
     <test name="deep-learning-color-unit-tests">
         <packages>    
-            <package name="org.onebeartoe.deep.learning.chatbot"/>
+            <package name="org.onebeartoe.deep.learning.interview"/>
             <package name="org.onebeartoe.deep.learning.natural.language.processing"/>
         </packages>
     </test>    

@@ -10,11 +10,11 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>chatbot-cli</artifactId>
+    <artifactId>interview-cli</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>onebeartoe-deep-learning-nlp-chatbot-cli</name>
+    <name>onebeartoe-deep-learning-nlp-interview-cli</name>
 
     <dependencies>
         <dependency>
@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.onebeartoe.deep.learning.chatbot.cli.NaturalLanguageProcessingChatbotCli</mainClass>
+                            <mainClass>org.onebeartoe.deep.learning.interview.cli.NaturalLanguageProcessingInterviewCli</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

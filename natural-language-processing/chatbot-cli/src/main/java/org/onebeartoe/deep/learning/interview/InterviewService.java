@@ -1,5 +1,5 @@
 
-package org.onebeartoe.deep.learning.chatbot;
+package org.onebeartoe.deep.learning.interview;
 
 import java.io.IOException;
 import java.io.InputStream;

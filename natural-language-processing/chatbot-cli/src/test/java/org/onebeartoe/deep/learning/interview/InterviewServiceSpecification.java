@@ -1,10 +1,11 @@
 
-package org.onebeartoe.deep.learning.chatbot;
+package org.onebeartoe.deep.learning.interview;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
+import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import static org.testng.Assert.assertTrue;
