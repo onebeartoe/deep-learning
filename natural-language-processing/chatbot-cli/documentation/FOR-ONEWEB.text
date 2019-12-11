@@ -3,8 +3,12 @@ The OpenNLP manual for Apache:
 
     https://opennlp.apache.org/docs/1.8.4/manual/opennlp.html
 
+Unexpected Observations
 
-
+    I expected the OpenNLP time and date models to detect dates like '2019-12-25', 
+    'January 1st' out of the box.   But they did not.  Although the date model 
+    detects dates in this format: 'November 12 2010'.  And the time model detects
+    times in this format: '1:30" and "1 o'clock"
 Going Further
 
     Find a way to load multiple language models for the name finder.
