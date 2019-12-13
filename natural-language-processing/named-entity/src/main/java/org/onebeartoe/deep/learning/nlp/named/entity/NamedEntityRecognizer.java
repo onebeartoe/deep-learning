@@ -50,6 +50,8 @@ public abstract class NamedEntityRecognizer
     
     public List<DetectedNamedEntity> findNames(String sentence) throws IOException
     {
+//TODO: move the tokenModel to the constructor        
+//TODO: move the tokenizer so that it is an instance member
         TokenizerME tokenizer = new TokenizerME(tokenModel); 
 
         String tokens[] = tokenizer.tokenize(sentence); 
