@@ -3,9 +3,13 @@ package org.onebeartoe.deep.learning.nlp.language.detection;
 
 import java.io.File;
 import java.io.IOException;
+import opennlp.tools.langdetect.Language;
 
-import opennlp.tools.langdetect.*;
 import opennlp.tools.langdetect.LanguageDetector;
+import opennlp.tools.langdetect.LanguageDetectorME;
+import opennlp.tools.langdetect.LanguageDetectorModel;
+import opennlp.tools.sentdetect.SentenceDetectorME;
+import opennlp.tools.sentdetect.SentenceModel;
 
 public class LanguageDetectionService
 {
@@ -43,7 +47,16 @@ public class LanguageDetectionService
                 {
 	            System.out.println(l.getLang() + "  confidence:" + l.getConfidence());
 	        }
-	    }
+
+        SentenceModel model;
+//        model.
+        
+        SentenceDetectorME sd = null;
+        
+        sd.sentDetect(laguage);
+        
+        sd.sentPosDetect(laguage);
+    }
     
 //TODO: make this not a static method    
     public static String mapLanguage(String code)

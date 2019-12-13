@@ -11,7 +11,7 @@ import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity
 public class DateDetector extends NamedEntityRecognizer
 {
 
-//is en-ner-time.bin the one to use for this?
+//TODO: is en-ner-time.bin the one to use for this?
 
     public DateDetector() throws IOException
     {
