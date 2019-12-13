@@ -9,9 +9,3 @@ Acceptance Criteria:
 If the user asks a question then the application makes a best attempt to answer and
 
 after the user asks a question the app continues with its interview.
-
-
-
-RESOURCES:
-
-    http://plato.algonquincollege.com/applications/guideToGrammar/?page_id=3243    
