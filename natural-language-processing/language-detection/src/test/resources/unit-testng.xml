@@ -6,6 +6,7 @@
     <test name="deep-learning-color-unit-tests">
         <packages>    
             <package name="org.onebeartoe.deep.learning.nlp.language.detection"/>
+            <package name="org.onebeartoe.deep.learning.nlp.sentences"/>
         </packages>
     </test>    
 </suite>
