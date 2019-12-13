@@ -102,11 +102,11 @@ public class SentimentService
         
         if (category.equalsIgnoreCase("1")) 
         {
-            System.out.println("The tweet is positive :) ");
+            System.out.println("The text is positive :) ");
         } 
         else 
         {
-            System.out.println("The tweet is negative :( ");
+            System.out.println("The text is negative :( ");
         }
         
         System.out.println("");

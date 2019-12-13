@@ -48,6 +48,26 @@ public class SentimentServiceSpecification
         
         assertTrue( classification.getPositive() < classification.getNegative() );
     }
+
+    @Test
+    public void classify_negative3()
+    {
+        String text = "I don't feel well";
+        
+        SentimentClassification classification = implementation.classify(text);
+        
+        assertTrue( classification.getPositive() < classification.getNegative() );
+    }
+
+    @Test
+    public void classify_negative4()
+    {
+        String text = "I feel crappy";
+        
+        SentimentClassification classification = implementation.classify(text);
+        
+        assertTrue( classification.getPositive() < classification.getNegative() );
+    }
     
     @Test
     public void classify_positive1()
@@ -77,5 +97,37 @@ public class SentimentServiceSpecification
         SentimentClassification classification = implementation.classify(text);
         
         assertTrue( classification.getPositive() > classification.getNegative() );
+    }
+    
+    @Test
+    public void classify_positive4()
+    {
+        String text = "I am good.";
+        
+        SentimentClassification classification = implementation.classify(text);
+        
+        assertTrue( classification.getPositive() > classification.getNegative() );
+    }
+
+    @Test
+    public void classify_positive_yes()
+    {
+//        String text = "okay";
+        String text = "yes";
+//        String text = "Yes";
+        
+        SentimentClassification classification = implementation.classify(text);
+        
+        assertTrue( classification.getPositive() > classification.getNegative() );
+    }
+
+    @Test
+    public void classify_negitive_no()
+    {
+        String text = "No";
+        
+        SentimentClassification classification = implementation.classify(text);
+        
+        assertTrue( classification.getPositive() < classification.getNegative() );
     }
 }
