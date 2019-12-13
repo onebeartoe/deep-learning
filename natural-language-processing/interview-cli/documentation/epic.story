@@ -25,4 +25,4 @@ the app asks the user's month and day of birth and provides other folks with the
 
 the app asks the user their current or favorite location and provides points of interest near there and
 
-a method exists to verify all user stories are complete.
+a method to verify all user stories are complete exists.
