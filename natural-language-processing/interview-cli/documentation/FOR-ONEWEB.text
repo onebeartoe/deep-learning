@@ -14,6 +14,35 @@ Unexpected Observations
 
         https://opennlp.apache.org/docs/1.8.4/apidocs/opennlp-tools/opennlp/tools/namefind/RegexNameFinder.html
 
+Software Walkthrough
+
+    The core code lies in the named entity recognition utility 
+    classes, NamedEntityRecognizer.java.  Similar utility classes are MoneyDetector, NameDetector
+    and DateDetector.  These classes use trained models provided by Apache OpenNLP.
+
+    Other core software is in the SentimentService and LanguageDetectionService.  The 
+    SentimentService is simialar to the NamedEntityRecognizer and subclasses, but uses 
+    different classes from the OpenNLP API.  The LanguageDetectionService is pretty much 
+    trained on the fly with sentiment data obtained from the web.  !!!site the source 
+    for the LanguageDetectionService model!!!!!
+
 Going Further
 
     Find a way to load multiple language models for the name finder.
+
+Resources
+
+    REST clients:
+
+        STILL NEED TO RESEARCH THESE
+
+        this one mentions JAX-RS
+        https://github.com/mstahv/consuming-rest-apis
+
+        this one covers the whole lifecycle of REST services testing
+        https://phauer.com/2016/testing-restful-services-java-best-practices/
+
+        this one shows how to convert from a JSON payload to a Java List of POJOs (REST Assured)
+        https://stackoverflow.com/questions/21725093/rest-assured-deserialize-response-json-as-listpojo
+
+
