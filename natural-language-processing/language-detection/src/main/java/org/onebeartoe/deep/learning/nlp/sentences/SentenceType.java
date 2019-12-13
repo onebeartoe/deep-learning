@@ -9,7 +9,7 @@ public enum SentenceType
 //TODO: spell check these
 //TODO: what is the fourth type?
     DECLARATIVE,
-    IMPARATIVE,
+    IMPERATIVE,
     EXCLAMATORY,
     INTERROGATIVE,
     INVALID_SYNTAX

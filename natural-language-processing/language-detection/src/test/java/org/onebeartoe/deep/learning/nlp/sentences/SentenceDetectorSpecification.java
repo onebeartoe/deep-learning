@@ -37,6 +37,54 @@ public class SentenceDetectorSpecification
     }
 
     @Test
+    public void findSentences_singleDeclaritive_noPuctuation()
+    {
+        String sentence = "thanks";
+        
+        List<SentenceClassification> results = implementation.findSentences(sentence);
+        
+        assertTrue(results.size() == 1);
+        
+        assertTrue(results.get(0).getType() == DECLARATIVE);
+    }
+
+    @Test
+    public void findSentences_singleDeclaritive_noPuctuation_number()
+    {
+        String sentence = "42";
+
+        List<SentenceClassification> results = implementation.findSentences(sentence);
+        
+        assertTrue(results.size() == 1);
+        
+        assertTrue(results.get(0).getType() == DECLARATIVE);
+    }
+
+    @Test
+    public void findSentences_singleDeclaritive_barely()
+    {
+        String sentence = "*&^%^&   hi *^&* \t ";
+        
+        List<SentenceClassification> results = implementation.findSentences(sentence);
+        
+        assertTrue(results.size() == 1);
+        
+        assertTrue(results.get(0).getType() == DECLARATIVE);
+    }
+
+    @Test
+    public void findSentences_singleDeclaritive_barelyWithNumber()
+    {
+        String sentence = "*&^%^&   7 *^&* \t ";
+        
+        List<SentenceClassification> results = implementation.findSentences(sentence);
+        
+        assertTrue(results.size() == 1);
+        
+        assertTrue(results.get(0).getType() == DECLARATIVE);
+    }
+
+    @Test
 //TODO: spell check this    
     public void findSentences_single_Interrogitave()
     {

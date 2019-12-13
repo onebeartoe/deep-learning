@@ -11,6 +11,9 @@ import java.util.List;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.util.Span;
+import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.DECLARATIVE;
+import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.EXCLAMATORY;
+import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.INTERROGATIVE;
 import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.INVALID_SYNTAX;
 
 /**
@@ -33,23 +36,45 @@ public class SentenceDetector
     
     public List<SentenceClassification> findSentences(String paragraph)
     {
-        String sentences[] = sentenceDetector.sentDetect(paragraph);
-                                
         List<SentenceClassification> results = new ArrayList();
         
-        for (String sentence : sentences) 
+        if(paragraph == null)
         {
+            System.err.println("null paragraphs are not evaluated");
+            
             SentenceClassification classification = new SentenceClassification();
             
-            classification.setText(sentence);
-            
-            System.out.println(sentence);
-            
-            SentenceType type = getType(sentence);
+            classification.setType(INVALID_SYNTAX);
             
             results.add(classification);
         }
+        else
+        {
+            String [] sentences = sentenceDetector.sentDetect(paragraph);
 
+            if(sentences.length == 0)
+            {
+                String [] empty = {paragraph};
+
+                sentences = empty;
+            }
+            
+            for (String sentence : sentences) 
+            {
+                SentenceClassification classification = new SentenceClassification();
+
+                classification.setText(sentence);
+
+                System.out.println(sentence);
+
+                SentenceType type = getType(sentence);
+
+                classification.setType(type);
+
+                results.add(classification);
+            }            
+        }
+        
         return results;
     }
 
@@ -65,19 +90,64 @@ public class SentenceDetector
         {
             type = INVALID_SYNTAX;
         }
+        else if( sentence.matches("[^\\w]+") )
+        {
+            // the string does not contain a single alphanumeric character
+            
+            type = INVALID_SYNTAX;
+        }
         else
         {
-            sentence.matches("");
+            // there is at least one alphanumeric character
             
-            // check the ending for punctuation
+            // find the index of the last alphanumeric, starting from the end, using $
+            int lastIndex = sentence.replaceAll("[^a-zA-Z0-9]*$", "").length() - 1;
             
-            int endIndex = sentence.lastIndexOf(sentence);
-            
-//TODO: finish this
-type = INVALID_SYNTAX;
+            if(lastIndex == -1)
+            {
+                // no puctuation
+                
+                type = DECLARATIVE;
+            }
+            else
+            {
+                // check the ending for punctuation
+                
+                int start = lastIndex + 1;
+                
+                int end = sentence.length();
+
+                String punctuation = sentence.substring(start , end);
+
+                if( isInterrogativeWithExclamation(punctuation) )
+                {
+                    type = INTERROGATIVE;
+                }
+                else if( punctuation.endsWith("?") )
+                {
+                    type = INTERROGATIVE;
+                }
+                else if( punctuation.endsWith("!") )
+                {
+                    type = EXCLAMATORY;
+                }
+                else
+                {
+                    type = DECLARATIVE;
+                }
+            }
         }
                 
         return type;
+    }
+
+    private boolean isInterrogativeWithExclamation(String punctuation)
+    {
+        // zero or more exclamation marks, followed 1 or more question marks, followed by once or more exclamation marks
+
+        String regularExpression = "[!]*[?]+[!]+";
+        
+        return punctuation.matches(regularExpression);
     }
 }
             
