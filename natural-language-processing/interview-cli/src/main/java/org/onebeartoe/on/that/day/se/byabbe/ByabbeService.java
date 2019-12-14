@@ -7,6 +7,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import org.onebeartoe.on.that.day.se.byabbe.model.BirthsOnThisDay;
 import org.onebeartoe.on.that.day.se.byabbe.model.EventsOnThisDay;
 
 /**
@@ -19,37 +20,47 @@ public class ByabbeService
 {
     private Client client;
 
-    private WebTarget target;    
+    private WebTarget birthsTarget;
+
+    private WebTarget eventsTarget;
+
+    private final String prototype = "https://byabbe.se/on-this-day/%s/%s/%s.json";
     
-//TODO: see if this RestAssured example works
-//         https://stackoverflow.com/questions/21725093/rest-assured-deserialize-response-json-as-listpojo    
+    public ByabbeService()
+    {
+        client = ClientBuilder.newClient();
+    }
+    
     public EventsOnThisDay retrieveEvents(int month, int day)
     {
         String type = "events";
+        
+        String url = buildUrl(month, day, type);
+                
+        eventsTarget = client.target(url);
+        
+        EventsOnThisDay onThisDay = eventsTarget.request(MediaType.APPLICATION_JSON)
+                                          .get(EventsOnThisDay.class);
 
-        return retrieve(month, day, type);
+        return onThisDay;
     }
     
-    public EventsOnThisDay retrieveBirths(int month, int day)
+    public BirthsOnThisDay retrieveBirths(int month, int day)
     {
         String type = "births";
+        
+        String url = buildUrl(month, day, type);
+        
+        birthsTarget = client.target(url);
 
-        return retrieve(month, day, type);
+        BirthsOnThisDay onThisDay = birthsTarget.request(MediaType.APPLICATION_JSON)
+                                          .get(BirthsOnThisDay.class);
+        
+        return onThisDay;
     }
     
-    private EventsOnThisDay retrieve(int month, int day, String type)
+    private String buildUrl(int month, int day, String type)
     {
-        String prototype = "https://byabbe.se/on-this-day/%s/%s/%s.json";
-        
-        String url = String.format(prototype, month, day, type);
-        
-        client = ClientBuilder.newClient();
-        
-        target = client.target(url);
-        
-        EventsOnThisDay onThisDay = target.request(MediaType.APPLICATION_JSON)
-                                    .get(EventsOnThisDay.class);
-                
-        return onThisDay;
+        return String.format(prototype, month, day, type);
     }
 }

@@ -2,6 +2,7 @@
 package org.onebeartoe.on.that.day.se.byabbe;
 
 import java.util.List;
+import org.onebeartoe.on.that.day.se.byabbe.model.BirthsOnThisDay;
 import org.onebeartoe.on.that.day.se.byabbe.model.EventsOnThisDay;
 import static org.testng.Assert.assertNotNull;
 
@@ -47,7 +48,7 @@ public class ByabbeServiceSpecification
         
         int day = 2;
         
-        EventsOnThisDay events = implementation.retrieveBirths(month, day);
+        BirthsOnThisDay events = implementation.retrieveBirths(month, day);
         
         assertNotNull(events);        
     }    
