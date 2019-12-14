@@ -23,19 +23,21 @@ public class ByabbeService
     
 //TODO: see if this RestAssured example works
 //         https://stackoverflow.com/questions/21725093/rest-assured-deserialize-response-json-as-listpojo    
-    public List<ByabbeOnThisDay> retrieveEvents(int month, int day)
+    public OnThisDay retrieveEvents(int month, int day)
     {
         String type = "events";
 
         return retrieve(month, day, type);
     }
     
-    public List<ByabbeOnThisDay> retrieveBirths(int month, int day)
+    public OnThisDay retrieveBirths(int month, int day)
     {
-        return null;
+        String type = "births";
+
+        return retrieve(month, day, type);
     }
     
-    private List<ByabbeOnThisDay> retrieve(int month, int day, String type)
+    private OnThisDay retrieve(int month, int day, String type)
     {
         String prototype = "https://byabbe.se/on-this-day/%s/%s/%s.json";
         
@@ -45,11 +47,9 @@ public class ByabbeService
         
         target = client.target(url);
         
-        OnThisDay get = target.request(MediaType.APPLICATION_JSON)
-                .get(OnThisDay.class);
-        
-        List<ByabbeOnThisDay> results = null;
-        
-        return results;
+        OnThisDay onThisDay = target.request(MediaType.APPLICATION_JSON)
+                                    .get(OnThisDay.class);
+                
+        return onThisDay;
     }
 }
