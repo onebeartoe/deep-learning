@@ -38,6 +38,8 @@ public class Interview
     
     public boolean isComplete()
     {        
+//TODO: check if each question is answered instead
+//TODO: add a unit test for this method        
         return complete;
     }
     
@@ -57,6 +59,7 @@ public class Interview
             
             if(currentQuestion == questions.size() )
             {
+//TODO: remove this set and check if each question is answered instead                
                 complete = true;
             }
         }

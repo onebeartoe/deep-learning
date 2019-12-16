@@ -28,6 +28,7 @@ public class NaturalLanguageProcessingInterviewCli
         
         int questionIndex = 0;
         
+//TODO: refactor interview#isComplete() to interview#isNotOver()
         while( !interview.isComplete() )
         {
             InterviewQuestion currentQuestion = interview.currentQuestion();
@@ -41,8 +42,17 @@ public class NaturalLanguageProcessingInterviewCli
             System.out.println("Great.  You jus typed: ");
             System.out.println(line);
             
+//TODO:            
+// refactor this to interview#setCurrentQuestionResponse()
+// the interview#setCurrentQuestionResponse() method keep track of the 'invalid resonse count'
+// and moves on if the threshold is reached.
+TODO:
+// the interview#setCurrentQuestionResponse() method returns a reponse type and if the 
+//          response type is 'THRESHOLD-REACHED' then that message is relyed to the user and
+//          the interview moves on to the next question.
             interview.setResponse(questionIndex, line);
-            
+
+//TODO: remove this index counter and relay on the interview's currentQuestion() method            
             questionIndex++;
         }
         
