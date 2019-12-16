@@ -1,7 +1,7 @@
 
 As a natural language processing developer,
 I need to detect the user's language from an interview response,
-so that I can continue with the interrogation or let her know the chatbot is 
+so that I can continue with the interrogation or let her know the interview chatbot is 
     not able to continue in their language.
 
 Acceptance Criteria:

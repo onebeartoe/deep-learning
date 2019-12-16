@@ -1,7 +1,7 @@
 
 
-As a chatbot,
-I need to detect and handle a user's question,
+As an interview chatbot application,
+I need to handle/detect when a user asked a question,
 so that they are not ignored and the interview progresses.
 
 Acceptance Criteria:
