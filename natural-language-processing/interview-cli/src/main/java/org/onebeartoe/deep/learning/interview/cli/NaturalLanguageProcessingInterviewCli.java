@@ -4,9 +4,11 @@ package org.onebeartoe.deep.learning.interview.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
 
 /**
  * This class is the main entry point for the command line interface for the 
@@ -46,11 +48,38 @@ public class NaturalLanguageProcessingInterviewCli
 // refactor this to interview#setCurrentQuestionResponse()
 // the interview#setCurrentQuestionResponse() method keep track of the 'invalid resonse count'
 // and moves on if the threshold is reached.
-TODO:
+//TODO:
 // the interview#setCurrentQuestionResponse() method returns a reponse type and if the 
 //          response type is 'THRESHOLD-REACHED' then that message is relyed to the user and
 //          the interview moves on to the next question.
-            interview.setResponse(questionIndex, line);
+            InterviewQuestion question = interview.setResponse(questionIndex, line);
+
+            if( ! question.isAnswered() )
+            {
+                System.out.println("I wasn't able to process your response.");
+
+                System.out.println(imperitive);
+
+                String secondLine = lineReader.readLine();
+                
+                InterviewQuestion secondAttemptQuestion = interview.setResponse(questionIndex, secondLine);
+                
+                if( !secondAttemptQuestion.isAnswered() )
+                {
+                    System.out.println("I still could not process your response.  Let's move on with the interview.");
+                    
+                    interview.markAsAnswered(questionIndex);
+                }
+            }
+            
+            if( question.isAnswered() )
+            {
+                String confirmation = question.getValidResponseConfirmation();
+                
+                System.out.println(confirmation);
+                
+                List<Recommendation> recomendations = question.getRecomendations();
+            }            
 
 //TODO: remove this index counter and relay on the interview's currentQuestion() method            
             questionIndex++;

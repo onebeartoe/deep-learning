@@ -2,6 +2,7 @@
 package org.onebeartoe.deep.learning.natural.language.processing;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * This class is an abstraction of an interview.
@@ -25,9 +26,11 @@ public class Interview
     {
         InterviewQuestion ours = questions.get(currentQuestion);
         
-        InterviewQuestion theirs = ours.clone();
-        
-        return theirs;
+//        InterviewQuestion theirs = ours.clone();
+//        
+//        return theirs;
+
+        return ours;
     }
 
 //TODO: !!!!!!!!!!!!!! clone all the questions and return the clones !!!!!!!!!!!!
@@ -43,25 +46,32 @@ public class Interview
         return complete;
     }
     
-    public void setResponse(int index, String resonse)
+    public InterviewQuestion setResponse(int index, String resonse)
     {
         InterviewQuestion question = questions.get(index);
+            
+        boolean validResponse = question.setResponse(resonse);
 
-        boolean validResponse = true;
-        
         if(validResponse)
         {
             question.setAnswered(true);
-            
-            question.setResponse(resonse);
-            
+
             currentQuestion++;
-            
+
             if(currentQuestion == questions.size() )
             {
 //TODO: remove this set and check if each question is answered instead                
                 complete = true;
-            }
+            }                
         }
+        
+        return question;
+    }
+
+    public void markAsAnswered(int questionIndex)
+    {
+        InterviewQuestion question = questions.get(questionIndex);
+        
+        question.setAnswered(true);
     }
 }

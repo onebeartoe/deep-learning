@@ -1,17 +1,32 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.util.List;
+
 /**
  * This POJO is an abstraction for an interview question.
  */
-public class InterviewQuestion
+public abstract class InterviewQuestion
 {
     private String imperative;
     
     private String response;
     
     private boolean isAnswered;
+    
+    protected String answer;
 
+    public String getAnswer()
+    {
+        return answer;
+    }
+
+    public void setAnswer(String answer)
+    {
+        this.answer = answer;
+    }
+
+    /*
     @Override
     public InterviewQuestion clone()
     {
@@ -19,11 +34,12 @@ public class InterviewQuestion
         
         clone.setImperative( getImperative() );
         clone.setResponse( getResponse() );
-        clone.setAnswered( getAnswered() );
+        clone.setAnswered( isAnswered() );
         
         return clone;
     }
-                    
+*/
+    
     public boolean isAnswered()
     {
         return isAnswered;
@@ -49,13 +65,27 @@ public class InterviewQuestion
         isAnswered = answered;
     }
 
-    public void setResponse(String response)
+    public boolean setResponse(String response)
     {
         this.response = response;
+        
+        ValidationResult result = validateResponse(response);
+        
+        answer = result.answer;
+        
+        return result.valid;
     }
+    
+    public abstract ValidationResult validateResponse(String response);
 
-    boolean getAnswered()
+    public abstract String getValidResponseConfirmation();
+
+    public abstract List<Recommendation> getRecomendations();
+
+    protected class ValidationResult
     {
-        return isAnswered;
+        boolean valid;
+        
+        String answer;
     }
 }

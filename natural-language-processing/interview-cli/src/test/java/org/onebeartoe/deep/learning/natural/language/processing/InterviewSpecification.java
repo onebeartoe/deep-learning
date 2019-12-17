@@ -24,11 +24,11 @@ public class InterviewSpecification
     {
         sampleQuestions = new ArrayList();
         
-        InterviewQuestion q1 = new InterviewQuestion();
+        InterviewQuestion q1 = new SentimentQuestion();
         q1.setImperative("how are you?");
         
-        InterviewQuestion q2 = new InterviewQuestion();
-        q2.setImperative("what is your favorite color?");
+        InterviewQuestion q2 = new ProjectAndPercentageQuestion();
+        q2.setImperative("what percent is your project done?");
         
         sampleQuestions.add(q1);
         sampleQuestions.add(q2);
