@@ -2,6 +2,9 @@
  */
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Roberto Marquez
@@ -29,5 +32,17 @@ result.valid = true;
     {
         return "some invalid resoponse";
     }
-    
+
+    @Override
+    public List<Recommendation> getRecomendations()
+    {
+        List<Recommendation> recommendations = new ArrayList();
+        
+        Recommendation r1 = new Recommendation();
+        
+        recommendations.add(r1);
+        recommendations.add(r1);
+        
+        return recommendations;
+    }    
 }

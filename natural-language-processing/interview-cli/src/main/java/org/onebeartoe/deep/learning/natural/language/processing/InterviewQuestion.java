@@ -1,6 +1,7 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,7 +81,10 @@ public abstract class InterviewQuestion
 
     public abstract String getValidResponseConfirmation();
 
-    public abstract List<Recommendation> getRecomendations();
+    public List<Recommendation> getRecomendations()
+    {
+        return new ArrayList();
+    }
 
     protected class ValidationResult
     {

@@ -79,6 +79,13 @@ public class NaturalLanguageProcessingInterviewCli
                 System.out.println(confirmation);
                 
                 List<Recommendation> recomendations = question.getRecomendations();
+                
+                if(recomendations.size() > 0)
+                {
+                    System.out.println("Here are some recomendations for " + question.getAnswer() );
+                
+                    recomendations.forEach( System.out::println );
+                }
             }            
 
 //TODO: remove this index counter and relay on the interview's currentQuestion() method            

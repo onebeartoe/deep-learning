@@ -1,6 +1,9 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is an abstraction of the 'what is your name interview question?' question.
  */
