@@ -5,7 +5,8 @@ so that I can detect if all the user stories are implemented.
 
 Acceptance Criteria:
 
-An application exists to parse the user stories and
+A method/application to verify all user stories are complete exists and
+the application parses the user stories and
 the user stories are denoted with the '.story' file extension and
 a user story is considered complete if it contains an 'ACCEPTED' marker in its text.
 

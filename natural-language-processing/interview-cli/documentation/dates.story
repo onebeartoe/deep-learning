@@ -10,3 +10,9 @@ the application asks the user a date that interests them and
 the app records the date and
 the app informs the user of other events that occurred on the given date and
 the app lets users know who in history has the date as their birthday.
+
+
+
+
+the app asks the user's month and day of birth and provides other folks with the same birthday and 
+        gives an 'on this day' report and
