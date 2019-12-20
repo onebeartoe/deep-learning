@@ -19,7 +19,7 @@ import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity
 public class PersonNameDetector
 {
 //TODO refactor this to use the NamedEntityRecognizer
-    List<DetectedNamedEntity> findNames(String sentence) throws IOException
+    public List<DetectedNamedEntity> findNames(String sentence) throws IOException
     {
 //TODO: do we need this en-token.bin stuff?
 // it is from: https://www.tutorialspoint.com/opennlp/opennlp_named_entity_recognition.htm        
