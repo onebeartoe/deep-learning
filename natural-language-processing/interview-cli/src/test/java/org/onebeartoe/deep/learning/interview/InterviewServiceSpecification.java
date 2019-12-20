@@ -3,6 +3,7 @@ package org.onebeartoe.deep.learning.interview;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Properties;
 import org.onebeartoe.deep.learning.interview.InterviewService;
@@ -33,7 +34,7 @@ public class InterviewServiceSpecification
     }
     
     @BeforeMethod
-    public void initialize() throws IOException
+    public void initialize() throws IOException, URISyntaxException
     {
         implementation = new InterviewService();        
     }

@@ -4,6 +4,7 @@ package org.onebeartoe.deep.learning.interview.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
@@ -16,7 +17,7 @@ import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
  */
 public class NaturalLanguageProcessingInterviewCli
 {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, URISyntaxException
     {        
         InterviewService interviewService = new InterviewService();
         
@@ -41,8 +42,8 @@ public class NaturalLanguageProcessingInterviewCli
             
             String line = lineReader.readLine();
             
-            System.out.println("Great.  You jus typed: ");
-            System.out.println(line);
+//            System.out.println("Great.  You jus typed: ");
+//            System.out.println(line);
             
 //TODO:            
 // refactor this to interview#setCurrentQuestionResponse()

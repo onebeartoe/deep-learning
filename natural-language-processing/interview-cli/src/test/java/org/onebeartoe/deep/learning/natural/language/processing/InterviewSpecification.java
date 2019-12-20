@@ -1,8 +1,12 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
+import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentService;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.BeforeMethod;
 
@@ -20,11 +24,15 @@ public class InterviewSpecification
     private List<InterviewQuestion> sampleQuestions;
     
     @BeforeMethod
-    public void setupMethodData()
+    public void setupMethodData() throws IOException, URISyntaxException
     {
         sampleQuestions = new ArrayList();
+
+        LanguageDetectionService languageDetectionService = new LanguageDetectionService();
+    
+        SentimentService sentimentService = new SentimentService();
         
-        InterviewQuestion q1 = new SentimentQuestion();
+        InterviewQuestion q1 = new SentimentQuestion(languageDetectionService, sentimentService);
         q1.setImperative("how are you?");
         
         InterviewQuestion q2 = new ProjectAndPercentageQuestion();
