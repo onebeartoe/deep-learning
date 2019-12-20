@@ -29,7 +29,7 @@ public class NaturalLanguageProcessingInterviewCli
         
         BufferedReader lineReader = new BufferedReader(instreamReader);
         
-        int questionIndex = 0;
+//        int questionIndex = 0;
         
 //TODO: refactor interview#isComplete() to interview#isNotOver()
         while( !interview.isComplete() )
@@ -43,14 +43,13 @@ public class NaturalLanguageProcessingInterviewCli
             String line = lineReader.readLine();
             
 //TODO:            
-// refactor this to interview#setCurrentQuestionResponse()
 // the interview#setCurrentQuestionResponse() method keep track of the 'invalid resonse count'
 // and moves on if the threshold is reached.
 //TODO:
 // the interview#setCurrentQuestionResponse() method returns a reponse type and if the 
 //          response type is 'THRESHOLD-REACHED' then that message is relyed to the user and
 //          the interview moves on to the next question.
-            InterviewQuestion question = interview.setResponse(questionIndex, line);
+            InterviewQuestion question = interview.setCurrentQuestionResponse(line);
 
             if( ! question.isAnswered() )
             {
@@ -60,13 +59,13 @@ public class NaturalLanguageProcessingInterviewCli
 
                 String secondLine = lineReader.readLine();
                 
-                InterviewQuestion secondAttemptQuestion = interview.setResponse(questionIndex, secondLine);
+                InterviewQuestion secondAttemptQuestion = interview.setCurrentQuestionResponse(secondLine);
                 
                 if( !secondAttemptQuestion.isAnswered() )
                 {
                     System.out.println("I still could not process your response.  Let's move on with the interview.");
                     
-                    interview.markAsAnswered(questionIndex);
+//                    interview.markAsAnswered(questionIndex);
                 }
             }
             
@@ -87,7 +86,7 @@ public class NaturalLanguageProcessingInterviewCli
             }            
 
 //TODO: remove this index counter and relay on the interview's currentQuestion() method            
-            questionIndex++;
+//            questionIndex++;
         }
         
         System.out.println("Thanks for participating in the interview!");

@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -20,6 +21,8 @@ import org.testng.annotations.Test;
 public class InterviewServiceSpecification
 {
     private InterviewService implementation;
+    
+    private Interview interview;
     
     private Properties properties;
     
@@ -36,7 +39,44 @@ public class InterviewServiceSpecification
     @BeforeMethod
     public void initialize() throws IOException, URISyntaxException
     {
-        implementation = new InterviewService();        
+        implementation = new InterviewService();
+
+        interview = implementation.get();
+    }
+
+    @Test
+    public void interview_happyPath()
+    {
+        // Name question
+        InterviewQuestion question = interview.setCurrentQuestionResponse("Bob");
+        
+        assertTrue(question.isAnswered());
+        
+        // how are you question
+        question = interview.setCurrentQuestionResponse("I am great, thanks");
+
+        assertTrue(question.isAnswered());
+        
+        assertTrue( interview.isComplete() );
+    }
+    
+    @Test void interview_invalidResonse_all()
+    {
+        // name question
+        InterviewQuestion question = interview.setCurrentQuestionResponse("apple");
+        assertFalse(question.isAnswered() );
+
+        question = interview.setCurrentQuestionResponse("apple");
+        assertFalse( question.isAnswered() );
+        
+        // sentiment question, Spanish fails
+        question = interview.setCurrentQuestionResponse("Muey buien, gracias");
+        assertFalse( question.isAnswered() );
+        
+        question = interview.setCurrentQuestionResponse("Muey buien, gracias");
+        assertFalse( question.isAnswered() );
+        
+        assertTrue( interview.isComplete() );
     }
     
     /**

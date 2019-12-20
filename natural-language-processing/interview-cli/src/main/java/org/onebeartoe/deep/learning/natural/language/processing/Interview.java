@@ -15,13 +15,18 @@ public class Interview
     
     private boolean complete = false;
     
+//    private int invalidResponseCount;
+    
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
         
         currentQuestion = 0;
+        
+//        invalidResponseCount = 0;
     }
     
+    @Deprecated //"is the really deprecated")
     public InterviewQuestion currentQuestion()
     {
         InterviewQuestion ours = questions.get(currentQuestion);
@@ -46,28 +51,35 @@ public class Interview
         return complete;
     }
     
-    public InterviewQuestion setResponse(int index, String resonse)
+    public InterviewQuestion setCurrentQuestionResponse(String resonse)
     {
-        InterviewQuestion question = questions.get(index);
-            
-        boolean validResponse = question.setResponse(resonse);
+        InterviewQuestion question = questions.get(currentQuestion);
+        
+        InterviewQuestion.ValidationResult result = question.setResponse(resonse);
+        
+        boolean validResponse = result.valid;
 
         if(validResponse)
         {
             question.setAnswered(true);
 
             currentQuestion++;
-
-            if(currentQuestion == questions.size() )
-            {
-//TODO: remove this set and check if each question is answered instead                
-                complete = true;
-            }                
         }
+        else if(result.threadholdReached)
+        {
+            currentQuestion++;
+        }
+        
+        if(currentQuestion == questions.size() )
+        {
+//TODO: remove this set and check if each question is answered instead                
+            complete = true;
+        }                        
         
         return question;
     }
 
+    @Deprecated //"is the really deprecated")
     public void markAsAnswered(int questionIndex)
     {
         InterviewQuestion question = questions.get(questionIndex);

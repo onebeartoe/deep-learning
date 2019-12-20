@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
 import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentService;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeMethod;
 
 import org.testng.annotations.Test;
@@ -17,6 +20,8 @@ import org.testng.annotations.Test;
  */
 public class InterviewSpecification
 {
+    private Interview implementation_makeThisLocalToEachTest_ifStillNeded;
+    
     private Interview implementation;
     
     private int questionCount;
@@ -43,13 +48,17 @@ public class InterviewSpecification
         
         questionCount = sampleQuestions.size();
         
-        implementation = new Interview(sampleQuestions);        
+        implementation_makeThisLocalToEachTest_ifStillNeded = new Interview(sampleQuestions);        
+        
+        InterviewService interviewService = new InterviewService();
+        
+        implementation = interviewService.get();
     }
     
     @Test
     public void construction()
     {        
-        List<InterviewQuestion> questionsAfterConstruction = implementation.getQuestions();
+        List<InterviewQuestion> questionsAfterConstruction = implementation_makeThisLocalToEachTest_ifStillNeded.getQuestions();
         
         int expected = questionCount;
         
@@ -58,7 +67,7 @@ public class InterviewSpecification
         assertEquals(actual, expected);
     }    
 
-    
+
     
     /**
      * This test verifies that no matter how many times the current question is 
@@ -69,18 +78,18 @@ public class InterviewSpecification
     {
         String response = "this is a very valid answer";
         
-        int firstQuestionIndex = 0;
+//        int firstQuestionIndex = 0;
         
-        implementation.setResponse(firstQuestionIndex, response);
+        implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
         
         int iterationCount = questionCount + 3;  // add 3 for good measure 
         
         for(int i=0; i<iterationCount; i++)
         {
-            implementation.currentQuestion();
+            implementation_makeThisLocalToEachTest_ifStillNeded.currentQuestion();
         }
         
-        boolean actual = implementation.isComplete();
+        boolean actual = implementation_makeThisLocalToEachTest_ifStillNeded.isComplete();
         
         boolean expected = false;
         
@@ -96,10 +105,10 @@ public class InterviewSpecification
         
         for(int i=0; i<iterationCount; i++)
         {
-            implementation.setResponse(i, response);
+            implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
         }
 
-        boolean actual = implementation.isComplete();
+        boolean actual = implementation_makeThisLocalToEachTest_ifStillNeded.isComplete();
         
         boolean expected = true;
         
@@ -113,9 +122,9 @@ public class InterviewSpecification
         
         int questionIndex = 0;
         
-        implementation.setResponse(questionIndex, response);
+        implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
         
-        List<InterviewQuestion> questions = implementation.getQuestions();
+        List<InterviewQuestion> questions = implementation_makeThisLocalToEachTest_ifStillNeded.getQuestions();
         
         InterviewQuestion question = questions.get(questionIndex);
         

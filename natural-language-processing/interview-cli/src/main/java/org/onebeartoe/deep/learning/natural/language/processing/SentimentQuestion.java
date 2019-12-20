@@ -20,6 +20,8 @@ public class SentimentQuestion extends InterviewQuestion
     
     private SentimentService sentimentService;
     
+    private boolean positiveSentiment;
+    
     public SentimentQuestion(LanguageDetectionService languageDetectionService, SentimentService sentimentService)
     {
         this.languageDetectionService = languageDetectionService;
@@ -31,6 +33,10 @@ public class SentimentQuestion extends InterviewQuestion
     public ValidationResult validateResponse(String response)
     {
         String detectedLanguageCode = languageDetectionService.detectLanguage(response);
+        
+//        boolean valid;
+        
+        ValidationResult result = new ValidationResult();
         
         if( ! detectedLanguageCode.equals("eng") )
         {
@@ -52,36 +58,70 @@ public class SentimentQuestion extends InterviewQuestion
             System.out.println(message);
             
             System.out.println("Unfortunately, I only know English");
+            
+            isAnswered = false;
         }
-        
-        SentimentClassification classification = sentimentService.classify(response);
-        
+        else
+        {
+            isAnswered = true;
+            
+            result.answer = response;
+            
+            SentimentClassification classification = sentimentService.classify(response);
+            
+            positiveSentiment = classification.getPositive() > classification.getNegative();
+        }
         
         
 //TODO: complete this!!!!!!
 System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");
 System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");
-        ValidationResult result = new ValidationResult();
-result.valid = true;
         
+
+        result.valid = isAnswered;
+
         return result;
     }
 
     @Override
     public String getValidResponseConfirmation()
     {
-        return "some invalid resoponse";
+        String response;
+        
+        if(positiveSentiment)
+        {
+            response = "I am glad to hear that!";
+        }
+        else
+        {
+            response = "I hope you feel better.";
+        }
+        
+        return response;
     }
 
     @Override
     public List<Recommendation> getRecomendations()
     {
-        List<Recommendation> recommendations = new ArrayList();
+        if(isAnswered)
+        {
+            Recommendation r1 = new Recommendation();
+            
+            if(positiveSentiment)
+            {
+                r1.recomendation = "Since you are feeling okay, try getting some fresh air."
+                                    + "It will make you feel even better!";
+            }
+            else
+            {
+                r1.recomendation = "I remember you mentioned that you are not feeling well. Try getting some fresh air."
+                                    + "It will make you feel a little better!";
+            }            
+
+            recommendations.add(r1);
+        }
         
-        Recommendation r1 = new Recommendation();
-        
-        recommendations.add(r1);
-        recommendations.add(r1);
+
         
         return recommendations;
     }    

@@ -13,15 +13,32 @@ public abstract class InterviewQuestion
     
     private String response;
     
-    private boolean isAnswered;
+    @Deprecated //"is the really deprecated")
+    protected boolean isAnswered;
     
     protected String answer;
 
+    private int attemptedAnswers;
+    
+    private int attemptedAnswersThreshold;
+
+    protected List<Recommendation> recommendations;
+    
+    public InterviewQuestion()
+    {
+        attemptedAnswers = 0;
+        
+        attemptedAnswersThreshold = 2;
+        
+        recommendations = new ArrayList();
+    }
+    
     public String getAnswer()
     {
         return answer;
     }
 
+    @Deprecated //"is the really deprecated")
     public void setAnswer(String answer)
     {
         this.answer = answer;
@@ -41,6 +58,7 @@ public abstract class InterviewQuestion
     }
 */
     
+    @Deprecated //"is the really deprecated")
     public boolean isAnswered()
     {
         return isAnswered;
@@ -61,20 +79,35 @@ public abstract class InterviewQuestion
         return response;
     }
     
+    @Deprecated //"is the really deprecated")
     public void setAnswered(boolean answered)
     {
         isAnswered = answered;
     }
 
-    public boolean setResponse(String response)
+    public ValidationResult setResponse(String response)
     {
+        attemptedAnswers++;
+        
         this.response = response;
         
         ValidationResult result = validateResponse(response);
         
+        result.threadholdReached = attemptedAnswers == attemptedAnswersThreshold;
+
+        if(result.threadholdReached)
+        {
+            
+        }
+        
+        if(result.valid)
+        {
+            isAnswered = true;
+        }
+        
         answer = result.answer;
         
-        return result.valid;
+        return result;// result.valid;
     }
     
     public abstract ValidationResult validateResponse(String response);
@@ -91,5 +124,7 @@ public abstract class InterviewQuestion
         boolean valid;
         
         String answer;
+        
+        boolean threadholdReached;
     }
 }
