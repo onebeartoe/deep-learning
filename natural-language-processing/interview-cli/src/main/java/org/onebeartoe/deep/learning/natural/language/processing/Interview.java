@@ -65,7 +65,7 @@ public class Interview
 
             currentQuestion++;
         }
-        else if(result.threadholdReached)
+        else if(result.thresholdReached)
         {
             currentQuestion++;
         }

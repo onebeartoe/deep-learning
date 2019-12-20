@@ -101,13 +101,8 @@ public abstract class InterviewQuestion
         
         ValidationResult result = validateResponse(response);
         
-        result.threadholdReached = attemptedAnswers == attemptedAnswersThreshold;
+        result.thresholdReached = attemptedAnswers == attemptedAnswersThreshold;
 
-        if(result.threadholdReached)
-        {
-//            thresholdReached = true;
-        }
-        
         if(result.valid)
         {
             isAnswered = true;
@@ -133,6 +128,6 @@ public abstract class InterviewQuestion
         
         String answer;
         
-        boolean threadholdReached;
+        boolean thresholdReached;
     }
 }
