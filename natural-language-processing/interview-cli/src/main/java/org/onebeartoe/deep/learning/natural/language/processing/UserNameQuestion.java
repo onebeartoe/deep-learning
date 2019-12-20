@@ -21,12 +21,26 @@ public class UserNameQuestion extends InterviewQuestion
     @Override
     public ValidationResult validateResponse(String response)
     {
-//        List<DetectedNamedEntity> findNames = nameDetector.findNames(response);
+        List<DetectedNamedEntity> names = nameDetector.findNames(response);
         
-//TODO: complete this!!!!!!        
+        boolean valid = true;
+        
         ValidationResult result = new ValidationResult();
-System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");        
-result.valid = true;
+        
+        if( names.size() == 0 )
+        {
+            valid = false;
+        }
+        else
+        {
+            DetectedNamedEntity entity = names.get(0);
+            
+            String name = entity.getName();
+            
+            result.answer = name;
+        }
+
+        result.valid = valid;
         
         return result;
     }

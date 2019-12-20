@@ -24,7 +24,7 @@ public class PersonNameDetector extends NamedEntityRecognizer
     }
     
 //TODO refactor this to use the NamedEntityRecognizer
-    public List<DetectedNamedEntity> findNames(String sentence) throws IOException
+    public List<DetectedNamedEntity> findNames(String sentence) //throws IOException
     {
         return super.findNames(sentence);
         

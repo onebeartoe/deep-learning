@@ -48,7 +48,7 @@ public abstract class NamedEntityRecognizer
         nameFinder = new NameFinderME(model);        
     }
     
-    public List<DetectedNamedEntity> findNames(String sentence) throws IOException
+    public List<DetectedNamedEntity> findNames(String sentence) //throws IOException
     {
 //TODO: move the tokenModel to the constructor        
 //TODO: move the tokenizer so that it is an instance member
