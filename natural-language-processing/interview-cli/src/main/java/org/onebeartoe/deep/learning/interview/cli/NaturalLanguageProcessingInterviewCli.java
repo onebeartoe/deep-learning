@@ -28,9 +28,7 @@ public class NaturalLanguageProcessingInterviewCli
         InputStreamReader instreamReader = new InputStreamReader(System.in);
         
         BufferedReader lineReader = new BufferedReader(instreamReader);
-        
-//        int questionIndex = 0;
-        
+                
 //TODO: refactor interview#isComplete() to interview#isNotOver()
         while( !interview.isComplete() )
         {
@@ -41,11 +39,7 @@ public class NaturalLanguageProcessingInterviewCli
             System.out.println(imperitive);
             
             String line = lineReader.readLine();
-            
-//TODO:
-// the interview#setCurrentQuestionResponse() method returns a reponse type and if the 
-//          response type is 'THRESHOLD-REACHED' then that message is relyed to the user and
-//          the interview moves on to the next question.
+
             InterviewQuestion question = interview.setCurrentQuestionResponse(line);
 
             if( ! question.isAnswered() )
@@ -61,8 +55,6 @@ public class NaturalLanguageProcessingInterviewCli
                 if( secondAttemptQuestion.thresholdReached() )
                 {
                     System.out.println("I still could not process your response.  :(  Let's move on with the interview.");
-                    
-//                    interview.markAsAnswered(questionIndex);
                 }
             }
             
@@ -80,10 +72,7 @@ public class NaturalLanguageProcessingInterviewCli
                 
                     recomendations.forEach( System.out::println );
                 }
-            }            
-
-//TODO: remove this index counter and relay on the interview's currentQuestion() method            
-//            questionIndex++;
+            }
         }
         
         System.out.println("Thanks for participating in the interview!");

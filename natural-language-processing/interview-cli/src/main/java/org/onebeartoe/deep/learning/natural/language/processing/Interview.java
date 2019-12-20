@@ -2,7 +2,6 @@
 package org.onebeartoe.deep.learning.natural.language.processing;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * This class is an abstraction of an interview.
@@ -14,16 +13,12 @@ public class Interview
     private int currentQuestion;
     
     private boolean complete = false;
-    
-//    private int invalidResponseCount;
-    
+        
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
         
         currentQuestion = 0;
-        
-//        invalidResponseCount = 0;
     }
     
     @Deprecated //"is the really deprecated")
@@ -31,10 +26,6 @@ public class Interview
     {
         InterviewQuestion ours = questions.get(currentQuestion);
         
-//        InterviewQuestion theirs = ours.clone();
-//        
-//        return theirs;
-
         return ours;
     }
 
@@ -45,8 +36,7 @@ public class Interview
     }
     
     public boolean isComplete()
-    {        
-//TODO: check if each question is answered instead
+    {
 //TODO: add a unit test for this method        
         return complete;
     }
@@ -72,7 +62,6 @@ public class Interview
         
         if(currentQuestion == questions.size() )
         {
-//TODO: remove this set and check if each question is answered instead                
             complete = true;
         }                        
         

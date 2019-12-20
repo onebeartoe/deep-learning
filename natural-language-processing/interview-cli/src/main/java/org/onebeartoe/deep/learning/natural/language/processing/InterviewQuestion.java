@@ -34,8 +34,6 @@ public abstract class InterviewQuestion
         recommendations = new ArrayList();
     }
     
-    
-    
     public String getAnswer()
     {
         return answer;
@@ -46,20 +44,6 @@ public abstract class InterviewQuestion
     {
         this.answer = answer;
     }
-
-    /*
-    @Override
-    public InterviewQuestion clone()
-    {
-        InterviewQuestion clone = new InterviewQuestion();
-        
-        clone.setImperative( getImperative() );
-        clone.setResponse( getResponse() );
-        clone.setAnswered( isAnswered() );
-        
-        return clone;
-    }
-*/
     
     @Deprecated //"is the really deprecated")
     public boolean isAnswered()
