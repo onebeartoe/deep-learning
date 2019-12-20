@@ -1,8 +1,10 @@
 
 package org.onebeartoe.deep.learning.nlp.language.detection;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -11,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import opennlp.tools.langdetect.Language;
 
@@ -49,8 +52,6 @@ public class LanguageDetectionService
         
         String code = language.getLang();
 
-//        String languageCode = mapLanguage(code);
-
         System.out.println("Predicted language: "+ code);
                 
         return code;
@@ -66,17 +67,16 @@ public class LanguageDetectionService
      */
     private void loadMappings() throws URISyntaxException, IOException
     {
-        URL resource = getClass().getResource("/language/mappings.text");
+        InputStream instream = getClass().getResourceAsStream("/language/mappings.text");
         
-        URI uri = resource.toURI();
+        InputStreamReader reader = new InputStreamReader(instream);
         
-        Path path = Paths.get(uri);
-        
-        Stream<String> lines = Files.lines(path);
+        BufferedReader bufferedReader = new BufferedReader(reader);
         
         languageMappings = new HashMap();
         
-        lines.forEach(line ->
+        bufferedReader.lines()
+                      .forEach(line ->
         {
             String[] split = line.trim()
                     .split("\\W");
