@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
  */
 public class InterviewSpecification
 {
-    private Interview specification;
+    private Interview implementation;
     
     private int questionCount;
     
@@ -43,13 +43,13 @@ public class InterviewSpecification
         
         questionCount = sampleQuestions.size();
         
-        specification = new Interview(sampleQuestions);        
+        implementation = new Interview(sampleQuestions);        
     }
     
     @Test
     public void construction()
     {        
-        List<InterviewQuestion> questionsAfterConstruction = specification.getQuestions();
+        List<InterviewQuestion> questionsAfterConstruction = implementation.getQuestions();
         
         int expected = questionCount;
         
@@ -58,6 +58,8 @@ public class InterviewSpecification
         assertEquals(actual, expected);
     }    
 
+    
+    
     /**
      * This test verifies that no matter how many times the current question is 
      * requested that the interview is not complete util all question are answered.
@@ -69,16 +71,16 @@ public class InterviewSpecification
         
         int firstQuestionIndex = 0;
         
-        specification.setResponse(firstQuestionIndex, response);
+        implementation.setResponse(firstQuestionIndex, response);
         
         int iterationCount = questionCount + 3;  // add 3 for good measure 
         
         for(int i=0; i<iterationCount; i++)
         {
-            specification.currentQuestion();
+            implementation.currentQuestion();
         }
         
-        boolean actual = specification.isComplete();
+        boolean actual = implementation.isComplete();
         
         boolean expected = false;
         
@@ -94,10 +96,10 @@ public class InterviewSpecification
         
         for(int i=0; i<iterationCount; i++)
         {
-            specification.setResponse(i, response);
+            implementation.setResponse(i, response);
         }
 
-        boolean actual = specification.isComplete();
+        boolean actual = implementation.isComplete();
         
         boolean expected = true;
         
@@ -111,9 +113,9 @@ public class InterviewSpecification
         
         int questionIndex = 0;
         
-        specification.setResponse(questionIndex, response);
+        implementation.setResponse(questionIndex, response);
         
-        List<InterviewQuestion> questions = specification.getQuestions();
+        List<InterviewQuestion> questions = implementation.getQuestions();
         
         InterviewQuestion question = questions.get(questionIndex);
         
