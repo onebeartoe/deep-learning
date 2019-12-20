@@ -1,75 +1,101 @@
 
 package org.onebeartoe.deep.learning.nlp.language.detection;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 import opennlp.tools.langdetect.Language;
 
 import opennlp.tools.langdetect.LanguageDetector;
 import opennlp.tools.langdetect.LanguageDetectorME;
 import opennlp.tools.langdetect.LanguageDetectorModel;
-import opennlp.tools.sentdetect.SentenceDetectorME;
-import opennlp.tools.sentdetect.SentenceModel;
 
 public class LanguageDetectionService
 {
-//TODO: convert this main methjod to a unit test
-    public static void main(String[] args) throws IOException
+    private LanguageDetector languageDetector;
+    
+    private Map<String, String> languageMappings;
+    
+    public LanguageDetectionService() throws IOException, URISyntaxException
     {
-//            LanguageMapper languageMapper = new LanguageMapper();
-	    	
-	    	// load the trained Language Detector Model file
-	    	File modelFile = new File("src/main/resources/language/langdetect-183.bin");
-	    	
-	    	LanguageDetectorModel trainedModel = new LanguageDetectorModel(modelFile);
-	    	
-	        // load the model
-	    	LanguageDetector languageDetector = new LanguageDetectorME(trainedModel);
-	    	
-	        // use the model for predicting the language
-	    	//Spanish
-//	        Language[] languages = languageDetector.predictLanguages("Puedo darte ejemplos de los métodos");
-	    	
-	        // French
-	    	//Language[] languages = ld.predictLanguages("Je peux vous donner quelques exemples de méthodes qui ont fonctionné pour moi.");
-	    	
-	    	// English
-	    	Language[] languages = languageDetector.predictLanguages("I can give you some examples of methods that have worked for me.");
-	    		        
-                String language = languages[0].getLang();
-                
-                String laguage = mapLanguage(language);
-                
-	        System.out.println("Predicted language: "+ laguage);
-	        
-// confidence for rest of the languages
-	        for(Language l : languages)
-                {
-	            System.out.println(l.getLang() + "  confidence:" + l.getConfidence());
-	        }
+        InputStream modelInputStream = getClass().getResourceAsStream("/language/langdetect-183.bin");
 
-        SentenceModel model;
-//        model.
+        LanguageDetectorModel trainedModel = new LanguageDetectorModel(modelInputStream);
         
-        SentenceDetectorME sd = null;
-        
-        sd.sentDetect(laguage);
-        
-        sd.sentPosDetect(laguage);
+        languageDetector = new LanguageDetectorME(trainedModel);
+
+        loadMappings();
     }
     
-//TODO: make this not a static method    
-    public static String mapLanguage(String code)
+    /**
+     * This uses the Apache NLP trained language model to predict languages.
+     * 
+     * @param sentence
+     * @return the language code for the predicted language with the highest confidence score
+     */
+    public String detectLanguage(String sentence)
     {
-        String language = null;
+//        Language[] languages = languageDetector.predictLanguages(sentence);
+
+        Language language = languageDetector.predictLanguage(sentence);
         
-        if(code.equals("eng"))
+        String code = language.getLang();
+
+//        String languageCode = mapLanguage(code);
+
+        System.out.println("Predicted language: "+ code);
+                
+        return code;
+    }
+  
+    /**
+     * This method assumes the mappings input file only had lines with two strings,
+     * separated by whitespace, with the first string being the code, and the second string
+     * being the name of the language.
+     * 
+     * @throws URISyntaxException
+     * @throws IOException 
+     */
+    private void loadMappings() throws URISyntaxException, IOException
+    {
+        URL resource = getClass().getResource("/language/mappings.text");
+        
+        URI uri = resource.toURI();
+        
+        Path path = Paths.get(uri);
+        
+        Stream<String> lines = Files.lines(path);
+        
+        languageMappings = new HashMap();
+        
+        lines.forEach(line ->
         {
-            language = "English";
-        }
-        else
+            String[] split = line.trim()
+                    .split("\\W");
+            
+            String code = split[0];
+            
+            String name = split[1];
+            
+            languageMappings.put(code, name);
+        });
+    }
+    
+    public String mapLanguage(String code) throws UnknownLanguageException
+    {
+        String language = languageMappings.get(code);
+        
+        if(language == null)
         {
-            language = "Unknown Language";
+            throw new UnknownLanguageException("unknown language; code -> " + code);
         }
         
         return language;
