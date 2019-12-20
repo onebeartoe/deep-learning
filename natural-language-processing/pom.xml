@@ -14,5 +14,6 @@
         <module>interview-cli</module>
         <module>sentiment</module>
         <module>named-entity</module>
+        <module>dl4j-sentiment</module>
     </modules>
 </project>

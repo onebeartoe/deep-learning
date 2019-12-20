@@ -42,9 +42,6 @@ public class NaturalLanguageProcessingInterviewCli
             
             String line = lineReader.readLine();
             
-//            System.out.println("Great.  You jus typed: ");
-//            System.out.println(line);
-            
 //TODO:            
 // refactor this to interview#setCurrentQuestionResponse()
 // the interview#setCurrentQuestionResponse() method keep track of the 'invalid resonse count'
