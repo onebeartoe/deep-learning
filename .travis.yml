@@ -12,6 +12,7 @@ script:
   - Xvfb :5 -screen 0 800x600x24 &
   - export DISPLAY=:5
   - mvn --quiet clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+  - ls -la natural-language-processing/interview-cli/target/
 cache:
   directories:
     - '$HOME/.m2/repository'
