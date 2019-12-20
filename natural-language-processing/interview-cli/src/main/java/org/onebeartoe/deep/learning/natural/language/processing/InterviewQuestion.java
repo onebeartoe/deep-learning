@@ -24,6 +24,7 @@ public abstract class InterviewQuestion
 
     protected List<Recommendation> recommendations;
     
+    
     public InterviewQuestion()
     {
         attemptedAnswers = 0;
@@ -32,6 +33,8 @@ public abstract class InterviewQuestion
         
         recommendations = new ArrayList();
     }
+    
+    
     
     public String getAnswer()
     {
@@ -84,6 +87,11 @@ public abstract class InterviewQuestion
     {
         isAnswered = answered;
     }
+    
+    public boolean thresholdReached()
+    {
+        return attemptedAnswers >= attemptedAnswersThreshold;
+    }
 
     public ValidationResult setResponse(String response)
     {
@@ -97,7 +105,7 @@ public abstract class InterviewQuestion
 
         if(result.threadholdReached)
         {
-            
+//            thresholdReached = true;
         }
         
         if(result.valid)

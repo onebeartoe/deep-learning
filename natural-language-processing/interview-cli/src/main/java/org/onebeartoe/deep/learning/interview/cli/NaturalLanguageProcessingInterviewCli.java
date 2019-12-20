@@ -42,9 +42,6 @@ public class NaturalLanguageProcessingInterviewCli
             
             String line = lineReader.readLine();
             
-//TODO:            
-// the interview#setCurrentQuestionResponse() method keep track of the 'invalid resonse count'
-// and moves on if the threshold is reached.
 //TODO:
 // the interview#setCurrentQuestionResponse() method returns a reponse type and if the 
 //          response type is 'THRESHOLD-REACHED' then that message is relyed to the user and
@@ -61,9 +58,9 @@ public class NaturalLanguageProcessingInterviewCli
                 
                 InterviewQuestion secondAttemptQuestion = interview.setCurrentQuestionResponse(secondLine);
                 
-                if( !secondAttemptQuestion.isAnswered() )
+                if( secondAttemptQuestion.thresholdReached() )
                 {
-                    System.out.println("I still could not process your response.  Let's move on with the interview.");
+                    System.out.println("I still could not process your response.  :(  Let's move on with the interview.");
                     
 //                    interview.markAsAnswered(questionIndex);
                 }
