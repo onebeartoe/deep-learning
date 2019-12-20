@@ -17,7 +17,7 @@ public class PersonNameDetectorSpecification
     private PersonNameDetector implementation;
     
     @BeforeMethod
-    public void initialize()
+    public void initialize() throws IOException
     {
         implementation = new PersonNameDetector();
     }

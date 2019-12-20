@@ -1,5 +1,4 @@
-/*
- */
+
 package org.onebeartoe.deep.learning.nlp.named.entity;
 
 import java.io.IOException;
@@ -8,14 +7,14 @@ import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity
 
 /**
  *
- * @author Roberto Marquez
+ * This class uses Apache NLP to detect location names.
  */
 class LocationDetector extends NamedEntityRecognizer
 {
     public LocationDetector() throws IOException
     {
         
-    }    
+    }
 
     public List<DetectedNamedEntity> detectLocations(String sentence) throws IOException
     {
