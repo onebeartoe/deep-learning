@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeClass;
@@ -48,14 +49,14 @@ public class InterviewServiceSpecification
     public void interview_happyPath()
     {
         // Name question
-        InterviewQuestion question = interview.setCurrentQuestionResponse("Bob");
+        ValidationResult result = interview.setCurrentQuestionResponse("Bob");
         
-        assertTrue(question.isAnswered());
+        assertTrue(result.valid);
         
         // how are you question
-        question = interview.setCurrentQuestionResponse("I am great, thanks");
+        result = interview.setCurrentQuestionResponse("I am great, thanks");
 
-        assertTrue(question.isAnswered());
+        assertTrue(result.valid);
         
         assertTrue( interview.isComplete() );
     }
@@ -63,18 +64,18 @@ public class InterviewServiceSpecification
     @Test void interview_invalidResonse_all()
     {
         // name question
-        InterviewQuestion question = interview.setCurrentQuestionResponse("apple");
-        assertFalse(question.isAnswered() );
+        ValidationResult result = interview.setCurrentQuestionResponse("apple");
+        assertFalse(result.valid );
 
-        question = interview.setCurrentQuestionResponse("apple");
-        assertFalse( question.isAnswered() );
+        result = interview.setCurrentQuestionResponse("apple");
+        assertFalse(result.valid );
         
         // sentiment question, Spanish fails
-        question = interview.setCurrentQuestionResponse("Muey buien, gracias");
-        assertFalse( question.isAnswered() );
+        result = interview.setCurrentQuestionResponse("Muey buien, gracias");
+        assertFalse(result.valid );
         
-        question = interview.setCurrentQuestionResponse("Muey buien, gracias");
-        assertFalse( question.isAnswered() );
+        result = interview.setCurrentQuestionResponse("Muey buien, gracias");
+        assertFalse(result.valid );
         
         assertTrue( interview.isComplete() );
     }

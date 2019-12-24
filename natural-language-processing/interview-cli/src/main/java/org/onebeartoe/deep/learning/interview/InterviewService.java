@@ -14,6 +14,7 @@ import org.onebeartoe.deep.learning.natural.language.processing.SentimentQuestio
 import org.onebeartoe.deep.learning.natural.language.processing.UserNameQuestion;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
+import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
 import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentService;
 
 /**
@@ -28,6 +29,8 @@ public class InterviewService
     private LanguageDetectionService languageDetectionService;
     
     private SentimentService sentimentService;    
+
+    private SentenceDetector sentenceDetector;    
     
     public InterviewService() throws IOException, URISyntaxException
     {
@@ -42,6 +45,8 @@ public class InterviewService
         languageDetectionService = new LanguageDetectionService();
         
         sentimentService = new SentimentService();
+        
+        sentenceDetector = new SentenceDetector();
     }
     
     public Interview get()
@@ -62,6 +67,8 @@ public class InterviewService
         
         Interview interview = new Interview(questions);
 
+        interview.setSentenceDetector(sentenceDetector);
+        
         return interview;
     }
 }

@@ -105,13 +105,4 @@ public abstract class InterviewQuestion
     {
         return new ArrayList();
     }
-
-    protected class ValidationResult
-    {
-        boolean valid;
-        
-        String answer;
-        
-        boolean thresholdReached;
-    }
 }

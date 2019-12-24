@@ -10,6 +10,7 @@ import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
+import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
 
 /**
  * This class is the main entry point for the command line interface for the 
@@ -40,9 +41,14 @@ public class NaturalLanguageProcessingInterviewCli
             
             String line = lineReader.readLine();
 
-            InterviewQuestion question = interview.setCurrentQuestionResponse(line);
+            ValidationResult result = interview.setCurrentQuestionResponse(line);
+            
+            if(result.responseContainedQuestion)
+            {
+                System.out.println("I am not sure about your question: " + result.questionInResponse);
+            }
 
-            if( ! question.isAnswered() )
+            if( ! result.valid )
             {
                 System.out.println("I wasn't able to process your response.");
 
@@ -52,7 +58,7 @@ public class NaturalLanguageProcessingInterviewCli
                 
 //                InterviewQuestion secondAttemptQuestion = interview.setCurrentQuestionResponse(secondLine);
                 
-                if( question.thresholdReached() )
+                if( result.thresholdReached )
 //                if( secondAttemptQuestion.thresholdReached() )
                 {
                     System.out.println(":(  Let's move on with the interview.");
@@ -62,15 +68,15 @@ public class NaturalLanguageProcessingInterviewCli
             else
 //            if( question.isAnswered() )
             {
-                String confirmation = question.getValidResponseConfirmation();
+                String confirmation = currentQuestion.getValidResponseConfirmation();
                 
                 System.out.println(confirmation);
                 
-                List<Recommendation> recomendations = question.getRecomendations();
+                List<Recommendation> recomendations = currentQuestion.getRecomendations();
                 
                 if(recomendations.size() > 0)
                 {
-                    System.out.println("Here are some recomendations for " + question.getAnswer() );
+                    System.out.println("Here are some recomendations for " + result.answer);
                 
                     recomendations.forEach( System.out::println );
                 }

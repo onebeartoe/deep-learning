@@ -1,7 +1,12 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.onebeartoe.deep.learning.nlp.sentences.SentenceClassification;
+
+import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
+import org.onebeartoe.deep.learning.nlp.sentences.SentenceType;
 
 /**
  * This class is an abstraction of an interview.
@@ -13,7 +18,14 @@ public class Interview
     private int currentQuestion;
     
     private boolean complete = false;
-        
+
+    public void setSentenceDetector(SentenceDetector sentenceDetector)
+    {
+        this.sentenceDetector = sentenceDetector;
+    }
+    
+    private SentenceDetector sentenceDetector;
+
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
@@ -41,11 +53,36 @@ public class Interview
         return complete;
     }
     
-    public InterviewQuestion setCurrentQuestionResponse(String resonse)
+    public ValidationResult setCurrentQuestionResponse(String resonse)
     {
         InterviewQuestion question = questions.get(currentQuestion);
         
-        InterviewQuestion.ValidationResult result = question.setResponse(resonse);
+        List<SentenceClassification> allClassifications = sentenceDetector.findSentences(resonse);
+        
+        StringBuilder questions = new StringBuilder();
+        
+        StringBuilder otherSentences = new StringBuilder();
+        
+        for(SentenceClassification classification : allClassifications)
+        {
+            if(classification.getType() == SentenceType.INTERROGATIVE)
+            {
+                questions.append( classification.getText() );
+            }
+            else
+            {
+                otherSentences.append( classification.getText() );
+            }
+        }
+        
+        ValidationResult result = question.setResponse( otherSentences.toString() );
+
+        if(questions.length() > 0)
+        {
+            result.responseContainedQuestion = true;
+            
+            result.questionInResponse = questions.toString();
+        }
         
         boolean validResponse = result.valid;
 
@@ -60,12 +97,12 @@ public class Interview
             currentQuestion++;
         }
         
-        if(currentQuestion == questions.size() )
+        if(currentQuestion == this.questions.size() )
         {
             complete = true;
         }                        
         
-        return question;
+        return result;
     }
 
     @Deprecated //"is the really deprecated")

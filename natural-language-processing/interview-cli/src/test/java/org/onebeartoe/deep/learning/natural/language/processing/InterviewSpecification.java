@@ -48,9 +48,11 @@ public class InterviewSpecification
         
         questionCount = sampleQuestions.size();
         
-        implementation_makeThisLocalToEachTest_ifStillNeded = new Interview(sampleQuestions);        
+        
         
         InterviewService interviewService = new InterviewService();
+        
+        implementation_makeThisLocalToEachTest_ifStillNeded = interviewService.get();
         
         implementation = interviewService.get();
     }
@@ -96,7 +98,10 @@ public class InterviewSpecification
         assertEquals(actual, expected);
     }
     
-    @Test
+    
+//TODO: this test is not needed if all tests in the InterviewServiceSpecification pass    
+    @Deprecated
+    @Test(enabled = false)
     public void isComplete_allQuestionsAnswred()
     {
         int iterationCount = sampleQuestions.size();
@@ -115,8 +120,8 @@ public class InterviewSpecification
         assertEquals(actual, expected);
     }
     
-    @Test
-    public void setResponse()
+    @Test(description = "verify the response is set")
+    public void setCurrentQuestionResponse()
     {
         String response = "this is a pretty valid response";
         
@@ -133,5 +138,39 @@ public class InterviewSpecification
         String expected = response;
         
         assertEquals(actual, expected);
+    }
+
+    @Test
+    public void setCurrentQuestionResponse_detectResonseDoesNotContainsQuestion()
+    {
+        String response = "Yes.";
+        
+        ValidationResult result = implementation.setCurrentQuestionResponse(response);
+        
+        boolean actual = result.responseContainedQuestion;
+        
+        boolean expected = false;
+        
+        assertEquals(actual, expected);
+    }
+    
+    @Test
+    public void setCurrentQuestionResponse_detectResonseContainsQuestion()
+    {
+        String expectedQuestion = "What is your name?";
+        
+        String response = String.format("Yes.  %s", expectedQuestion);
+        
+        ValidationResult result = implementation.setCurrentQuestionResponse(response);
+        
+        boolean actual = result.responseContainedQuestion;
+        
+        boolean expected = true;
+        
+        assertEquals(actual, expected);
+        
+        String actualQuestion = result.questionInResponse;
+        
+        assertEquals(actualQuestion, expectedQuestion);
     }
 }
