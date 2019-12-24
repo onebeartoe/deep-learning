@@ -12,3 +12,5 @@ if the user is not using English then the application informs the user that it
     currently only supports English and
 the app asks how the user is doing and gives an encouraging response based on sentiment and
 the language detection is based on the users response to the 'how are you doing?' question.
+
+-*=ACCEPTED=*-
