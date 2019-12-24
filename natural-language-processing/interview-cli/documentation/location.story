@@ -5,5 +5,7 @@ so that I can recommend places near the detected location.
 
 AC
 
-the app asks the user their current or favorite location and provides points of interest near there and
+the app asks the user their current or favorite location and 
+the location is stored in the interview record and
+the app provides points of interest near there and
 

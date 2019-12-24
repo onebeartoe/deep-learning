@@ -6,6 +6,6 @@ so that the sentiment APIs are evaluated.
 Acceptance Criteria
 
 The interview has a 'How are you?' question and 
-the response if recorded and 
+the response is recorded and 
 a best guess at sentiment is recorded and
 based on the sentiment detected an appropriate sympathetic response is given.
