@@ -51,22 +51,13 @@ public class NaturalLanguageProcessingInterviewCli
             if( ! result.valid )
             {
                 System.out.println("I wasn't able to process your response.");
-
-//                System.out.println(imperitive);
-
-//                String secondLine = lineReader.readLine();
-                
-//                InterviewQuestion secondAttemptQuestion = interview.setCurrentQuestionResponse(secondLine);
                 
                 if( result.thresholdReached )
-//                if( secondAttemptQuestion.thresholdReached() )
                 {
                     System.out.println(":(  Let's move on with the interview.");
-//                    System.out.println("I still could not process your response.  :(  Let's move on with the interview.");
                 }
             }
             else
-//            if( question.isAnswered() )
             {
                 String confirmation = currentQuestion.getValidResponseConfirmation();
                 
