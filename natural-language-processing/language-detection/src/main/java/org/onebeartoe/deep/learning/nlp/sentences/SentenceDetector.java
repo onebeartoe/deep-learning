@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
-import opennlp.tools.util.Span;
 import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.DECLARATIVE;
 import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.EXCLAMATORY;
 import static org.onebeartoe.deep.learning.nlp.sentences.SentenceType.INTERROGATIVE;

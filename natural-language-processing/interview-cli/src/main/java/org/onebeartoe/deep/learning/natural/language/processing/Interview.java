@@ -18,19 +18,22 @@ public class Interview
     private int currentQuestion;
     
     private boolean complete = false;
-
-    public void setSentenceDetector(SentenceDetector sentenceDetector)
-    {
-        this.sentenceDetector = sentenceDetector;
-    }
     
     private SentenceDetector sentenceDetector;
+    
+    private InterviewQuestion intervieweeNameQuesiton;
+    
+    private SentimentQuestion sentimentQuestion;
 
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
         
         currentQuestion = 0;
+        
+        intervieweeNameQuesiton = questions.get(0);
+        
+        sentimentQuestion = (SentimentQuestion) questions.get(1);
     }
     
     @Deprecated //"is the really deprecated")
@@ -39,6 +42,16 @@ public class Interview
         InterviewQuestion ours = questions.get(currentQuestion);
         
         return ours;
+    }   
+
+    public String getIntervieweeLanguage()
+    {        
+        return sentimentQuestion.getLanguage();
+    }
+
+    public String getIntervieweeName()
+    {
+        return intervieweeNameQuesiton.answer;
     }
 
 //TODO: !!!!!!!!!!!!!! clone all the questions and return the clones !!!!!!!!!!!!
@@ -111,5 +124,10 @@ public class Interview
         InterviewQuestion question = questions.get(questionIndex);
         
         question.setAnswered(true);
+    }
+
+    public void setSentenceDetector(SentenceDetector sentenceDetector)
+    {
+        this.sentenceDetector = sentenceDetector;
     }
 }

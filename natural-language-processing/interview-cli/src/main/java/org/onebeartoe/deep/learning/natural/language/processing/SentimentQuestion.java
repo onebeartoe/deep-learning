@@ -22,6 +22,8 @@ public class SentimentQuestion extends InterviewQuestion
     
     private boolean positiveSentiment;
     
+    private String language = "Unknown Language";
+    
     public SentimentQuestion(LanguageDetectionService languageDetectionService, SentimentService sentimentService)
     {
         this.languageDetectionService = languageDetectionService;
@@ -38,21 +40,19 @@ public class SentimentQuestion extends InterviewQuestion
         
         ValidationResult result = new ValidationResult();
         
-        if( ! detectedLanguageCode.equals("eng") )
+        try
         {
-            String language = "Unknown Language";
-            
-            try
-            {
-                language = languageDetectionService.mapLanguage(detectedLanguageCode);
-            } 
-            catch (UnknownLanguageException ex)
-            {
-                String message = ex.getMessage();
-                
-                System.out.println("I've encountered some trouble understanding you; " + message);
-            }
-            
+            language = languageDetectionService.mapLanguage(detectedLanguageCode);
+        } 
+        catch (UnknownLanguageException ex)
+        {
+            String message = ex.getMessage();
+
+            System.out.println("I've encountered some trouble understanding you; " + message);
+        }
+        
+        if( ! detectedLanguageCode.equals("eng") )
+        {            
             String message = String.format("I've detected you are speaking %s", language);
             
             System.out.println(message);
@@ -71,12 +71,6 @@ public class SentimentQuestion extends InterviewQuestion
             
             positiveSentiment = classification.getPositive() > classification.getNegative();
         }
-        
-        
-//TODO: complete this!!!!!!
-System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");
-System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");
-        
 
         result.valid = isAnswered;
 
@@ -125,4 +119,9 @@ System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");
         
         return recommendations;
     }    
+
+    public String getLanguage()
+    {
+        return language;
+    }
 }

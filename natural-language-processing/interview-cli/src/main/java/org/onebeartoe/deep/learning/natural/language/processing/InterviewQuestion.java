@@ -94,7 +94,7 @@ public abstract class InterviewQuestion
         
         answer = result.answer;
         
-        return result;// result.valid;
+        return result;
     }
     
     public abstract ValidationResult validateResponse(String response);

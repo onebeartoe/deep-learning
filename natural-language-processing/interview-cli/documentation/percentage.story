@@ -1,6 +1,6 @@
 
 As a interview chatbot,
-I need to ask the user about their current project and it completion,
+I need to ask the user about their current project and its completion,
 so that I can assess the capabilities of the Apache Natual Language Processing API.
 
 Acceptance Criteria

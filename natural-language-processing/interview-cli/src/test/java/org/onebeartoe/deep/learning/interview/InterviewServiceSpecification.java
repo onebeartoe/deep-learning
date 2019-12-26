@@ -10,6 +10,7 @@ import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeClass;
@@ -49,14 +50,26 @@ public class InterviewServiceSpecification
     public void interview_happyPath()
     {
         // Name question
-        ValidationResult result = interview.setCurrentQuestionResponse("Bob");
+        String expectedName = "Bob";
+        
+        ValidationResult result = interview.setCurrentQuestionResponse(expectedName);
         
         assertTrue(result.valid);
+
+        String actualName = interview.getIntervieweeName();
+        
+        assertEquals(actualName, expectedName);
         
         // how are you question
         result = interview.setCurrentQuestionResponse("I am great, thanks");
 
         assertTrue(result.valid);
+        
+        String expectedLanguage = "English";
+        
+        String acutalLanguage = interview.getIntervieweeLanguage();
+        
+        assertEquals(acutalLanguage, expectedLanguage);
         
         assertTrue( interview.isComplete() );
     }
