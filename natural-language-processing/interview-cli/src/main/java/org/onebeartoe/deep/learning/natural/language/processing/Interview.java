@@ -1,7 +1,6 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.onebeartoe.deep.learning.nlp.sentences.SentenceClassification;
 
@@ -27,6 +26,8 @@ public class Interview
     
     private ProjectAndPercentageQuestion projectAndPercentageQuestion;
 
+    private DateQuestion dateQuestion;
+    
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
@@ -38,6 +39,8 @@ public class Interview
         sentimentQuestion = (SentimentQuestion) questions.get(1);
         
         projectAndPercentageQuestion = (ProjectAndPercentageQuestion) questions.get(2);
+        
+        dateQuestion = (DateQuestion) questions.get(3);
     }
     
     @Deprecated //"is the really deprecated")
@@ -47,6 +50,11 @@ public class Interview
         
         return ours;
     }   
+
+    public String getDateOfInterest()
+    {
+        return dateQuestion.getAnswer();
+    }
 
     public String getIntervieweeLanguage()
     {        

@@ -7,12 +7,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.onebeartoe.deep.learning.natural.language.processing.DateQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ProjectAndPercentageQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.SentimentQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.UserNameQuestion;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
+import org.onebeartoe.deep.learning.nlp.named.entity.DateDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
 import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
@@ -34,6 +36,8 @@ public class InterviewService
     private SentenceDetector sentenceDetector;
     
     private PercentageDetector percentageDetector;
+
+    private DateDetector dateDetector;
     
     public InterviewService() throws IOException, URISyntaxException
     {
@@ -52,6 +56,8 @@ public class InterviewService
         sentenceDetector = new SentenceDetector();
         
         percentageDetector = new PercentageDetector();
+        
+        dateDetector = new DateDetector();
     }
     
     public Interview get()
@@ -71,9 +77,14 @@ public class InterviewService
         InterviewQuestion projectAndPercentageQuestion = new ProjectAndPercentageQuestion(percentageDetector);
         projectAndPercentageQuestion.setImperative(question3);
         
+        String question4 = properties.getProperty("dateQuestion");
+        InterviewQuestion dateQuestion = new DateQuestion(dateDetector);
+        dateQuestion.setImperative(question4);
+        
         questions.add(nameQuestion);
         questions.add(sentimentQuestion);
         questions.add(projectAndPercentageQuestion);
+        questions.add(dateQuestion);
         
         Interview interview = new Interview(questions);
 

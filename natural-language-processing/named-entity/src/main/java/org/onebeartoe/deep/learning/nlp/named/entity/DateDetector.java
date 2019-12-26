@@ -10,9 +10,6 @@ import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity
  */
 public class DateDetector extends NamedEntityRecognizer
 {
-
-//TODO: is en-ner-time.bin the one to use for this?
-
     public DateDetector() throws IOException
     {
         
@@ -21,11 +18,10 @@ public class DateDetector extends NamedEntityRecognizer
     @Override
     protected String getModelClasspathLocation()
     {
-//        return "/en-ner-time.bin";
         return "/en-ner-date.bin";
     }
     
-    public List<DetectedNamedEntity> findDates(String sentence) throws IOException
+    public List<DetectedNamedEntity> findDates(String sentence)
     {
         return findNames(sentence);
     }

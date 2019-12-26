@@ -23,4 +23,6 @@ All these user stories are complete:
     
     Location
 
+    Money
+
     Completion Verification

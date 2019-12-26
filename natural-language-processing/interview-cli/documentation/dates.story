@@ -6,13 +6,7 @@ so that the interview bot informs users what happened and who was born on the da
 Acceptance Criteria
 
 A service method exists to detect dates contained in input text and 
-the application asks the user a date that interests them and
+the application asks the user a date (month and day) that interests them and
 the app records the date and
-the app informs the user of other events that occurred on the given date and
-the app lets users know who in history has the date as their birthday.
-
-
-
-
-the app asks the user's month and day of birth and provides other folks with the same birthday and 
-        gives an 'on this day' report and
+********the app displays for the user an 'on this day' report for the given date and
+********the app lets users know who in history has the date they gave as their birthday.

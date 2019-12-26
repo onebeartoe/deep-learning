@@ -9,7 +9,6 @@ import java.util.Properties;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
-import org.testng.Assert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
@@ -55,8 +54,25 @@ public class InterviewServiceSpecification
         interview_happyPath_sentiment();
         
         interview_happyPath_projectPercetage();
+
+        interview_happyPath_date();
         
         assertTrue( interview.isComplete() );
+    }
+
+    private void interview_happyPath_date()
+    {
+        String expectedDate = "December 2";
+        
+        String response = String.format("I like %s", expectedDate);
+        
+        ValidationResult result = interview.setCurrentQuestionResponse(response);
+        
+        assertTrue(result.valid);
+        
+        String actualDate = interview.getDateOfInterest();
+
+        assertEquals(actualDate, expectedDate);
     }
     
     private void interview_happyPath_name()
@@ -128,6 +144,13 @@ public class InterviewServiceSpecification
         assertFalse(result.valid);
         
         result = interview.setCurrentQuestionResponse("I don't need no stinking project.");
+        assertFalse(result.valid);
+
+        // date question
+        result = interview.setCurrentQuestionResponse("Who needs a date?");
+        assertFalse(result.valid);
+        
+        result = interview.setCurrentQuestionResponse("The date is here.");
         assertFalse(result.valid);
         
         assertTrue( interview.isComplete() );
