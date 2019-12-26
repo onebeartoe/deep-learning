@@ -7,3 +7,5 @@ Acceptance Criteria
 
 the app asks about a project the user is working including its percentage of completion and
 the project and completion percentage is stored in the interview record.
+
+-*=ACCEPTED=*-

@@ -9,3 +9,5 @@ The interview has a 'How are you?' question and
 the response is recorded and 
 a best guess at sentiment is recorded and
 based on the sentiment detected an appropriate sympathetic response is given.
+
+-*=ACCEPTED=*-

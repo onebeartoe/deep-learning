@@ -7,3 +7,5 @@ Acceptance Criteria
 
 The sentence detector can detect declarative statements and 
 the sentence detector can detect questions.
+
+-*=ACCEPTED=*-
