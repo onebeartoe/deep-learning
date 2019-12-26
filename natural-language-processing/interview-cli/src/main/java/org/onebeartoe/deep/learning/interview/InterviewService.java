@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Properties;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.ProjectAndPercentageQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.SentimentQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.UserNameQuestion;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
+import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
 import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
 import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentService;
@@ -29,7 +31,9 @@ public class InterviewService
     
     private SentimentService sentimentService;    
 
-    private SentenceDetector sentenceDetector;    
+    private SentenceDetector sentenceDetector;
+    
+    private PercentageDetector percentageDetector;
     
     public InterviewService() throws IOException, URISyntaxException
     {
@@ -46,6 +50,8 @@ public class InterviewService
         sentimentService = new SentimentService();
         
         sentenceDetector = new SentenceDetector();
+        
+        percentageDetector = new PercentageDetector();
     }
     
     public Interview get()
@@ -60,9 +66,14 @@ public class InterviewService
         InterviewQuestion sentimentQuestion = new SentimentQuestion(languageDetectionService, sentimentService);
         String question2 = properties.getProperty("sentimentQuestion");
         sentimentQuestion.setImperative(question2);
+
+        String question3 = properties.getProperty("percentageQuestion");
+        InterviewQuestion projectAndPercentageQuestion = new ProjectAndPercentageQuestion(percentageDetector);
+        projectAndPercentageQuestion.setImperative(question3);
         
         questions.add(nameQuestion);
         questions.add(sentimentQuestion);
+        questions.add(projectAndPercentageQuestion);
         
         Interview interview = new Interview(questions);
 

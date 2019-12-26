@@ -1,10 +1,7 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
 import org.onebeartoe.deep.learning.nlp.language.detection.UnknownLanguageException;
 import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentClassification;

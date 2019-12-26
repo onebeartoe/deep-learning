@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
  */
 public class InterviewSpecification
 {
-    private Interview implementation_makeThisLocalToEachTest_ifStillNeded;
+//    private Interview implementation_makeThisLocalToEachTest_ifStillNeded;
     
     private Interview implementation;
     
@@ -40,7 +40,7 @@ public class InterviewSpecification
         InterviewQuestion q1 = new SentimentQuestion(languageDetectionService, sentimentService);
         q1.setImperative("how are you?");
         
-        InterviewQuestion q2 = new ProjectAndPercentageQuestion();
+        InterviewQuestion q2 = new ProjectAndPercentageQuestion(null);
         q2.setImperative("what percent is your project done?");
         
         sampleQuestions.add(q1);
@@ -52,74 +52,11 @@ public class InterviewSpecification
         
         InterviewService interviewService = new InterviewService();
         
-        implementation_makeThisLocalToEachTest_ifStillNeded = interviewService.get();
+//        implementation_makeThisLocalToEachTest_ifStillNeded = interviewService.get();
         
         implementation = interviewService.get();
     }
-    
-    @Test
-    public void construction()
-    {        
-        List<InterviewQuestion> questionsAfterConstruction = implementation_makeThisLocalToEachTest_ifStillNeded.getQuestions();
-        
-        int expected = questionCount;
-        
-        int actual = questionsAfterConstruction.size();
-        
-        assertEquals(actual, expected);
-    }    
 
-
-    
-    /**
-     * This test verifies that no matter how many times the current question is 
-     * requested that the interview is not complete util all question are answered.
-     */
-    @Test
-    public void isComplete_fewQuestionsAnswered()
-    {
-        String response = "this is a very valid answer";
-        
-//        int firstQuestionIndex = 0;
-        
-        implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
-        
-        int iterationCount = questionCount + 3;  // add 3 for good measure 
-        
-        for(int i=0; i<iterationCount; i++)
-        {
-            implementation_makeThisLocalToEachTest_ifStillNeded.currentQuestion();
-        }
-        
-        boolean actual = implementation_makeThisLocalToEachTest_ifStillNeded.isComplete();
-        
-        boolean expected = false;
-        
-        assertEquals(actual, expected);
-    }
-    
-    
-//TODO: this test is not needed if all tests in the InterviewServiceSpecification pass    
-    @Deprecated
-    @Test(enabled = false)
-    public void isComplete_allQuestionsAnswred()
-    {
-        int iterationCount = sampleQuestions.size();
-        
-        String response = "this is a very valid answer";
-        
-        for(int i=0; i<iterationCount; i++)
-        {
-            implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
-        }
-
-        boolean actual = implementation_makeThisLocalToEachTest_ifStillNeded.isComplete();
-        
-        boolean expected = true;
-        
-        assertEquals(actual, expected);
-    }
-    
     @Test(description = "verify the response is set")
     public void setCurrentQuestionResponse()
     {
@@ -127,9 +64,9 @@ public class InterviewSpecification
         
         int questionIndex = 0;
         
-        implementation_makeThisLocalToEachTest_ifStillNeded.setCurrentQuestionResponse(response);
+        implementation.setCurrentQuestionResponse(response);
         
-        List<InterviewQuestion> questions = implementation_makeThisLocalToEachTest_ifStillNeded.getQuestions();
+        List<InterviewQuestion> questions = implementation.getQuestions();
         
         InterviewQuestion question = questions.get(questionIndex);
         

@@ -15,7 +15,7 @@ public class PercentageDetector extends NamedEntityRecognizer
         
     } 
 
-    List<DetectedNamedEntity> findPercentages(String sentence) throws IOException
+    public List<DetectedNamedEntity> findPercentages(String sentence) //throws IOException
     {
         return findNames(sentence);
     }

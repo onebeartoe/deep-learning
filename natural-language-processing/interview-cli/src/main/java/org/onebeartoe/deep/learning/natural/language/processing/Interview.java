@@ -24,6 +24,8 @@ public class Interview
     private InterviewQuestion intervieweeNameQuesiton;
     
     private SentimentQuestion sentimentQuestion;
+    
+    private ProjectAndPercentageQuestion projectAndPercentageQuestion;
 
     public Interview(List<InterviewQuestion> questions)
     {
@@ -34,6 +36,8 @@ public class Interview
         intervieweeNameQuesiton = questions.get(0);
         
         sentimentQuestion = (SentimentQuestion) questions.get(1);
+        
+        projectAndPercentageQuestion = (ProjectAndPercentageQuestion) questions.get(2);
     }
     
     @Deprecated //"is the really deprecated")
@@ -129,5 +133,15 @@ public class Interview
     public void setSentenceDetector(SentenceDetector sentenceDetector)
     {
         this.sentenceDetector = sentenceDetector;
+    }
+
+    public String getProject()
+    {
+        return projectAndPercentageQuestion.getProject();
+    }
+
+    public String getProjectPercentage()
+    {
+        return projectAndPercentageQuestion.answer;
     }
 }

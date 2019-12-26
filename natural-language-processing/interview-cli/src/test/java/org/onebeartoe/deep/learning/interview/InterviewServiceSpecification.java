@@ -6,12 +6,13 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Properties;
-import org.onebeartoe.deep.learning.interview.InterviewService;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
+import org.testng.Assert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -49,7 +50,17 @@ public class InterviewServiceSpecification
     @Test
     public void interview_happyPath()
     {
-        // Name question
+        interview_happyPath_name();
+
+        interview_happyPath_sentiment();
+        
+        interview_happyPath_projectPercetage();
+        
+        assertTrue( interview.isComplete() );
+    }
+    
+    private void interview_happyPath_name()
+    {
         String expectedName = "Bob";
         
         ValidationResult result = interview.setCurrentQuestionResponse(expectedName);
@@ -58,10 +69,15 @@ public class InterviewServiceSpecification
 
         String actualName = interview.getIntervieweeName();
         
-        assertEquals(actualName, expectedName);
-        
-        // how are you question
-        result = interview.setCurrentQuestionResponse("I am great, thanks");
+        assertEquals(actualName, expectedName);        
+    }
+    
+    /**
+     * how are you question
+     */
+    private void interview_happyPath_sentiment()
+    {
+        ValidationResult result = interview.setCurrentQuestionResponse("I am great, thanks");
 
         assertTrue(result.valid);
         
@@ -70,25 +86,49 @@ public class InterviewServiceSpecification
         String acutalLanguage = interview.getIntervieweeLanguage();
         
         assertEquals(acutalLanguage, expectedLanguage);
+    }
+
+    private void interview_happyPath_projectPercetage()
+    {
+        String expectedPercent = "70%";
+
+        String response = String.format("I am working on an Aruino project.  It is %s done.", expectedPercent);
+
+        ValidationResult result = interview.setCurrentQuestionResponse(response);
+
+        assertTrue(result.valid);
         
-        assertTrue( interview.isComplete() );
+        String project = interview.getProject();
+        
+        assertNotNull(project);
+        
+        String actualPercentageComplete = interview.getProjectPercentage();
+        
+        assertEquals(actualPercentageComplete, expectedPercent);
     }
     
     @Test void interview_invalidResonse_all()
     {
         // name question
         ValidationResult result = interview.setCurrentQuestionResponse("apple");
-        assertFalse(result.valid );
+        assertFalse(result.valid);
 
         result = interview.setCurrentQuestionResponse("apple");
-        assertFalse(result.valid );
+        assertFalse(result.valid);
         
         // sentiment question, Spanish fails
         result = interview.setCurrentQuestionResponse("Muey buien, gracias");
-        assertFalse(result.valid );
+        assertFalse(result.valid);
         
         result = interview.setCurrentQuestionResponse("Muey buien, gracias");
-        assertFalse(result.valid );
+        assertFalse(result.valid);
+        
+        // project question
+        result = interview.setCurrentQuestionResponse("I work on nothing.");
+        assertFalse(result.valid);
+        
+        result = interview.setCurrentQuestionResponse("I don't need no stinking project.");
+        assertFalse(result.valid);
         
         assertTrue( interview.isComplete() );
     }
@@ -120,5 +160,23 @@ public class InterviewServiceSpecification
         }
         
         assertTrue(found);
+    }
+    
+    /**
+     * This verifies all interview question have non-null values.
+     */
+    @Test
+    public void get_noNullQuestions()
+    {
+        Interview interview = implementation.get();
+        
+        List<InterviewQuestion> questions = interview.getQuestions();
+        
+        questions.forEach(q ->
+        {
+            String question = q.getImperative();
+            
+            assertNotNull(question);
+        });
     }
 }
