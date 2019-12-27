@@ -19,10 +19,10 @@ All these user stories are complete:
 
     Percentage
 
+    Money
+
     Dates
     
     Location
-
-    Money
 
     Completion Verification

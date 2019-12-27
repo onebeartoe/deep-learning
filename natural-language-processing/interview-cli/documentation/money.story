@@ -7,4 +7,4 @@ Acceptance Criteria:
 
 A money/currency detection service method exists and
 the app asks the user what budget amount they have for their project and 
-the app recommends project items within that budget.
+********the app recommends project items within that budget.

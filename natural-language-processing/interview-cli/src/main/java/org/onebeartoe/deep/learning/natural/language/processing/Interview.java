@@ -30,6 +30,8 @@ public class Interview
     
     private InterviewQuestion moneyQuestion;
     
+    private InterviewQuestion locationQuestion;
+    
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
@@ -45,6 +47,8 @@ public class Interview
         moneyQuestion = questions.get(3);
 
         dateQuestion = (DateQuestion) questions.get(4);
+        
+        locationQuestion = questions.get(5);
     }
     
     @Deprecated //"is the really deprecated")
@@ -68,6 +72,11 @@ public class Interview
     public String getIntervieweeName()
     {
         return intervieweeNameQuesiton.answer;
+    }
+
+    public String getLocation()
+    {
+        return locationQuestion.answer;
     }
 
 //TODO: !!!!!!!!!!!!!! clone all the questions and return the clones !!!!!!!!!!!!

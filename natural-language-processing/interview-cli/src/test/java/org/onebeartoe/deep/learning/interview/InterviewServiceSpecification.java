@@ -59,6 +59,8 @@ public class InterviewServiceSpecification
 
         interview_happyPath_date();
         
+        interview_happyPath_location();
+        
         assertTrue( interview.isComplete() );
     }
 
@@ -75,6 +77,21 @@ public class InterviewServiceSpecification
         String actualDate = interview.getDateOfInterest();
 
         assertEquals(actualDate, expectedDate);
+    }
+
+    private void interview_happyPath_location()
+    {
+        String expectedLocation = "Tokyo";
+        
+        String response = String.format("My favorite place is %s", expectedLocation);
+        
+        ValidationResult result = interview.setCurrentQuestionResponse(response);
+        
+        assertTrue(result.valid);
+        
+        String actualLocation = interview.getLocation();
+
+        assertEquals(actualLocation, expectedLocation);
     }
 
     private void interview_happyPath_money()
@@ -162,6 +179,13 @@ public class InterviewServiceSpecification
         
         result = interview.setCurrentQuestionResponse("I don't need no stinking project.");
         assertFalse(result.valid);
+        
+        // money question
+        result = interview.setCurrentQuestionResponse("There is not budget for my project.");
+        assertFalse(result.valid);
+        
+        result = interview.setCurrentQuestionResponse("The budget does not exist.");
+        assertFalse(result.valid);
 
         // date question
         result = interview.setCurrentQuestionResponse("Who needs a date?");
@@ -170,13 +194,13 @@ public class InterviewServiceSpecification
         result = interview.setCurrentQuestionResponse("The date is here.");
         assertFalse(result.valid);
         
-        // money question
-        result = interview.setCurrentQuestionResponse("There is not budget for my project.");
+        // location question
+        result = interview.setCurrentQuestionResponse("My favorite number is pi.");
         assertFalse(result.valid);
-        
-        result = interview.setCurrentQuestionResponse("The budget does not exist.");
+
+        result = interview.setCurrentQuestionResponse("My favorite color is blue.");
         assertFalse(result.valid);
-        
+                
         assertTrue( interview.isComplete() );
     }
     

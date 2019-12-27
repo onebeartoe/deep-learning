@@ -10,12 +10,14 @@ import java.util.Properties;
 import org.onebeartoe.deep.learning.natural.language.processing.DateQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.LocationQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.MoneyQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ProjectAndPercentageQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.SentimentQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.UserNameQuestion;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
 import org.onebeartoe.deep.learning.nlp.named.entity.DateDetector;
+import org.onebeartoe.deep.learning.nlp.named.entity.LocationDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.MoneyDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
@@ -43,6 +45,8 @@ public class InterviewService
     
     private MoneyDetector moneyDetector;
     
+    private LocationDetector locationDetector;
+    
     public InterviewService() throws IOException, URISyntaxException
     {
         InputStream propertiesStream = getClass().getResourceAsStream("/interview-questions.properties");
@@ -64,6 +68,8 @@ public class InterviewService
         dateDetector = new DateDetector();
         
         moneyDetector = new MoneyDetector();
+        
+        locationDetector = new LocationDetector();
     }
     
     public Interview get()
@@ -90,12 +96,17 @@ public class InterviewService
         String question5 = properties.getProperty("dateQuestion");
         InterviewQuestion dateQuestion = new DateQuestion(dateDetector);
         dateQuestion.setImperative(question5);
+        
+        String question6 = properties.getProperty("locationQuestion");
+        InterviewQuestion locationQuestion = new LocationQuestion(locationDetector);
+        locationQuestion.setImperative(question6);
 
         questions.add(nameQuestion);
         questions.add(sentimentQuestion);
         questions.add(projectAndPercentageQuestion);
         questions.add(moneyQuestion);
         questions.add(dateQuestion);
+        questions.add(locationQuestion);
         
         Interview interview = new Interview(questions);
 
