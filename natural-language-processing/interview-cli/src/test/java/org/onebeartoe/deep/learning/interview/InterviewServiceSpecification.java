@@ -157,7 +157,9 @@ public class InterviewServiceSpecification
         assertEquals(actualPercentageComplete, expectedPercent);
     }
     
-    @Test void interview_invalidResonse_all()
+    @Test(description = "verify the interview is over if all questions are reach the "
+                        + " reach the invalid response threshold") 
+    void interview_invalidResonse_all()
     {
         // name question
         ValidationResult result = interview.setCurrentQuestionResponse("apple");
@@ -200,7 +202,7 @@ public class InterviewServiceSpecification
 
         result = interview.setCurrentQuestionResponse("My favorite color is blue.");
         assertFalse(result.valid);
-                
+
         assertTrue( interview.isComplete() );
     }
     
