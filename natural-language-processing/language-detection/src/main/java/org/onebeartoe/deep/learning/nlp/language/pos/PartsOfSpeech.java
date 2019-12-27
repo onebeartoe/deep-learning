@@ -26,8 +26,6 @@ public enum PartsOfSpeech
     JJR("Adjective, comparative"),
     JJS("Adjective, superlative");
 
-    public String word = "monkey1256";
-
     public final String description;
 
     PartsOfSpeech(String description)

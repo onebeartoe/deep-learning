@@ -29,48 +29,44 @@ public class PartsOfSpeechService
 
         tagger = new POSTaggerME(model);
     }
-
     
-    
-    
-    public List<PartsOfSpeech> findAdjectivesNounsAndPronouns(String sentence)
+    public List<PartsOfSpeechTagging> findAdjectivesNounsAndPronouns(String sentence)
     {
         return findPartsOfSpeech(sentence, adjectivesNounsAndPronouns);
     }
     
-    private List<PartsOfSpeech> findPartsOfSpeech(String sentence, Predicate<PartsOfSpeech> predicate)
+    private List<PartsOfSpeechTagging> findPartsOfSpeech(String sentence, Predicate<PartsOfSpeech> predicate)
     {
         String whitespaceTokenizerLine[] = WhitespaceTokenizer.INSTANCE.tokenize(sentence);
         
         String[] tags = tagger.tag(whitespaceTokenizerLine);
 
-        List<PartsOfSpeech> posList = new ArrayList();
+        List<PartsOfSpeechTagging> posList = new ArrayList();
         
         for (int i = 0; i < whitespaceTokenizerLine.length; i++) 
         {
             String word = whitespaceTokenizerLine[i].trim();
 
             String tag = tags[i].trim();
-            
-            String tagWithWord = tag + ":" + word + "  ";
-            
+
             try
             {
                 PartsOfSpeech pos = PartsOfSpeech.valueOf(tag);
 
                 if( predicate.test(pos) )
                 {
-                    pos.word = word;
+                    PartsOfSpeechTagging tagging = new PartsOfSpeechTagging();
+                    
+                    tagging.partOfSpeech = pos;
+                    tagging.word = word;
 
-                    posList.add(pos);
+                    posList.add(tagging);
                 }
             }
             catch(IllegalArgumentException e)
             {
                 System.err.println(tag + " is not supported - " + word);
             }
-
-//            System.out.print(tagWithWord);
         }        
         
         return posList;        
