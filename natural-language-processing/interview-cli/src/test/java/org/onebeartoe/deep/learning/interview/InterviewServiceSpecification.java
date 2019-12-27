@@ -54,6 +54,8 @@ public class InterviewServiceSpecification
         interview_happyPath_sentiment();
         
         interview_happyPath_projectPercetage();
+        
+        interview_happyPath_money();
 
         interview_happyPath_date();
         
@@ -73,6 +75,21 @@ public class InterviewServiceSpecification
         String actualDate = interview.getDateOfInterest();
 
         assertEquals(actualDate, expectedDate);
+    }
+
+    private void interview_happyPath_money()
+    {
+        String expectedBudget = "$57";
+        
+        String response = String.format("There is a %s budget for the project.", expectedBudget);
+        
+        ValidationResult result = interview.setCurrentQuestionResponse(response);
+        
+        assertTrue(result.valid);
+        
+        String actualBudget = interview.getProjectBudget();
+
+        assertEquals(actualBudget, expectedBudget);
     }
     
     private void interview_happyPath_name()
@@ -151,6 +168,13 @@ public class InterviewServiceSpecification
         assertFalse(result.valid);
         
         result = interview.setCurrentQuestionResponse("The date is here.");
+        assertFalse(result.valid);
+        
+        // money question
+        result = interview.setCurrentQuestionResponse("There is not budget for my project.");
+        assertFalse(result.valid);
+        
+        result = interview.setCurrentQuestionResponse("The budget does not exist.");
         assertFalse(result.valid);
         
         assertTrue( interview.isComplete() );

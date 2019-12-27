@@ -22,7 +22,7 @@ public class MoneyDetector extends NamedEntityRecognizer
         return "/en-ner-money.bin";
     }
     
-    public List<DetectedNamedEntity> findMoney(String sentence) throws IOException
+    public List<DetectedNamedEntity> findMoney(String sentence)
     {
         return findNames(sentence);
     }

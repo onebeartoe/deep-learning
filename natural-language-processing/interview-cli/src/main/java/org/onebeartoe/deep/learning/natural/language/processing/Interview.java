@@ -28,6 +28,8 @@ public class Interview
 
     private DateQuestion dateQuestion;
     
+    private InterviewQuestion moneyQuestion;
+    
     public Interview(List<InterviewQuestion> questions)
     {
         this.questions = questions;
@@ -40,7 +42,9 @@ public class Interview
         
         projectAndPercentageQuestion = (ProjectAndPercentageQuestion) questions.get(2);
         
-        dateQuestion = (DateQuestion) questions.get(3);
+        moneyQuestion = questions.get(3);
+
+        dateQuestion = (DateQuestion) questions.get(4);
     }
     
     @Deprecated //"is the really deprecated")
@@ -146,6 +150,11 @@ public class Interview
     public String getProject()
     {
         return projectAndPercentageQuestion.getProject();
+    }
+
+    public String getProjectBudget()
+    {
+        return moneyQuestion.getAnswer();
     }
 
     public String getProjectPercentage()

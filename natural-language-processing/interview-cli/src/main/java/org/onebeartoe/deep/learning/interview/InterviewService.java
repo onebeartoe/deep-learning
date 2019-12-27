@@ -10,11 +10,13 @@ import java.util.Properties;
 import org.onebeartoe.deep.learning.natural.language.processing.DateQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.MoneyQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.ProjectAndPercentageQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.SentimentQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.UserNameQuestion;
 import org.onebeartoe.deep.learning.nlp.language.detection.LanguageDetectionService;
 import org.onebeartoe.deep.learning.nlp.named.entity.DateDetector;
+import org.onebeartoe.deep.learning.nlp.named.entity.MoneyDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
 import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
@@ -39,6 +41,8 @@ public class InterviewService
 
     private DateDetector dateDetector;
     
+    private MoneyDetector moneyDetector;
+    
     public InterviewService() throws IOException, URISyntaxException
     {
         InputStream propertiesStream = getClass().getResourceAsStream("/interview-questions.properties");
@@ -58,6 +62,8 @@ public class InterviewService
         percentageDetector = new PercentageDetector();
         
         dateDetector = new DateDetector();
+        
+        moneyDetector = new MoneyDetector();
     }
     
     public Interview get()
@@ -77,13 +83,18 @@ public class InterviewService
         InterviewQuestion projectAndPercentageQuestion = new ProjectAndPercentageQuestion(percentageDetector);
         projectAndPercentageQuestion.setImperative(question3);
         
-        String question4 = properties.getProperty("dateQuestion");
+        String question4 = properties.getProperty("moneyQuestion");
+        InterviewQuestion moneyQuestion = new MoneyQuestion(moneyDetector);
+        moneyQuestion.setImperative(question4);
+
+        String question5 = properties.getProperty("dateQuestion");
         InterviewQuestion dateQuestion = new DateQuestion(dateDetector);
-        dateQuestion.setImperative(question4);
-        
+        dateQuestion.setImperative(question5);
+
         questions.add(nameQuestion);
         questions.add(sentimentQuestion);
         questions.add(projectAndPercentageQuestion);
+        questions.add(moneyQuestion);
         questions.add(dateQuestion);
         
         Interview interview = new Interview(questions);

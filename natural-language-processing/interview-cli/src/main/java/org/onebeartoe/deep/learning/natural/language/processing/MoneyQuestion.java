@@ -2,29 +2,29 @@
 package org.onebeartoe.deep.learning.natural.language.processing;
 
 import java.util.List;
-import org.onebeartoe.deep.learning.nlp.named.entity.DateDetector;
+import org.onebeartoe.deep.learning.nlp.named.entity.MoneyDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity;
 
 /**
- * This class abstracts the question about the interviewee's date of interest.
+ * This class is an abstraction of the money question.
  */
-public class DateQuestion extends InterviewQuestion
+public class MoneyQuestion extends InterviewQuestion
 {
-    DateDetector dateDetector;
+    private MoneyDetector moneyDetector;
     
-    public DateQuestion(DateDetector dateDetector)
+    public MoneyQuestion(MoneyDetector moneyDetector)
     {
-        this.dateDetector = dateDetector;
+        this.moneyDetector = moneyDetector;
     }
     
     @Override
     public ValidationResult validateResponse(String response)
     {
-        List<DetectedNamedEntity> dates = dateDetector.findDates(response);
+        List<DetectedNamedEntity> monies = moneyDetector.findMoney(response);
         
         ValidationResult result = new ValidationResult();
         
-        if( dates.isEmpty() )
+        if( monies.isEmpty() )
         {
             result.valid = false;
         }
@@ -32,7 +32,7 @@ public class DateQuestion extends InterviewQuestion
         {
             result.valid = true;
             
-            result.answer = dates.get(0).getName();
+            result.answer = monies.get(0).getName();
         }             
         
         return result;
@@ -41,6 +41,6 @@ public class DateQuestion extends InterviewQuestion
     @Override
     public String getValidResponseConfirmation()
     {
-        return String.format("Okay, %s it is.", answer);
+        return String.format("Alright, I've noted that you have a %s budget.", answer);
     }
 }
