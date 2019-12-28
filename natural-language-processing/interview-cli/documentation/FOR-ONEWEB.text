@@ -28,6 +28,8 @@ Software Walkthrough
     trained on the fly with sentiment data obtained from the web.  !!!site the source 
     for the LanguageDetectionService model!!!!!
 
+    Move the links in GoogleCustomSearch.java to here AND link in GoogleCustomSearch.java to oneweb.org
+
 Going Further
 
     Find a way to load multiple language models for the name finder.
@@ -35,6 +37,7 @@ Going Further
 Resources
 
     Link to the terms/definitions under the deep learning section
+
 
     
     Sentence types
@@ -75,3 +78,12 @@ other location user oneweb.org
     add the following terms under the deep learning terms/definitions section
 
     N.E.R. - named entity recognition
+
+
+
+oneweb.net - google custom search
+
+    for images
+
+        https://www.programcreek.com/java-api-examples/?code=jmoennich%2Fbilderbuch%2Fbilderbuch-master%2Fsrc%2Fmain%2Fjava%2Fde%2Fcuseb%2Fbilderbuch%2Fimages%2FGoogleImageSearch.java#
+
