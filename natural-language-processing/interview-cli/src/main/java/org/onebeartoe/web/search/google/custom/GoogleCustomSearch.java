@@ -9,9 +9,11 @@ import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.onebeartoe.web.search.SearchRequest;
@@ -40,34 +42,25 @@ import org.onebeartoe.web.search.WebSearch;
  */
 public class GoogleCustomSearch implements WebSearch
 {
-    public static void main(String[] args) throws GeneralSecurityException, IOException
+    private Customsearch cs;
+    
+    private String cx;
+    
+    public GoogleCustomSearch() throws FileNotFoundException, IOException, GeneralSecurityException
     {
-        GoogleCustomSearch gcs = new GoogleCustomSearch();
-        
-        gcs.search(null);
-    }
-
-    @Override
-    public List<SearchResult> search(SearchRequest request) throws GeneralSecurityException, IOException
-    {
-//TODO: move this property reading code to its own method        
         Properties properties = new Properties();
 
         // see 'src/main/resources/google-custom-search.properties' for the expected 
         // values in this properties file
         String propertiesPath = "/home/roberto/.onebeartoe/google-custom-search/google-custom-search.properties";
-        
-
-        
+                
         File propertiesFile = new File(propertiesPath);
         
         InputStream inStream = new FileInputStream(propertiesFile);
         
         properties.load(inStream);
-        
-        String searchQuery = "space opera"; //The query to search
-        
-        String cx = properties.getProperty("cx"); // the search engin ID
+                
+        cx = properties.getProperty("cx"); // the search engin ID
 
         String apiKey = properties.getProperty("apiKey");
 
@@ -76,23 +69,75 @@ public class GoogleCustomSearch implements WebSearch
         String applicationName = properties.getProperty("applicationName");
         
         //Instance Customsearch
-        Customsearch cs = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null) 
+        cs = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null) 
                        .setApplicationName(applicationName)
                        .setGoogleClientRequestInitializer(requestInitializer) 
                        .build();
+        
+    }
+    
+    public static void main(String[] args) throws IOException, FileNotFoundException, GeneralSecurityException //throws IOException //throws GeneralSecurityException, IOException
+    {
+        String query = String.join(" ", args);
+        
+//query = "space opera";
+        
+        SearchRequest request = new SearchRequest(query);
+        
+        GoogleCustomSearch gcs = new GoogleCustomSearch();
+        
+        List<SearchResult> searchResults = gcs.search(request);
+        
+        searchResults.forEach(result ->
+        {
+            System.out.println(result.title);
+            System.out.println(result.link);
+            System.out.println(result.content);
+            System.out.println();            
+        });
+    }
 
+    @Override
+    public List<SearchResult> search(SearchRequest request) throws IOException 
+    {        
+        String searchQuery = request.query;
+        
         //Set search parameter
         Customsearch.Cse.List list = cs.cse().list(searchQuery).setCx(cx); 
 
         //Execute search
         Search result = list.execute();
-        if (result.getItems()!=null){
-            for (Result ri : result.getItems()) {
-                //Get title, link, body etc. from search
-                System.out.println(ri.getTitle() + ", " + ri.getLink());
+
+        Search.SearchInformation searchInformation = result.getSearchInformation();
+        searchInformation.getTotalResults();                
+        
+        
+        List<Result> items = result.getItems();
+
+        List<SearchResult> results = new ArrayList();
+        
+        if( items.isEmpty() )
+        {
+            System.err.println("no items were found: " + searchQuery);
+        }
+        else
+        {
+            for(Result ri : items) 
+            {
+                SearchResult searchResult = new SearchResult();
+                
+                searchResult.title = ri.getTitle();
+                
+                searchResult.link = ri.getLink();
+                
+                searchResult.content = ri.getSnippet();
+                
+                searchResult.kind = result.getKind();                
+                
+                results.add(searchResult);
             }
         }
         
-        return null;
+        return results;
     }    
 }
