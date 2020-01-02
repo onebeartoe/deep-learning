@@ -13,7 +13,7 @@ public abstract class InterviewQuestion
     
     private String response;
     
-    @Deprecated //"is the really deprecated")
+    @Deprecated //Is the really deprecated?
     protected boolean isAnswered;
     
     protected String answer;
@@ -23,8 +23,7 @@ public abstract class InterviewQuestion
     private int attemptedAnswersThreshold;
 
     protected List<Recommendation> recommendations;
-    
-    
+
     public InterviewQuestion()
     {
         attemptedAnswers = 0;

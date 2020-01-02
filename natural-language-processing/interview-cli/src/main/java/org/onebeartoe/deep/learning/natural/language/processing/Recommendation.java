@@ -7,14 +7,15 @@ package org.onebeartoe.deep.learning.natural.language.processing;
  */
 public class Recommendation
 {
-    public String recomendation;
+    public String title;
     
-//TODO: REMOVE OR FIX THIS    
+    public String link;
+    
+    public String content;
+    
     @Override
     public String toString()
-    {
-System.out.println("I AM NOT DONE!!! I AM NOT DONE!!! ");        
-        
-        return "remove this recomendation";
+    {        
+        return String.format("%s\n%s\n%s\n", title, link, content);
     }
 }

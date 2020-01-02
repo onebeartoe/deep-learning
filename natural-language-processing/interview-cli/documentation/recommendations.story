@@ -1,7 +1,7 @@
 
 As an interview chatbot,
 I need to provide recommendations on interview subjects, 
-so that I can evaluate the relevance of the natural language processing interpretations.
+so that I can evaluate the relevance of the natural language processing results.
 
 Acceptance Criteria
 

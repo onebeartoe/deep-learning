@@ -37,6 +37,8 @@ public class NaturalLanguageProcessingInterviewCli
             
             String imperitive = currentQuestion.getImperative();
             
+            System.out.println();
+            
             System.out.println(imperitive);
             
             String line = lineReader.readLine();

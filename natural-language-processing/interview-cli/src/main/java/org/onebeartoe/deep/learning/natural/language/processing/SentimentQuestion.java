@@ -98,22 +98,23 @@ public class SentimentQuestion extends InterviewQuestion
         {
             Recommendation r1 = new Recommendation();
             
+            r1.link = "";
+            r1.title = "";
+            
             if(positiveSentiment)
             {
-                r1.recomendation = "Since you are feeling okay, try getting some fresh air."
+                r1.content = "Since you are feeling okay, try getting some fresh air."
                                     + "It will make you feel even better!";
             }
             else
             {
-                r1.recomendation = "I remember you mentioned that you are not feeling well. Try getting some fresh air."
+                r1.content = "I remember you mentioned that you are not feeling well. Try getting some fresh air."
                                     + "It will make you feel a little better!";
             }            
 
             recommendations.add(r1);
         }
-        
 
-        
         return recommendations;
     }    
 

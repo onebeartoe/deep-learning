@@ -1,7 +1,6 @@
 
 package org.onebeartoe.on.that.day.se.byabbe;
 
-import java.util.List;
 import org.onebeartoe.on.that.day.se.byabbe.model.BirthsOnThisDay;
 import org.onebeartoe.on.that.day.se.byabbe.model.EventsOnThisDay;
 import static org.testng.Assert.assertNotNull;
