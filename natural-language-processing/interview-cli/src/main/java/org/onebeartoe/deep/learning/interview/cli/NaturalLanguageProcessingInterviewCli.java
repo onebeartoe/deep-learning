@@ -78,6 +78,6 @@ public class NaturalLanguageProcessingInterviewCli
             }
         }
         
-        System.out.println("Thanks for participating in the interview!");
+        System.out.println("\nThanks for participating in the interview!");
     }
 }

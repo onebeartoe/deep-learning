@@ -4,11 +4,12 @@ package org.onebeartoe.deep.learning.natural.language.processing;
 import java.util.List;
 import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.results.DetectedNamedEntity;
+import org.onebeartoe.web.search.WebSearch;
 
 /**
  * This class abstracts the project and percentage done question.
  */
-public class ProjectAndPercentageQuestion extends InterviewQuestion
+public class ProjectAndPercentageQuestion extends SearchRecommendingQuestion
 {
     private PercentageDetector percentageDetector;
         
@@ -19,11 +20,15 @@ public class ProjectAndPercentageQuestion extends InterviewQuestion
         return project;
     }
 
-    public ProjectAndPercentageQuestion(PercentageDetector percentageDetector)
+    public ProjectAndPercentageQuestion(PercentageDetector percentageDetector, WebSearch webSearch)
     {
         this.percentageDetector = percentageDetector;
+        
+        this.webSearch = webSearch;
+        
+        resultLimit = 3;
     }
-
+    
     @Override
     public ValidationResult validateResponse(String response)
     {

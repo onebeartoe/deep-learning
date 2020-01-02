@@ -94,7 +94,7 @@ public class InterviewService
         sentimentQuestion.setImperative(question2);
 
         String question3 = properties.getProperty("percentageQuestion");
-        InterviewQuestion projectAndPercentageQuestion = new ProjectAndPercentageQuestion(percentageDetector);
+        InterviewQuestion projectAndPercentageQuestion = new ProjectAndPercentageQuestion(percentageDetector, webSearch);
         projectAndPercentageQuestion.setImperative(question3);
         
         String question4 = properties.getProperty("moneyQuestion");
