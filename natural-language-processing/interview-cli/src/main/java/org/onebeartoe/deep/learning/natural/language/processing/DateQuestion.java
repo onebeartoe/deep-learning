@@ -1,6 +1,7 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.text.DateFormatSymbols;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,37 @@ public class DateQuestion extends InterviewQuestion
     
     @Override
     public List<Recommendation> getRecomendations()
-    {        
+    {
         String[] split = answer.split("\\W");
         
         String monthName = split[0].toUpperCase();
         
         int day = Integer.valueOf(split[1]);
+
+        int month;
         
-        int month = Month.valueOf(monthName).getValue();
+        if(monthName.length() == 3)
+        {
+            String[] shortMonths = new DateFormatSymbols().getShortMonths();
+
+            int i = 0;
+            
+            // there is a -1 on the loop check because #getShortMonths() returns an empty element 13; o_0
+            for ( ; i < (shortMonths.length-1); i++) 
+            {
+               String shortMonth = shortMonths[i];
+               
+               if(monthName.toLowerCase().equals( shortMonth.toLowerCase() ))
+               {
+                   break;
+               }
+            }     
+            month = i + 1;
+        }
+        else
+        {              
+            month = Month.valueOf(monthName).getValue();
+        }
 
         return recommendations(month, day);
     }    
