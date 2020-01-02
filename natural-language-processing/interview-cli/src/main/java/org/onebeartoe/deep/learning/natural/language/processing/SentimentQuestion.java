@@ -104,12 +104,12 @@ public class SentimentQuestion extends InterviewQuestion
             if(positiveSentiment)
             {
                 r1.content = "Since you are feeling okay, try getting some fresh air."
-                                    + "It will make you feel even better!";
+                                    + "  It will make you feel even better!";
             }
             else
             {
                 r1.content = "I remember you mentioned that you are not feeling well. Try getting some fresh air."
-                                    + "It will make you feel a little better!";
+                                    + "  It will make you feel a little better!";
             }            
 
             recommendations.add(r1);

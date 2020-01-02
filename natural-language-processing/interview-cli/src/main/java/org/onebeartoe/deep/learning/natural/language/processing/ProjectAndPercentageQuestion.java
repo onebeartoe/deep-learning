@@ -59,6 +59,6 @@ public class ProjectAndPercentageQuestion extends InterviewQuestion
     @Override
     public String getValidResponseConfirmation()
     {
-        return "Oh that project sounds cool!  It must feel good to be " + answer + "done.";
+        return "Oh that project sounds cool!  It must feel good to be " + answer + " done.";
     }
 }
