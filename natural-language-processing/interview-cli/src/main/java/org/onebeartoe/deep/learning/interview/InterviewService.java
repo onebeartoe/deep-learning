@@ -1,9 +1,11 @@
 
 package org.onebeartoe.deep.learning.interview;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -23,6 +25,8 @@ import org.onebeartoe.deep.learning.nlp.named.entity.PercentageDetector;
 import org.onebeartoe.deep.learning.nlp.named.entity.PersonNameDetector;
 import org.onebeartoe.deep.learning.nlp.sentences.SentenceDetector;
 import org.onebeartoe.deep.learning.recurrent.neural.network.sentiment.SentimentService;
+import org.onebeartoe.web.search.WebSearch;
+import org.onebeartoe.web.search.google.custom.GoogleCustomSearch;
 
 /**
  * This class configures an Interview instance to use with the chatbot application.
@@ -47,7 +51,9 @@ public class InterviewService
     
     private LocationDetector locationDetector;
     
-    public InterviewService() throws IOException, URISyntaxException
+    private WebSearch webSearch;
+    
+    public InterviewService() throws IOException, URISyntaxException, FileNotFoundException, GeneralSecurityException
     {
         InputStream propertiesStream = getClass().getResourceAsStream("/interview-questions.properties");
         
@@ -70,6 +76,8 @@ public class InterviewService
         moneyDetector = new MoneyDetector();
         
         locationDetector = new LocationDetector();
+        
+        webSearch = new GoogleCustomSearch();
     }
     
     public Interview get()
@@ -98,7 +106,7 @@ public class InterviewService
         dateQuestion.setImperative(question5);
         
         String question6 = properties.getProperty("locationQuestion");
-        InterviewQuestion locationQuestion = new LocationQuestion(locationDetector);
+        InterviewQuestion locationQuestion = new LocationQuestion(locationDetector, webSearch);
         locationQuestion.setImperative(question6);
 
         questions.add(nameQuestion);
