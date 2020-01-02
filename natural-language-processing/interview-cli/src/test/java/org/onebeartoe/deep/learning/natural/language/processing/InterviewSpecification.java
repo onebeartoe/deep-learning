@@ -1,8 +1,10 @@
 
 package org.onebeartoe.deep.learning.natural.language.processing;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import org.onebeartoe.deep.learning.interview.InterviewService;
@@ -29,7 +31,7 @@ public class InterviewSpecification
     private List<InterviewQuestion> sampleQuestions;
     
     @BeforeMethod
-    public void setupMethodData() throws IOException, URISyntaxException
+    public void setupMethodData() throws IOException, URISyntaxException, FileNotFoundException, GeneralSecurityException
     {
         sampleQuestions = new ArrayList();
 
@@ -40,7 +42,7 @@ public class InterviewSpecification
         InterviewQuestion q1 = new SentimentQuestion(languageDetectionService, sentimentService);
         q1.setImperative("how are you?");
         
-        InterviewQuestion q2 = new ProjectAndPercentageQuestion(null);
+        InterviewQuestion q2 = new ProjectAndPercentageQuestion(null, null);
         q2.setImperative("what percent is your project done?");
         
         sampleQuestions.add(q1);
@@ -48,11 +50,7 @@ public class InterviewSpecification
         
         questionCount = sampleQuestions.size();
         
-        
-        
         InterviewService interviewService = new InterviewService();
-        
-//        implementation_makeThisLocalToEachTest_ifStillNeded = interviewService.get();
         
         implementation = interviewService.get();
     }
