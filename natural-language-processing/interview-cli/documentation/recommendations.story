@@ -12,4 +12,4 @@ these are the relevant questions
     3) location
     4) percentage/project
     5) money
-the recommendations are provided as marked up content via a PDF document at the end of the interview.
+a recommendations report is given as marked up content via a PDF document at the end of the interview.
