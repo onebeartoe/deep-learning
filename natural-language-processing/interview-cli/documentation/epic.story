@@ -25,4 +25,6 @@ All these user stories are complete:
     
     Location
 
+    Report
+
     Completion Verification
