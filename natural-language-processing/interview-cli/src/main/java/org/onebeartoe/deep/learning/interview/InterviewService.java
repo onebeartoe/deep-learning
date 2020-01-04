@@ -89,8 +89,7 @@ public class InterviewService
     {
         List<InterviewQuestion> questions = new ArrayList();
         
-        InterviewQuestion nameQuestion = new UserNameQuestion(nameDetector);
-        
+        InterviewQuestion nameQuestion = new UserNameQuestion(nameDetector);        
         String question = properties.getProperty("nameQuestion");
         nameQuestion.setImperative(question);
         

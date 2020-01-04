@@ -24,6 +24,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.itextpdf.tool</groupId>
+            <artifactId>xmlworker</artifactId>
+            <version>5.5.7</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>2.29.1</version>
@@ -39,6 +45,12 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.onebeartoe</groupId>
+            <artifactId>onebeartoe-application</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>

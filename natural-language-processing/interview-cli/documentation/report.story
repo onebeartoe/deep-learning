@@ -10,7 +10,7 @@ The following content of the interview is available in the report
     each question's answer
     each question's recommendations, if a valid answer was given and
 if a question does not have a valid answer, then that is indicated 
-    in the question summary with 'Q# answer is not available' and
+    in the question summary with 'no valid answer was given' and
 the content is marked up in HTML and
 the HTML content is saved to disk and
 the HTML content is converted to PDF format and

@@ -32,6 +32,11 @@ public abstract class InterviewQuestion
         
         recommendations = new ArrayList();
     }
+
+    public void addRecommendation(Recommendation recommendation)
+    {
+        recommendations.add(recommendation);
+    }
     
     public String getAnswer()
     {
@@ -102,6 +107,6 @@ public abstract class InterviewQuestion
 
     public List<Recommendation> getRecomendations()
     {
-        return new ArrayList();
+        return recommendations;
     }
 }
