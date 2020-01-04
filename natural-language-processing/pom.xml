@@ -12,6 +12,7 @@
     <modules>
         <module>language-detection</module>
         <module>interview-cli</module>
+        <module>desktop-interview</module>
         <module>sentiment</module>
         <module>named-entity</module>
         <module>dl4j-sentiment</module>
