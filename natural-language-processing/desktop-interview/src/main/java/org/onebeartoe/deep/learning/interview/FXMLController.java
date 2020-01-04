@@ -61,8 +61,8 @@ public class FXMLController implements Initializable
     @FXML
     private ImageView styleImage;
     
-    @FXML
-    private Label styleLabel;
+//    @FXML
+//    private Label styleLabel;
     
     @FXML
     private TilePane tilePane;
