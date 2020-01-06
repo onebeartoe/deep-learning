@@ -109,6 +109,49 @@ public class FXMLController implements Initializable
         logger.info("apply style done");
         }
     }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
+        
+        logger.info("url: " + url.toString() );
+  
+        InterviewService interviewService = null;
+        try
+        {
+            interviewService = new InterviewService();
+        } 
+        catch (IOException  | URISyntaxException | GeneralSecurityException ex)
+        {
+            logger.severe( ex.getMessage() );
+        }
+        
+        chatHistoryArea.appendText("Welcome to the chatbot interview!");
+
+//TODO: this does not work try something else
+        // have the text area fill the scroll pane //grow with the window resizing        
+        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
+        
+        interview = interviewService.get();
+
+        // have the scroll pane grow with the window resizing
+        AnchorPane.setTopAnchor(outerSplitPane, 0.0);
+        AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
+        AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
+        AnchorPane.setRightAnchor(outerSplitPane, 0.0);
+        
+        currentQuestion = interview.currentQuestion();
+            
+        String imperitive = currentQuestion.getImperative();
+
+        chatHistoryArea.appendText("\n");
+
+        chatHistoryArea.appendText(imperitive);        
+    }
 
     @FXML
     private void onTextEntered(ActionEvent event) throws FileNotFoundException
@@ -164,48 +207,5 @@ public class FXMLController implements Initializable
             
             textField.setEditable(false);
         }
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
-        
-        logger.info("url: " + url.toString() );
-  
-        InterviewService interviewService = null;
-        try
-        {
-            interviewService = new InterviewService();
-        } 
-        catch (IOException  | URISyntaxException | GeneralSecurityException ex)
-        {
-            logger.severe( ex.getMessage() );
-        }
-        
-        chatHistoryArea.appendText("Welcome to the chatbot interview!");
-
-//TODO: this does not work try something else
-        // have the text area fill the scroll pane //grow with the window resizing        
-        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
-        
-        interview = interviewService.get();
-
-        // have the scroll pane grow with the window resizing
-        AnchorPane.setTopAnchor(outerSplitPane, 0.0);
-        AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
-        AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
-        AnchorPane.setRightAnchor(outerSplitPane, 0.0);
-        
-        currentQuestion = interview.currentQuestion();
-            
-        String imperitive = currentQuestion.getImperative();
-
-        chatHistoryArea.appendText("\n");
-
-        chatHistoryArea.appendText(imperitive);        
     }
 }
