@@ -21,11 +21,7 @@
                   <TextField fx:id="textField" onAction="#onTextEntered" BorderPane.alignment="CENTER" />
                </bottom>
                <center>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <content>
-                        <TextArea fx:id="chatHistoryArea" prefHeight="200.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
+                  <TextArea fx:id="chatHistoryArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="406.0" prefWidth="405.0">
