@@ -45,9 +45,6 @@ public class FXMLController implements Initializable
     
     @FXML
     private TextArea chatHistoryArea;
-        
-    @FXML
-    private TilePane tilePane;
 
     Interview interview;
     
@@ -69,31 +66,21 @@ public class FXMLController implements Initializable
     private void handleApplyStyleButtonAction(ActionEvent event)
     {
         logger.info("the apply style button was clicked");
-
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Missing Input File");
-            
+                    
+        Alert waitAlert = new Alert(AlertType.INFORMATION);
+        waitAlert.setTitle("Please wait");
+        waitAlert.show();
+        waitAlert.setOnCloseRequest( (closeWaitEvent) ->
         {
-            Alert waitAlert = new Alert(AlertType.INFORMATION);
-            waitAlert.setTitle("Please wait");
-            waitAlert.show();
-            waitAlert.setOnCloseRequest( (closeWaitEvent) ->
-            {
-                logger.info("the wait dialog was closed");
-                                
-                waitAlert.close();
-            });
+            logger.info("the wait dialog was closed");
+            waitAlert.close();
+        });
             
-            ObservableList<Node> children = tilePane.getChildren();
-            children.clear();
-
         Task<Void> task = new Task<Void>() 
         {
             @Override 
             public Void call() throws Exception 
             {
-                logger.info("-in call");
-
                 try
                 {
 //TODO: add some long running event here
@@ -111,14 +98,10 @@ public class FXMLController implements Initializable
                         waitAlert.close();
                     });
                 }
-
                 return null ;
             }
         };
         new Thread(task).start();
-        
-        logger.info("apply style done");
-        }
     }
     
     @Override
