@@ -12,20 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
@@ -45,10 +44,17 @@ public class FXMLController implements Initializable
     
     @FXML
     private TextArea chatHistoryArea;
+    
+    @FXML
+    private WebView reportWebView;
 
+    private WebEngine webEngine;
+    
     Interview interview;
     
     InterviewQuestion currentQuestion;
+    
+    ReportService reportService;
 
     private void askCurrentQuestion()
     {
@@ -111,6 +117,8 @@ public class FXMLController implements Initializable
         
         logger.info("url: " + url.toString() );
   
+        reportService = new ReportService();
+        
         InterviewService interviewService = null;
         try
         {
@@ -129,6 +137,8 @@ public class FXMLController implements Initializable
         AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
         AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
         AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
+        
+        webEngine = reportWebView.getEngine();
         
         interview = interviewService.get();
 
@@ -196,9 +206,16 @@ public class FXMLController implements Initializable
         
         if( interview.isComplete() )
         {
-            chatHistoryArea.appendText("\nThanks for participating in the interview!");
+            textField.setDisable(true);
+//            textField.setEditable(false);
             
-            textField.setEditable(false);
+            chatHistoryArea.appendText("\nThanks for participating in the interview!");
+
+            List<InterviewQuestion> questions = interview.getQuestions();
+                        
+            String reportAsStr = reportService.toHtml(questions);
+            
+            webEngine.loadContent(reportAsStr);
         }
         else
         {
