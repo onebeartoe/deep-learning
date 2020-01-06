@@ -26,6 +26,10 @@ public class MainApp extends Application
         
         Parent root = loader.load();
 
+        FXMLController controller = loader.getController();
+        
+        controller.setHostServices(hostServices);        
+        
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         

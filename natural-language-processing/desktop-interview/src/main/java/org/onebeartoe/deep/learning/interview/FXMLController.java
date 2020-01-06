@@ -15,6 +15,7 @@ import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.SplitPane;
@@ -111,6 +112,8 @@ public class FXMLController implements Initializable
         reportDirectory.mkdirs();
             
         reportButton = new Button("Show Report Directory");
+        reportButton.setAlignment(Pos.CENTER);
+//        reportButton.setMaxWidth(Double.MAX_VALUE);
         reportButton.setOnAction( (event) ->
         {            
             hostServices.showDocument( reportDirectory.getAbsolutePath() );
