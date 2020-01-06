@@ -56,23 +56,30 @@ public class GoogleCustomSearch implements WebSearch
                 
         File propertiesFile = new File(propertiesPath);
         
-        InputStream inStream = new FileInputStream(propertiesFile);
-        
-        properties.load(inStream);
-                
-        cx = properties.getProperty("cx"); // the search engin ID
+        try
+        {
+            InputStream inStream = new FileInputStream(propertiesFile);
 
-        String apiKey = properties.getProperty("apiKey");
+            properties.load(inStream);
 
-        CustomsearchRequestInitializer requestInitializer = new CustomsearchRequestInitializer(apiKey);        
-                
-        String applicationName = properties.getProperty("applicationName");
-        
-        //Instance Customsearch
-        cs = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null) 
-                       .setApplicationName(applicationName)
-                       .setGoogleClientRequestInitializer(requestInitializer) 
-                       .build();
+            cx = properties.getProperty("cx"); // the search engin ID
+
+            String apiKey = properties.getProperty("apiKey");
+
+            CustomsearchRequestInitializer requestInitializer = new CustomsearchRequestInitializer(apiKey);        
+
+            String applicationName = properties.getProperty("applicationName");
+
+            //Instance Customsearch
+            cs = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null) 
+                           .setApplicationName(applicationName)
+                           .setGoogleClientRequestInitializer(requestInitializer) 
+                           .build();
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
         
     }
     
@@ -102,39 +109,55 @@ public class GoogleCustomSearch implements WebSearch
     {        
         String searchQuery = request.query;
         
-        //Set search parameter
-        Customsearch.Cse.List list = cs.cse().list(searchQuery).setCx(cx); 
-
-        //Execute search
-        Search result = list.execute();
-
-        Search.SearchInformation searchInformation = result.getSearchInformation();
-        searchInformation.getTotalResults();                
-        
-        
-        List<Result> items = result.getItems();
-
         List<SearchResult> results = new ArrayList();
         
-        if( items.isEmpty() )
+        if(cs == null || cx == null)
         {
-            System.err.println("no items were found: " + searchQuery);
+            // the properties were not loaded
+            SearchResult searchResult = new SearchResult();
+            
+            searchResult.content = "online search service is not available";
+            
+            searchResult.link = "not-available";
+            
+            searchResult.title = "service error";
+                    
+            results.add(searchResult);
         }
         else
         {
-            for(Result ri : items) 
+            //Set search parameter
+            Customsearch.Cse.List list = cs.cse().list(searchQuery).setCx(cx); 
+
+            //Execute search
+            Search result = list.execute();
+
+            Search.SearchInformation searchInformation = result.getSearchInformation();
+            searchInformation.getTotalResults();                
+
+
+            List<Result> items = result.getItems();            
+
+            if( items.isEmpty() )
             {
-                SearchResult searchResult = new SearchResult();
-                
-                searchResult.title = ri.getTitle();
-                
-                searchResult.link = ri.getLink();
-                
-                searchResult.content = ri.getSnippet();
-                
-                searchResult.kind = result.getKind();                
-                
-                results.add(searchResult);
+                System.err.println("no items were found: " + searchQuery);
+            }
+            else
+            {
+                for(Result ri : items) 
+                {
+                    SearchResult searchResult = new SearchResult();
+
+                    searchResult.title = ri.getTitle();
+
+                    searchResult.link = ri.getLink();
+
+                    searchResult.content = ri.getSnippet();
+
+                    searchResult.kind = result.getKind();                
+
+                    results.add(searchResult);
+                }
             }
         }
         
