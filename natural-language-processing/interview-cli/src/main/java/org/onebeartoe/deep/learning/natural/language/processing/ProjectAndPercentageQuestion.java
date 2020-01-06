@@ -15,11 +15,6 @@ public class ProjectAndPercentageQuestion extends SearchRecommendingQuestion
         
     private String project;
 
-    public String getProject()
-    {
-        return project;
-    }
-
     public ProjectAndPercentageQuestion(PercentageDetector percentageDetector, WebSearch webSearch)
     {
         this.percentageDetector = percentageDetector;
@@ -28,7 +23,23 @@ public class ProjectAndPercentageQuestion extends SearchRecommendingQuestion
         
         resultLimit = 3;
     }
-    
+
+    public String getProject()
+    {
+        return project;
+    }
+
+    public String getSearchQuery()
+    {
+        return project;
+    }
+
+    @Override
+    public String getValidResponseConfirmation()
+    {
+        return "Oh that project sounds cool!  It must feel good to be " + answer + " done.";
+    }
+
     @Override
     public ValidationResult validateResponse(String response)
     {
@@ -59,11 +70,5 @@ public class ProjectAndPercentageQuestion extends SearchRecommendingQuestion
         }
         
         return result;
-    }
-
-    @Override
-    public String getValidResponseConfirmation()
-    {
-        return "Oh that project sounds cool!  It must feel good to be " + answer + " done.";
     }
 }
