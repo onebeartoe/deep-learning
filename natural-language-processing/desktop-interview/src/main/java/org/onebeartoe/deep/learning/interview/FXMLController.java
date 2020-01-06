@@ -1,13 +1,11 @@
 
 package org.onebeartoe.deep.learning.interview;
 
-import java.awt.Desktop;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.time.Instant;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,8 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
-
-import org.onebeartoe.application.duration.DurationService;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
@@ -52,32 +48,12 @@ public class FXMLController implements Initializable
         
     @FXML
     private TilePane tilePane;
-    
-//    private File currentDir;
-//    
-//    private File contentFile;
-//    
-//    private File styleFile;
 
-    private DurationService durationService;
-    
     Interview interview;
     
     InterviewQuestion currentQuestion;
-        
-    private void applyStyle() throws IOException
-    {                
-
-        
-        Instant start = Instant.now();
-
-        
-            
-        Instant end = Instant.now();
-        String durationMessage = durationService.durationMessage(start, end);
-        logger.info(durationMessage);
-    }
     
+//TODO: keep this until we know that a background thread is not needed for a long running task    
     @FXML
     private void handleApplyStyleButtonAction(ActionEvent event)
     {
@@ -85,18 +61,6 @@ public class FXMLController implements Initializable
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Missing Input File");
-        
-//        if(contentFile == null)
-//        {
-//            alert.setContentText("Please select a content file.");
-//            alert.showAndWait();
-//        }
-//        else if(styleFile == null)
-//        {
-//            alert.setContentText("Please select a style file.");
-//            alert.showAndWait();
-//        }
-//        else
             
         {
             Alert waitAlert = new Alert(AlertType.INFORMATION);
@@ -121,7 +85,7 @@ public class FXMLController implements Initializable
 
                 try
                 {
-                    applyStyle();
+//TODO: add some long running event here
                 }
                 catch(Exception e)
                 {
@@ -202,21 +166,6 @@ public class FXMLController implements Initializable
         }
     }
     
-//    @FXML
-//    private void handleStyleButtonAction(ActionEvent event) throws FileNotFoundException 
-//    {
-//        logger.info("the style button was clicked");
-//
-//        if(styleFile != null)
-//        {
-//            String path = styleFile.getAbsolutePath();
-//
-//            InputStream inputStream = new FileInputStream(path);
-//            
-//            Image image = new Image(inputStream, 50, 50, true, true);
-//        }
-//    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -244,8 +193,6 @@ public class FXMLController implements Initializable
         AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
         
         interview = interviewService.get();
-
-        durationService = new DurationService();
 
         // have the scroll pane grow with the window resizing
         AnchorPane.setTopAnchor(outerSplitPane, 0.0);
