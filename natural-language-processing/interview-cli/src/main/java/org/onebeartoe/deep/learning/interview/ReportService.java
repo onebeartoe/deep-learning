@@ -69,25 +69,6 @@ public class ReportService
         return codeGenerator.htmlify(title + content);
     }
 
-//    Document htmlToPdf(String html) throws DocumentException, IOException
-//    {
-//        Document document = new Document();
-//                
-//        InputStream is = new ByteArrayInputStream(html.getBytes());
-//
-//        OutputStream os = new ByteArrayOutputStream();
-//        
-//        PdfWriter writer = PdfWriter.getInstance(document, os);
-//        
-//        document.open();
-//
-//        XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-//
-//        document.close();
-//        
-//        return document;
-//    }    
-
     private String recommendations(List<Recommendation> recommendations)
     {
         return recommendations.stream()

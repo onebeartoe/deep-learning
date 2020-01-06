@@ -1,19 +1,16 @@
 
 package org.onebeartoe.deep.learning.interview;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.onebeartoe.deep.learning.interview.ReportService.INVALID_ANSWER_DESCRIPTION;
-import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
 import org.onebeartoe.html.CodeGenerator;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -110,18 +107,6 @@ public class ReportServiceSpecification
         codeGenerator = new CodeGenerator();
     }
     
-//    @Test
-//    public void htmlToPdf() throws DocumentException, IOException
-//    {
-//        String content = implementation.toHtml(questions);
-//        
-//        String html = codeGenerator.htmlify(content);
-//                
-//        Document document = implementation.htmlToPdf(html);
-//        
-//        assertNotNull(document);
-//    }
-    
     @Test
     public void saveHtml() throws IOException
     {
@@ -158,8 +143,6 @@ public class ReportServiceSpecification
         String outfilePath = String.format("target/%s", outfileName);
                 
         File outfile = new File(outfilePath);
-        
-//        Document document = implementation.htmlToPdf(html);
         
         implementation.savePdf(html, outfile);
         
