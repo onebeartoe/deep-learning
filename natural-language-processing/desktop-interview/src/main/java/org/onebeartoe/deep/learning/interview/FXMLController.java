@@ -25,8 +25,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
@@ -46,14 +49,14 @@ public class FXMLController implements Initializable
     @FXML
     private Button applyStyleButton;
     
-//    @FXML
-//    private Button contentButton;
+    @FXML
+    private TextField textField;
     
     @FXML
     private Button styleButton;
     
-//    @FXML
-//    private ImageView contentImage;
+    @FXML
+    private TextArea chatHistoryArea;
     
 //    @FXML
 //    private Label contentLabel;
@@ -172,11 +175,24 @@ public class FXMLController implements Initializable
     }
 
     @FXML
-    private void handleContentButtonAction(ActionEvent event) throws FileNotFoundException
+    private void onTextEntered(ActionEvent event) throws FileNotFoundException
     {
         logger.info("the content button was clicked");
+  
+        String currentInput = textField.getText();
         
-        contentFile = fileChooser.showOpenDialog(null);
+        textField.setText("");
+        
+//        chatHistoryArea.sett
+        
+        
+        chatHistoryArea.appendText("\n\n");
+        
+        chatHistoryArea.appendText(currentInput);
+        
+        logger.info("suer input: ");
+        
+//        contentFile = fileChooser.showOpenDialog(null);
         
         if(contentFile != null)
         {
@@ -220,6 +236,12 @@ public class FXMLController implements Initializable
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
         
         logger.info("url: " + url.toString() );
+        
+        KeyEvent e;
+        
+//        e.get
+//        
+//        textField.onk
         
         if(guiDevelopment)
         {

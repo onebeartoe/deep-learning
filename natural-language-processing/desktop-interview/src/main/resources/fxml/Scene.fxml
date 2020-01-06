@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.TilePane?>
@@ -16,14 +16,18 @@
         <items>
             <BorderPane prefHeight="117.0" prefWidth="216.0">
                <top>
-                    <Label fx:id="label" minHeight="16" minWidth="69" text="Apache NLP Interview" BorderPane.alignment="CENTER" />
+                    <Label fx:id="label" minHeight="16" minWidth="69" text="Apache NLP Interviewwwww" BorderPane.alignment="CENTER" />
                </top>
-               <center>
-                  <ImageView fx:id="styleImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-               </center>
                <bottom>
-                  <TextField BorderPane.alignment="CENTER" />
+                  <TextField fx:id="textField" onAction="#onTextEntered" BorderPane.alignment="CENTER" />
                </bottom>
+               <center>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <content>
+                        <TextArea fx:id="chatHistoryArea" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </center>
             </BorderPane>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="406.0" prefWidth="405.0">
                <bottom>
