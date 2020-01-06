@@ -2,17 +2,16 @@
 package org.onebeartoe.deep.learning.interview;
 
 import java.awt.Desktop;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.time.Instant;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.HostServices;
 import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
@@ -27,15 +26,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooserBuilder;
 
 import org.onebeartoe.application.duration.DurationService;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
+import org.onebeartoe.deep.learning.natural.language.processing.Interview;
+import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
+import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
+import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
 
 public class FXMLController implements Initializable 
 {
@@ -53,17 +53,17 @@ public class FXMLController implements Initializable
     @FXML
     private TilePane tilePane;
     
-    private File currentDir;
-
-    private FileChooser fileChooser;
-    
-    private File contentFile;
-    
-    private File styleFile;
+//    private File currentDir;
+//    
+//    private File contentFile;
+//    
+//    private File styleFile;
 
     private DurationService durationService;
-
-    private final boolean guiDevelopment = false;
+    
+    Interview interview;
+    
+    InterviewQuestion currentQuestion;
         
     private void applyStyle() throws IOException
     {                
@@ -86,17 +86,18 @@ public class FXMLController implements Initializable
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Missing Input File");
         
-        if(contentFile == null)
-        {
-            alert.setContentText("Please select a content file.");
-            alert.showAndWait();
-        }
-        else if(styleFile == null)
-        {
-            alert.setContentText("Please select a style file.");
-            alert.showAndWait();
-        }
-        else
+//        if(contentFile == null)
+//        {
+//            alert.setContentText("Please select a content file.");
+//            alert.showAndWait();
+//        }
+//        else if(styleFile == null)
+//        {
+//            alert.setContentText("Please select a style file.");
+//            alert.showAndWait();
+//        }
+//        else
+            
         {
             Alert waitAlert = new Alert(AlertType.INFORMATION);
             waitAlert.setTitle("Please wait");
@@ -148,12 +149,12 @@ public class FXMLController implements Initializable
     @FXML
     private void onTextEntered(ActionEvent event) throws FileNotFoundException
     {
-        logger.info("the content button was clicked");
-  
 //        HostServices hostServices = 
 //  Desktop.getDesktop().browse("/home/roberto/Desktop/Screenshot%20from%202018-09-09%2020-32-43.png");
         
         String currentInput = textField.getText();
+     
+        logger.info("the content button was clicked");
         
         textField.setText("");        
         
@@ -161,33 +162,60 @@ public class FXMLController implements Initializable
         
         chatHistoryArea.appendText(currentInput);
         
-        logger.info("suer input: ");
-        
-        if(contentFile != null)
-        {
-            String path = contentFile.getAbsolutePath();
+        ValidationResult result = interview.setCurrentQuestionResponse(currentInput);
             
-            InputStream inputStream = new FileInputStream(path);
+        if(result.responseContainedQuestion)
+        {
+            chatHistoryArea.appendText("I am not sure about your question: " + result.questionInResponse);
+        }
+        
+        if( ! result.valid )
+        {
+            chatHistoryArea.appendText("I wasn't able to process your response.");
+
+            if( result.thresholdReached )
+            {
+                chatHistoryArea.appendText(":(  Let's move on with the interview.");
+            }
+        }
+        else
+        {
+            String confirmation = currentQuestion.getValidResponseConfirmation();
+
+            chatHistoryArea.appendText(confirmation);
+
+            List<Recommendation> recomendations = currentQuestion.getRecomendations();
+
+            if(recomendations.size() > 0)
+            {
+                chatHistoryArea.appendText("Here are some recomendations for " + result.answer);
+
+                recomendations.forEach( chatHistoryArea::appendText );
+            }
+        }
+        
+        if( interview.isComplete() )
+        {
+            chatHistoryArea.appendText("\nThanks for participating in the interview!");
+            
+            textField.setEditable(false);
         }
     }
     
-    @FXML
-    private void handleStyleButtonAction(ActionEvent event) throws FileNotFoundException 
-    {
-        logger.info("the style button was clicked");
-
-//TODO: how is the Window object obtained from this context?
-        styleFile = fileChooser.showOpenDialog(null);
-
-        if(styleFile != null)
-        {
-            String path = styleFile.getAbsolutePath();
-
-            InputStream inputStream = new FileInputStream(path);
-            
-            Image image = new Image(inputStream, 50, 50, true, true);
-        }
-    }
+//    @FXML
+//    private void handleStyleButtonAction(ActionEvent event) throws FileNotFoundException 
+//    {
+//        logger.info("the style button was clicked");
+//
+//        if(styleFile != null)
+//        {
+//            String path = styleFile.getAbsolutePath();
+//
+//            InputStream inputStream = new FileInputStream(path);
+//            
+//            Image image = new Image(inputStream, 50, 50, true, true);
+//        }
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -195,12 +223,28 @@ public class FXMLController implements Initializable
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
         
         logger.info("url: " + url.toString() );
-                
-        fileChooser = FileChooserBuilder.create()
-            .title("Choose a style")
-            .initialDirectory(currentDir)
-            .build();
+  
+        InterviewService interviewService = null;
+        try
+        {
+            interviewService = new InterviewService();
+        } 
+        catch (IOException  | URISyntaxException | GeneralSecurityException ex)
+        {
+            logger.severe( ex.getMessage() );
+        }
         
+        chatHistoryArea.appendText("Welcome to the chatbot interview!");
+
+//TODO: this does not work try something else
+        // have the text area fill the scroll pane //grow with the window resizing        
+        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
+        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
+        
+        interview = interviewService.get();
+
         durationService = new DurationService();
 
         // have the scroll pane grow with the window resizing
@@ -208,5 +252,13 @@ public class FXMLController implements Initializable
         AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
         AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
         AnchorPane.setRightAnchor(outerSplitPane, 0.0);
+        
+        currentQuestion = interview.currentQuestion();
+            
+        String imperitive = currentQuestion.getImperative();
+
+        chatHistoryArea.appendText("\n");
+
+        chatHistoryArea.appendText(imperitive);        
     }
 }
