@@ -1,6 +1,7 @@
 
 package org.onebeartoe.deep.learning.interview;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
@@ -20,16 +22,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
@@ -45,28 +43,13 @@ public class FXMLController implements Initializable
     
     @FXML
     private SplitPane outerSplitPane;
-    
-    @FXML
-    private Button applyStyleButton;
-    
+        
     @FXML
     private TextField textField;
     
     @FXML
-    private Button styleButton;
-    
-    @FXML
     private TextArea chatHistoryArea;
-    
-//    @FXML
-//    private Label contentLabel;
-    
-//    @FXML
-//    private ImageView styleImage;
-    
-//    @FXML
-//    private Label styleLabel;
-    
+        
     @FXML
     private TilePane tilePane;
     
@@ -81,14 +64,10 @@ public class FXMLController implements Initializable
     private DurationService durationService;
 
     private final boolean guiDevelopment = false;
-    
-    
-    
-    private void applyStyle() throws IOException
-    {        
-        String contentPath = contentFile.getAbsolutePath();
         
-        String stylePath = styleFile.getAbsolutePath();
+    private void applyStyle() throws IOException
+    {                
+
         
         Instant start = Instant.now();
 
@@ -125,13 +104,9 @@ public class FXMLController implements Initializable
             waitAlert.setOnCloseRequest( (closeWaitEvent) ->
             {
                 logger.info("the wait dialog was closed");
-                
-    
-                
+                                
                 waitAlert.close();
             });
-            
-            toggleButtons(true);
             
             ObservableList<Node> children = tilePane.getChildren();
             children.clear();
@@ -152,16 +127,12 @@ public class FXMLController implements Initializable
                     String message = e.getMessage();
 
                     logger.log(Level.SEVERE, message, e);
-
-                    applyStyleButton.setText("Error: see log");
                 }
                 finally
                 {
                     Platform.runLater(() ->
                     {
                         waitAlert.close();
-
-                        toggleButtons(false);
                     });
                 }
 
@@ -179,12 +150,12 @@ public class FXMLController implements Initializable
     {
         logger.info("the content button was clicked");
   
+//        HostServices hostServices = 
+//  Desktop.getDesktop().browse("/home/roberto/Desktop/Screenshot%20from%202018-09-09%2020-32-43.png");
+        
         String currentInput = textField.getText();
         
-        textField.setText("");
-        
-//        chatHistoryArea.sett
-        
+        textField.setText("");        
         
         chatHistoryArea.appendText("\n\n");
         
@@ -192,19 +163,11 @@ public class FXMLController implements Initializable
         
         logger.info("suer input: ");
         
-//        contentFile = fileChooser.showOpenDialog(null);
-        
         if(contentFile != null)
         {
             String path = contentFile.getAbsolutePath();
             
             InputStream inputStream = new FileInputStream(path);
-            
-            Image image = new Image(inputStream, 50, 50, true, true);
-            
-//            contentImage.setImage(image);
-//            
-//            contentLabel.setText(path);
         }
     }
     
@@ -223,10 +186,6 @@ public class FXMLController implements Initializable
             InputStream inputStream = new FileInputStream(path);
             
             Image image = new Image(inputStream, 50, 50, true, true);
-
-//            styleImage.setImage(image);            
-//            
-//            styleLabel.setText(path);
         }
     }
 
@@ -236,44 +195,18 @@ public class FXMLController implements Initializable
         logger = SysoutLoggerFactory.getLogger( getClass().getName() );
         
         logger.info("url: " + url.toString() );
-        
-        KeyEvent e;
-        
-//        e.get
-//        
-//        textField.onk
-        
-        if(guiDevelopment)
-        {
-
-        }
-        else
-        {
-
-        }
-        
+                
         fileChooser = FileChooserBuilder.create()
             .title("Choose a style")
             .initialDirectory(currentDir)
             .build();
         
         durationService = new DurationService();
-        
-
-        
-
 
         // have the scroll pane grow with the window resizing
         AnchorPane.setTopAnchor(outerSplitPane, 0.0);
         AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
         AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
         AnchorPane.setRightAnchor(outerSplitPane, 0.0);
-    }
-
-    private void toggleButtons(boolean disabled)
-    {
-        applyStyleButton.setDisable(disabled);
-//        contentButton.setDisable(disabled);
-        styleButton.setDisable(disabled);
     }
 }
