@@ -133,10 +133,10 @@ public class FXMLController implements Initializable
 
 //TODO: this does not work try something else
         // have the text area fill the scroll pane //grow with the window resizing        
-        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
-        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
+//        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
+//        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
+//        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
+//        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
         
         webEngine = reportWebView.getEngine();
         
@@ -207,7 +207,6 @@ public class FXMLController implements Initializable
         if( interview.isComplete() )
         {
             textField.setDisable(true);
-//            textField.setEditable(false);
             
             chatHistoryArea.appendText("\nThanks for participating in the interview!");
 
