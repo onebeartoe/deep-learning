@@ -6,11 +6,18 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -67,9 +74,19 @@ public class FXMLController implements Initializable
         chatHistoryArea.appendText(imperitive);        
     }
     
+    
+    private ValidationResult handleApplyStyleButtonAction(String currentInput)
+    {
+        ValidationResult result = null;
+        
+        result = interview.setCurrentQuestionResponse(currentInput);
+
+return result;        
+    }
+    
 //TODO: keep this until we know that a background thread is not needed for a long running task    
     @FXML
-    private void handleApplyStyleButtonAction(ActionEvent event)
+    private ValidationResult handleApplyStyleButtonAction_NOT(String currentInput)
     {
         logger.info("the apply style button was clicked");
                     
@@ -81,6 +98,10 @@ public class FXMLController implements Initializable
             logger.info("the wait dialog was closed");
             waitAlert.close();
         });
+        
+        ValidationResult result = null;
+        
+        result = interview.setCurrentQuestionResponse(currentInput);                    
             
         Task<Void> task = new Task<Void>() 
         {
@@ -90,6 +111,7 @@ public class FXMLController implements Initializable
                 try
                 {
 //TODO: add some long running event here
+//result = interview.setCurrentQuestionResponse(currentInput);                    
                 }
                 catch(Exception e)
                 {
@@ -108,6 +130,8 @@ public class FXMLController implements Initializable
             }
         };
         new Thread(task).start();
+        
+        return result;
     }
     
     @Override
@@ -152,14 +176,14 @@ public class FXMLController implements Initializable
     }
 
     @FXML
-    private void onTextEntered(ActionEvent event) throws FileNotFoundException
+    private void onTextEntered(ActionEvent event) throws FileNotFoundException, InterruptedException, ExecutionException
     {
 //        HostServices hostServices = 
 //  Desktop.getDesktop().browse("/home/roberto/Desktop/Screenshot%20from%202018-09-09%2020-32-43.png");
         
         String currentInput = textField.getText();
      
-        logger.info("the content button was clicked");
+        logger.info("text was received from the input field");
         
         textField.setText("");        
         
@@ -167,8 +191,36 @@ public class FXMLController implements Initializable
         
         chatHistoryArea.appendText(currentInput);
         
+//        ValidationResult result;
+        
+//        final List<ValidationResult> finalList = new ArrayList();
+//        
+//      final CountDownLatch latch = new CountDownLatch(1);
+////final StringProperty passwordProperty = new SimpleStringProperty();
+//Platform.runLater(new Runnable() {
+//    @Override public void run() {
+//        ValidationResult tempResult = interview.setCurrentQuestionResponse(currentInput);
+//        finalList.add(tempResult);
+//        
+//        latch.countDown();
+//        
+//        latch.
+//    }
+//});
+//latch.await();      
+//System.out.println(passwordProperty.get());
+
+System.out.println("hey");
+        
+//        ValidationResult result = finalList.get(0);
+//        ValidationResult result = (ValidationResult) query.get();
+
+textField.setDisable(true);
+
         ValidationResult result = interview.setCurrentQuestionResponse(currentInput);
-            
+
+textField.setDisable(false);        
+                
         if(result.responseContainedQuestion)
         {
             chatHistoryArea.appendText("\nI am not sure about your question: " + result.questionInResponse);
