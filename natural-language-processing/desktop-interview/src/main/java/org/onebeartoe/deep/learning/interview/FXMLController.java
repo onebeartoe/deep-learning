@@ -52,6 +52,17 @@ public class FXMLController implements Initializable
     Interview interview;
     
     InterviewQuestion currentQuestion;
+
+    private void askCurrentQuestion()
+    {
+        currentQuestion = interview.currentQuestion();
+            
+        String imperitive = currentQuestion.getImperative();
+
+        chatHistoryArea.appendText("\n");
+
+        chatHistoryArea.appendText(imperitive);        
+    }
     
 //TODO: keep this until we know that a background thread is not needed for a long running task    
     @FXML
@@ -143,14 +154,8 @@ public class FXMLController implements Initializable
         AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
         AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
         AnchorPane.setRightAnchor(outerSplitPane, 0.0);
-        
-        currentQuestion = interview.currentQuestion();
-            
-        String imperitive = currentQuestion.getImperative();
 
-        chatHistoryArea.appendText("\n");
-
-        chatHistoryArea.appendText(imperitive);        
+        askCurrentQuestion();
     }
 
     @FXML
@@ -173,16 +178,16 @@ public class FXMLController implements Initializable
             
         if(result.responseContainedQuestion)
         {
-            chatHistoryArea.appendText("I am not sure about your question: " + result.questionInResponse);
+            chatHistoryArea.appendText("\nI am not sure about your question: " + result.questionInResponse);
         }
         
         if( ! result.valid )
         {
-            chatHistoryArea.appendText("I wasn't able to process your response.");
+            chatHistoryArea.appendText("\nI wasn't able to process your response.");
 
             if( result.thresholdReached )
             {
-                chatHistoryArea.appendText(":(  Let's move on with the interview.");
+                chatHistoryArea.appendText("\n:(  Let's move on with the interview.");
             }
         }
         else
@@ -195,9 +200,14 @@ public class FXMLController implements Initializable
 
             if(recomendations.size() > 0)
             {
-                chatHistoryArea.appendText("Here are some recomendations for " + result.answer);
+                chatHistoryArea.appendText("\nHere are some recomendations for " + result.answer);
 
-                recomendations.forEach( chatHistoryArea::appendText );
+                recomendations.forEach(r ->
+                {
+                    String recomendation = "\n" + r.toString();
+                    
+                    chatHistoryArea.appendText(recomendation);
+                });
             }
         }
         
@@ -206,6 +216,10 @@ public class FXMLController implements Initializable
             chatHistoryArea.appendText("\nThanks for participating in the interview!");
             
             textField.setEditable(false);
+        }
+        else
+        {
+            askCurrentQuestion();
         }
     }
 }
