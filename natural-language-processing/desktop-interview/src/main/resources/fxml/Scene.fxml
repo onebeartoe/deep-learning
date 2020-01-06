@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="408.0" prefWidth="991.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.deep.learning.interview.FXMLController">
     <children>
-      <SplitPane fx:id="outerSplitPane" dividerPositions="0.35" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="668.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="outerSplitPane" dividerPositions="0.6006006006006006" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="668.0" AnchorPane.topAnchor="0.0">
         <items>
             <BorderPane prefHeight="117.0" prefWidth="216.0">
                <top>
