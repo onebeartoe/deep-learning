@@ -6,26 +6,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -69,69 +57,9 @@ public class FXMLController implements Initializable
             
         String imperitive = currentQuestion.getImperative();
 
-        chatHistoryArea.appendText("\n");
+        chatHistoryArea.appendText("\n\n");
 
         chatHistoryArea.appendText(imperitive);        
-    }
-    
-    
-    private ValidationResult handleApplyStyleButtonAction(String currentInput)
-    {
-        ValidationResult result = null;
-        
-        result = interview.setCurrentQuestionResponse(currentInput);
-
-return result;        
-    }
-    
-//TODO: keep this until we know that a background thread is not needed for a long running task    
-    @FXML
-    private ValidationResult handleApplyStyleButtonAction_NOT(String currentInput)
-    {
-        logger.info("the apply style button was clicked");
-                    
-        Alert waitAlert = new Alert(AlertType.INFORMATION);
-        waitAlert.setTitle("Please wait");
-        waitAlert.show();
-        waitAlert.setOnCloseRequest( (closeWaitEvent) ->
-        {
-            logger.info("the wait dialog was closed");
-            waitAlert.close();
-        });
-        
-        ValidationResult result = null;
-        
-        result = interview.setCurrentQuestionResponse(currentInput);                    
-            
-        Task<Void> task = new Task<Void>() 
-        {
-            @Override 
-            public Void call() throws Exception 
-            {
-                try
-                {
-//TODO: add some long running event here
-//result = interview.setCurrentQuestionResponse(currentInput);                    
-                }
-                catch(Exception e)
-                {
-                    String message = e.getMessage();
-
-                    logger.log(Level.SEVERE, message, e);
-                }
-                finally
-                {
-                    Platform.runLater(() ->
-                    {
-                        waitAlert.close();
-                    });
-                }
-                return null ;
-            }
-        };
-        new Thread(task).start();
-        
-        return result;
     }
     
     @Override
@@ -154,13 +82,6 @@ return result;
         }
         
         chatHistoryArea.appendText("Welcome to the chatbot interview!");
-
-//TODO: this does not work try something else
-        // have the text area fill the scroll pane //grow with the window resizing        
-//        AnchorPane.setTopAnchor(chatHistoryArea, 0.0);
-//        AnchorPane.setBottomAnchor(chatHistoryArea, 0.0);
-//        AnchorPane.setLeftAnchor(chatHistoryArea, 0.0);
-//        AnchorPane.setRightAnchor(chatHistoryArea, 0.0);
         
         webEngine = reportWebView.getEngine();
         
@@ -191,35 +112,13 @@ return result;
         
         chatHistoryArea.appendText(currentInput);
         
-//        ValidationResult result;
-        
-//        final List<ValidationResult> finalList = new ArrayList();
-//        
-//      final CountDownLatch latch = new CountDownLatch(1);
-////final StringProperty passwordProperty = new SimpleStringProperty();
-//Platform.runLater(new Runnable() {
-//    @Override public void run() {
-//        ValidationResult tempResult = interview.setCurrentQuestionResponse(currentInput);
-//        finalList.add(tempResult);
-//        
-//        latch.countDown();
-//        
-//        latch.
-//    }
-//});
-//latch.await();      
-//System.out.println(passwordProperty.get());
-
-System.out.println("hey");
-        
-//        ValidationResult result = finalList.get(0);
-//        ValidationResult result = (ValidationResult) query.get();
-
-textField.setDisable(true);
+        // disable to avoid user input during recomendation lookup
+        textField.setDisable(true);
 
         ValidationResult result = interview.setCurrentQuestionResponse(currentInput);
 
-textField.setDisable(false);        
+        // re-enable 
+        textField.setDisable(false);        
                 
         if(result.responseContainedQuestion)
         {
@@ -239,6 +138,7 @@ textField.setDisable(false);
         {
             String confirmation = currentQuestion.getValidResponseConfirmation();
 
+            chatHistoryArea.appendText("\n");
             chatHistoryArea.appendText(confirmation);
 
             List<Recommendation> recomendations = currentQuestion.getRecomendations();
@@ -260,7 +160,7 @@ textField.setDisable(false);
         {
             textField.setDisable(true);
             
-            chatHistoryArea.appendText("\nThanks for participating in the interview!");
+            chatHistoryArea.appendText("\n\nThanks for participating in the interview!");
 
             List<InterviewQuestion> questions = interview.getQuestions();
                         
