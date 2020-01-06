@@ -46,20 +46,20 @@ public class FXMLController implements Initializable
     @FXML
     private Button applyStyleButton;
     
-    @FXML
-    private Button contentButton;
+//    @FXML
+//    private Button contentButton;
     
     @FXML
     private Button styleButton;
     
-    @FXML
-    private ImageView contentImage;
+//    @FXML
+//    private ImageView contentImage;
     
-    @FXML
-    private Label contentLabel;
+//    @FXML
+//    private Label contentLabel;
     
-    @FXML
-    private ImageView styleImage;
+//    @FXML
+//    private ImageView styleImage;
     
 //    @FXML
 //    private Label styleLabel;
@@ -186,9 +186,9 @@ public class FXMLController implements Initializable
             
             Image image = new Image(inputStream, 50, 50, true, true);
             
-            contentImage.setImage(image);
-            
-            contentLabel.setText(path);
+//            contentImage.setImage(image);
+//            
+//            contentLabel.setText(path);
         }
     }
     
@@ -208,9 +208,9 @@ public class FXMLController implements Initializable
             
             Image image = new Image(inputStream, 50, 50, true, true);
 
-            styleImage.setImage(image);            
-            
-            styleLabel.setText(path);
+//            styleImage.setImage(image);            
+//            
+//            styleLabel.setText(path);
         }
     }
 
@@ -251,7 +251,7 @@ public class FXMLController implements Initializable
     private void toggleButtons(boolean disabled)
     {
         applyStyleButton.setDisable(disabled);
-        contentButton.setDisable(disabled);
+//        contentButton.setDisable(disabled);
         styleButton.setDisable(disabled);
     }
 }
