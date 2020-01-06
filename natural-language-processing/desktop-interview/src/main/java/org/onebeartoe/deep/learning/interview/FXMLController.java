@@ -1,6 +1,7 @@
 
 package org.onebeartoe.deep.learning.interview;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,14 +11,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -43,13 +47,22 @@ public class FXMLController implements Initializable
     @FXML
     private WebView reportWebView;
 
+    @FXML
+    private BorderPane webviewBorderPane;
+    
     private WebEngine webEngine;
+    
+    private Button reportButton;
     
     Interview interview;
     
     InterviewQuestion currentQuestion;
     
     ReportService reportService;
+    
+    HostServices hostServices;
+    
+    File reportDirectory;
 
     private void askCurrentQuestion()
     {
@@ -92,6 +105,16 @@ public class FXMLController implements Initializable
         AnchorPane.setBottomAnchor(outerSplitPane, 0.0);
         AnchorPane.setLeftAnchor(outerSplitPane, 0.0);
         AnchorPane.setRightAnchor(outerSplitPane, 0.0);
+        
+        File pwd = new File(".");
+        reportDirectory = new File(pwd, "target");
+        reportDirectory.mkdirs();
+            
+        reportButton = new Button("Show Report Directory");
+        reportButton.setOnAction( (event) ->
+        {            
+            hostServices.showDocument( reportDirectory.getAbsolutePath() );
+        });
 
         askCurrentQuestion();
     }
@@ -167,10 +190,17 @@ public class FXMLController implements Initializable
             String reportAsStr = reportService.toHtml(questions);
             
             webEngine.loadContent(reportAsStr);
+
+            webviewBorderPane.setBottom(reportButton);
         }
         else
         {
             askCurrentQuestion();
         }
+    }
+
+    void setHostServices(HostServices hostServices)
+    {
+        this.hostServices = hostServices;
     }
 }
