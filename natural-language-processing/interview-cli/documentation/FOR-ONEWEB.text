@@ -75,10 +75,33 @@ Resources
 
 other location user oneweb.org
 
-    add the following terms under the deep learning terms/definitions section
+    - add the following terms under the deep learning terms/definitions section
 
-    N.E.R. - named entity recognition
+    - N.E.R. - named entity recognition
 
+    - Netbeans Debug a JavaFX Maven Project
+
+        Project Properties
+
+        Categories -> Build -> Actions
+
+            Actions -> Debug Project
+
+                Execute Goals:
+                clean package org.codehaus.mojo:exec-maven-plugin:1.2.1:exec
+
+                Set Properties:
+                runfx.args=-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dglass.disableGrab=true -jar "${project.build.directory}/${project.build.finalName}.jar"
+                jpda.listen=true
+
+
+            Actions -> Run Project
+
+                Execute Goals:
+                process-classes org.codehaus.mojo:exec-maven-plugin:1.5.0:exec
+
+                Set Properties:
+                runfx.args=-jar "${project.build.directory}/${project.build.finalName}.jar"
 
 
 oneweb.net - google custom search
