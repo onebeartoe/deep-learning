@@ -31,6 +31,9 @@ import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
 import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
+import org.onebeartoe.html.CodeGenerator;
+import org.onebeartoe.html.Div;
+import org.onebeartoe.html.PlainText;
 
 public class FXMLController implements Initializable 
 {
@@ -42,16 +45,25 @@ public class FXMLController implements Initializable
     @FXML
     private TextField textField;
     
-    @FXML
-    private TextArea chatHistoryArea;
+//    @FXML
+//    private TextArea chatHistoryArea;
     
+    private StringBuilder chatContent;
+    
+    private CodeGenerator codeGenerator;
+    
+    @FXML 
+    private WebView chatHistoryWebView;
+    
+    private WebEngine chatHistoryEngine;
+        
     @FXML
     private WebView reportWebView;
 
     @FXML
-    private BorderPane webviewBorderPane;
+    private BorderPane reportWebWiewBorderPane;
     
-    private WebEngine webEngine;
+    private WebEngine reportWebEngine;
     
     private Button reportButton;
     
@@ -64,6 +76,39 @@ public class FXMLController implements Initializable
     HostServices hostServices;
     
     File reportDirectory;
+    
+    private void appendInterviewerContent(String content)
+    {
+        Div div = new Div();
+        PlainText text = new PlainText(content);
+        div.add(text);
+
+        div.setStyle("background: blue;");
+        
+        String html = div.toString();
+        
+        appendChatHistory(html);
+    }
+    
+    private void appendUserResponse(String content)
+    {
+        Div div = new Div();
+        PlainText text = new PlainText(content);
+        div.add(text);
+        
+        String html = div.toString();
+        
+        appendChatHistory(html);        
+    }
+    
+    private void appendChatHistory(String html)
+    {
+        chatContent.append(html);
+        
+        String content = codeGenerator.htmlify( chatContent.toString() );
+        
+        chatHistoryEngine.loadContent(content);
+    }
 
     private void askCurrentQuestion()
     {
@@ -71,9 +116,10 @@ public class FXMLController implements Initializable
             
         String imperitive = currentQuestion.getImperative();
 
-        chatHistoryArea.appendText("\n\n");
+//        chatHistoryArea.appendText("\n\n");
 
-        chatHistoryArea.appendText(imperitive);        
+//        chatHistoryArea.appendText(imperitive);        
+        appendInterviewerContent(imperitive);
     }
     
     @Override
@@ -95,14 +141,21 @@ public class FXMLController implements Initializable
             logger.severe( ex.getMessage() );
         }
         
-        chatHistoryArea.appendText("Welcome to the chatbot interview!");
+        chatContent = new StringBuilder();
         
-        webEngine = reportWebView.getEngine();
+        codeGenerator = new CodeGenerator();
+        
+        chatHistoryEngine = chatHistoryWebView.getEngine();
+        
+        appendInterviewerContent("Welcome to the chatbot interview!");
+//        chatHistoryArea.appendText("Welcome to the chatbot interview!");
+        
+        reportWebEngine = reportWebView.getEngine();
         
         URL resource = getClass().getResource("/styles/webview.css");
         String location = resource.toString();
         
-        webEngine.setUserStyleSheetLocation(location);
+        reportWebEngine.setUserStyleSheetLocation(location);
         
         interview = interviewService.get();
 
@@ -136,9 +189,10 @@ public class FXMLController implements Initializable
         
         textField.setText("");        
         
-        chatHistoryArea.appendText("\n\n");
+//        chatHistoryArea.appendText("\n\n");
         
-        chatHistoryArea.appendText(currentInput);
+        appendUserResponse(currentInput);
+//        chatHistoryArea.appendText(currentInput);
         
         // disable to avoid user input during recomendation lookup
         textField.setDisable(true);
@@ -150,36 +204,42 @@ public class FXMLController implements Initializable
                 
         if(result.responseContainedQuestion)
         {
-            chatHistoryArea.appendText("\nI am not sure about your question: " + result.questionInResponse);
+            appendInterviewerContent("\nI am not sure about your question: " + result.questionInResponse);
+//            chatHistoryArea.appendText("\nI am not sure about your question: " + result.questionInResponse);
         }
         
         if( ! result.valid )
         {
-            chatHistoryArea.appendText("\nI wasn't able to process your response.");
+            appendInterviewerContent("\nI wasn't able to process your response.");
+//            chatHistoryArea.appendText("\nI wasn't able to process your response.");
 
             if( result.thresholdReached )
             {
-                chatHistoryArea.appendText("\n:(  Let's move on with the interview.");
+                appendInterviewerContent("\n:(  Let's move on with the interview.");
+//                chatHistoryArea.appendText("\n:(  Let's move on with the interview.");
             }
         }
         else
         {
             String confirmation = currentQuestion.getValidResponseConfirmation();
 
-            chatHistoryArea.appendText("\n");
-            chatHistoryArea.appendText(confirmation);
+//            chatHistoryArea.appendText("\n");
+            appendInterviewerContent(confirmation);
+//            chatHistoryArea.appendText(confirmation);
 
             List<Recommendation> recomendations = currentQuestion.getRecomendations();
 
             if(recomendations.size() > 0)
             {
-                chatHistoryArea.appendText("\nHere are some recomendations for " + result.answer);
+                appendInterviewerContent("\nHere are some recomendations for " + result.answer);
+//                chatHistoryArea.appendText("\nHere are some recomendations for " + result.answer);
 
                 recomendations.forEach(r ->
                 {
                     String recomendation = "\n" + r.toString();
                     
-                    chatHistoryArea.appendText(recomendation);
+                    appendInterviewerContent(recomendation);
+//                    chatHistoryArea.appendText(recomendation);
                 });
             }
         }
@@ -188,15 +248,16 @@ public class FXMLController implements Initializable
         {
             textField.setDisable(true);
             
-            chatHistoryArea.appendText("\n\nThanks for participating in the interview!");
+            appendInterviewerContent("\n\nThanks for participating in the interview!");
+//            chatHistoryArea.appendText("\n\nThanks for participating in the interview!");
 
             List<InterviewQuestion> questions = interview.getQuestions();
                         
             String reportAsStr = reportService.toHtml(questions);
             
-            webEngine.loadContent(reportAsStr);
+            reportWebEngine.loadContent(reportAsStr);
 
-            webviewBorderPane.setBottom(reportButton);
+            reportWebWiewBorderPane.setBottom(reportButton);
         }
         else
         {
