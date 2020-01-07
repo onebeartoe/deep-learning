@@ -99,6 +99,11 @@ public class FXMLController implements Initializable
         
         webEngine = reportWebView.getEngine();
         
+        URL resource = getClass().getResource("/styles/webview.css");
+        String location = resource.toString();
+        
+        webEngine.setUserStyleSheetLocation(location);
+        
         interview = interviewService.get();
 
         // have the scroll pane grow with the window resizing
