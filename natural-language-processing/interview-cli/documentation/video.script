@@ -6,7 +6,28 @@ Natural Language Processing Interview
     Hi, I am Roberto Marquez.  In this video, I demonstrate a user story for evaluating 
     the Apache natural language processing API.
 
-01 - Epic Story Review
+01 - Tools and Prerequisites
+
+    This project is built using Apache NLP APs.
+
+        dependency information is in the POM
+
+        trained model locations are listed in the 'resources' directory
+
+    The Netbeans IDE was used to develop the software.
+
+    Other Java technologies used include
+
+        Google Search
+
+            see the GoogleCustomSearch.java file to obtain 
+            and setup a properties file with your developer API key
+
+        Glassfish Jersey Client API to query 'on this day' REST services
+
+        iText API to generate the interview report in PDF format
+
+02 - Epic Story Review
 
     ask question
 
@@ -16,7 +37,7 @@ Natural Language Processing Interview
 
     show a few false negatives
 
-02 - Evaluation
+03 - Evaluation
 
     Overall I'd say the API works better than good.  I was able to train the sentiment 
     model to pick up affirmative responses that were not initially recognized.  The default models 
@@ -43,7 +64,7 @@ Natural Language Processing Interview
     One benefit of using neural networks and other machine learning APIs is not having to 
     enumerate all the conditionals for all the ways natural language responses are given.
 
-03 - Outro
+04 - Outro
 
     It was exciting to use this NLP API from Apache and I plan to explore more APIs in this area.
     Hopefully you enjoyed the demonstration and I encourage you to explore the ideas 
