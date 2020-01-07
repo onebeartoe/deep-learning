@@ -18,7 +18,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
+import org.onebeartoe.html.BreakTag;
 import org.onebeartoe.html.CodeGenerator;
+import org.onebeartoe.html.Heading;
+import org.onebeartoe.html.Paragraph;
+import org.onebeartoe.html.UnorderedList;
 
 /**
  * This class provides service methods to create interview reports in HTML format, 
@@ -30,28 +34,42 @@ public class ReportService
     public static final String INVALID_ANSWER_DESCRIPTION = "no valid answer was given";
     
     CodeGenerator codeGenerator;
+    
+    final String BR;
 
     public ReportService()
     {
         codeGenerator = new CodeGenerator();
+        
+        BreakTag breakTag = new BreakTag();
+
+        BR = breakTag.toString();
     }
     
     String toHtml(List<InterviewQuestion> questions)
-    {
-        String title = "Interview Report" + "\n\n";
-        
-        String content = questions.stream()
+    {        
+        String questionContent = questions.stream()
                         .map( q -> 
                         {
                             StringBuilder sb = new StringBuilder();                                                        
                             
-                            sb.append( q.getImperative() );
+                            String questionTag = Heading.h2( q.getImperative() ).toString();
+                            
+                            sb.append(questionTag);
                             
                             sb.append("\n");
                             
                             if( q.isAnswered() )
                             {
-                                sb.append( q.getAnswer() );
+                                String answer = q.getAnswer();
+                                answer = "answer: " + answer;
+                                Paragraph p = new Paragraph();
+                                p.setText(answer);
+                                answer = p.toString();
+                                
+                                sb.append(answer);
+                                
+                                sb.append(BR);
                                 
                                 String recommendations = recommendations( q.getRecomendations() );
                                 
@@ -66,17 +84,48 @@ public class ReportService
                         })
                         .collect( Collectors.joining("\n\n"));
         
-        return codeGenerator.htmlify(title + content);
+        
+        String title = "Interview Report";
+        title = Heading.h1(title) + "\n\n";
+        
+        String content = title + questionContent;
+        
+        return codeGenerator.htmlify(content);
     }
 
     private String recommendations(List<Recommendation> recommendations)
     {
-        return recommendations.stream()
+        StringBuilder recommends = new StringBuilder();
+                
+        String h3 = Heading.h3("Recommendations")
+                           .toString();
+        
+        recommends.append(h3);
+
+        List<String> elements = recommendations.stream()
                               .map(r ->
                               {
-                                  return r.title + r.link + r.content;
+                                  StringBuilder sb = new StringBuilder();
+                                  
+                                  String content = 
+                                  r.title + 
+                                          BR + 
+                                          r.link
+                                          +
+                                          BR 
+                                          + r.content;
+                                  
+                                sb.append(content);
+                                  
+                                  return sb.toString();
                               })
-                              .collect( Collectors.joining(" "));
+                              .collect( Collectors.toList() );
+        
+        UnorderedList ul = new UnorderedList(elements);
+        
+        recommends.append( ul.toString() );
+        
+        return recommends.toString();
     }
 
     void saveHtml(String html, File outfile) throws IOException

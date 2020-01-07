@@ -54,6 +54,8 @@ public class ReportServiceSpecification
         colorQuestion.setAnswer(colorQuestionAnswer);
         colorQuestion.setAnswered(true);
         Recommendation colorRecommendation = new Recommendation();
+        colorRecommendation.title = "Colors are Great";
+        colorRecommendation.link = "color.com";
         colorRecommendation.content = colorQuestionRecommendation;
         colorQuestion.addRecommendation(colorRecommendation);
         
@@ -66,7 +68,9 @@ public class ReportServiceSpecification
         heightQuestion.setAnswer(heightQuestionAnswer);
         heightQuestion.setAnswered(true);
         Recommendation heightRecommendation = new Recommendation();
+        heightRecommendation.title = "Heights R Us";
         heightRecommendation.content = heightQuestionRecommendation;
+        heightRecommendation.link = "height.net";
         heightQuestion.addRecommendation(heightRecommendation);
         
         questions = new ArrayList();
