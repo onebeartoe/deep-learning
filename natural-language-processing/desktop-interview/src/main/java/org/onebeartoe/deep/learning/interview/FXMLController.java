@@ -1,12 +1,14 @@
 
 package org.onebeartoe.deep.learning.interview;
 
+import com.itextpdf.tool.xml.html.Break;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -31,9 +33,12 @@ import org.onebeartoe.deep.learning.natural.language.processing.Interview;
 import org.onebeartoe.deep.learning.natural.language.processing.InterviewQuestion;
 import org.onebeartoe.deep.learning.natural.language.processing.Recommendation;
 import org.onebeartoe.deep.learning.natural.language.processing.ValidationResult;
+import org.onebeartoe.html.BreakTag;
 import org.onebeartoe.html.CodeGenerator;
 import org.onebeartoe.html.Div;
+import org.onebeartoe.html.Heading;
 import org.onebeartoe.html.PlainText;
+import org.onebeartoe.html.UnorderedList;
 
 public class FXMLController implements Initializable 
 {
@@ -73,14 +78,18 @@ public class FXMLController implements Initializable
     HostServices hostServices;
     
     File reportDirectory;
+        
+    BreakTag BR = new BreakTag();
     
     private void appendInterviewerContent(String content)
     {
         Div div = new Div();
+        
         PlainText text = new PlainText(content);
+        
         div.add(text);
 
-        div.setStyle("background: blue;");
+        div.setClasses("intervewerText");
         
         String html = div.toString();
         
@@ -90,10 +99,14 @@ public class FXMLController implements Initializable
     private void appendUserResponse(String content)
     {
         Div div = new Div();
+
         PlainText text = new PlainText(content);
+
         div.add(text);
         
-        String html = div.toString();
+        div.setClasses("userText");
+        
+        String html = div.toString() + BR.toString();
         
         appendChatHistory(html);        
     }
@@ -101,6 +114,10 @@ public class FXMLController implements Initializable
     private void appendChatHistory(String html)
     {
         chatContent.append(html);
+        
+        String clearingBreak = "<br style=\"clear: both;\" />" ;
+        
+        chatContent.append(clearingBreak);        
         
         String content = codeGenerator.htmlify( chatContent.toString() );
         
@@ -138,15 +155,18 @@ public class FXMLController implements Initializable
         chatContent = new StringBuilder();
         
         codeGenerator = new CodeGenerator();
+                
+        URL resource = getClass().getResource("/styles/webview.css");
+        String location = resource.toString();
         
         chatHistoryEngine = chatHistoryWebView.getEngine();
+        
+        chatHistoryEngine.setUserStyleSheetLocation(location);
         
         appendInterviewerContent("Welcome to the chatbot interview!");
         
         reportWebEngine = reportWebView.getEngine();
         
-        URL resource = getClass().getResource("/styles/webview.css");
-        String location = resource.toString();
         
         reportWebEngine.setUserStyleSheetLocation(location);
         
@@ -216,14 +236,34 @@ public class FXMLController implements Initializable
 
             if(recomendations.size() > 0)
             {
-                appendInterviewerContent("\nHere are some recomendations for " + result.answer);
+                String title = String.format("Here are some recomendations for %s", result.answer);
+                
+                Heading heading = Heading.h1(title);
+                
+                StringBuilder sb = new StringBuilder();
+                
+                sb.append(heading);
+                
+                List<String> elements = new ArrayList();
 
                 recomendations.forEach(r ->
                 {
                     String recomendation = "\n" + r.toString();
                     
-                    appendInterviewerContent(recomendation);
+                    Heading h3 = Heading.h3(recomendation);
+                    
+                    elements.add( h3.toString() );
                 });
+                
+                UnorderedList ul = new UnorderedList(elements);
+                
+                sb.append( ul.toString() );
+  
+                String content = sb.toString();
+                
+                String html = codeGenerator.htmlify(content);
+                
+                reportWebEngine.loadContent(html);
             }
         }
         
