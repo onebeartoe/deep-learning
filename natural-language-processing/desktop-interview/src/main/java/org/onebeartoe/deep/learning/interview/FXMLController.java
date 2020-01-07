@@ -44,10 +44,7 @@ public class FXMLController implements Initializable
         
     @FXML
     private TextField textField;
-    
-//    @FXML
-//    private TextArea chatHistoryArea;
-    
+
     private StringBuilder chatContent;
     
     private CodeGenerator codeGenerator;
@@ -116,9 +113,6 @@ public class FXMLController implements Initializable
             
         String imperitive = currentQuestion.getImperative();
 
-//        chatHistoryArea.appendText("\n\n");
-
-//        chatHistoryArea.appendText(imperitive);        
         appendInterviewerContent(imperitive);
     }
     
@@ -148,7 +142,6 @@ public class FXMLController implements Initializable
         chatHistoryEngine = chatHistoryWebView.getEngine();
         
         appendInterviewerContent("Welcome to the chatbot interview!");
-//        chatHistoryArea.appendText("Welcome to the chatbot interview!");
         
         reportWebEngine = reportWebView.getEngine();
         
@@ -189,10 +182,7 @@ public class FXMLController implements Initializable
         
         textField.setText("");        
         
-//        chatHistoryArea.appendText("\n\n");
-        
         appendUserResponse(currentInput);
-//        chatHistoryArea.appendText(currentInput);
         
         // disable to avoid user input during recomendation lookup
         textField.setDisable(true);
@@ -205,41 +195,34 @@ public class FXMLController implements Initializable
         if(result.responseContainedQuestion)
         {
             appendInterviewerContent("\nI am not sure about your question: " + result.questionInResponse);
-//            chatHistoryArea.appendText("\nI am not sure about your question: " + result.questionInResponse);
         }
         
         if( ! result.valid )
         {
             appendInterviewerContent("\nI wasn't able to process your response.");
-//            chatHistoryArea.appendText("\nI wasn't able to process your response.");
 
             if( result.thresholdReached )
             {
                 appendInterviewerContent("\n:(  Let's move on with the interview.");
-//                chatHistoryArea.appendText("\n:(  Let's move on with the interview.");
             }
         }
         else
         {
             String confirmation = currentQuestion.getValidResponseConfirmation();
 
-//            chatHistoryArea.appendText("\n");
             appendInterviewerContent(confirmation);
-//            chatHistoryArea.appendText(confirmation);
 
             List<Recommendation> recomendations = currentQuestion.getRecomendations();
 
             if(recomendations.size() > 0)
             {
                 appendInterviewerContent("\nHere are some recomendations for " + result.answer);
-//                chatHistoryArea.appendText("\nHere are some recomendations for " + result.answer);
 
                 recomendations.forEach(r ->
                 {
                     String recomendation = "\n" + r.toString();
                     
                     appendInterviewerContent(recomendation);
-//                    chatHistoryArea.appendText(recomendation);
                 });
             }
         }
@@ -249,7 +232,6 @@ public class FXMLController implements Initializable
             textField.setDisable(true);
             
             appendInterviewerContent("\n\nThanks for participating in the interview!");
-//            chatHistoryArea.appendText("\n\nThanks for participating in the interview!");
 
             List<InterviewQuestion> questions = interview.getQuestions();
                         
