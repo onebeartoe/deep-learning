@@ -1,6 +1,6 @@
 
 As a natural language processing developer,
-I need an interview chatbot application to test Apache NLP APIs, 
+I need an interview chatbot application that exercises the Apache NLP API, 
 so that I can evaluate its effectiveness.
 
 Acceptance Criteria:
