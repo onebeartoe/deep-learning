@@ -11,4 +11,4 @@ Acceptance Criteria:
 *********the app's right hand pane shows recommendations after each user response and 
 *********at the end of the interview the right hand pane shows
 *********        the interview report and
-*********        the location on the file system of the saved report (HTML and PDF).
+*********        a button is added to show the location on the file system of the saved report (HTML and PDF).
