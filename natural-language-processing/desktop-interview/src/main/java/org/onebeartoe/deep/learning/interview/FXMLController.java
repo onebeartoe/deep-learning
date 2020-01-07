@@ -118,7 +118,7 @@ public class FXMLController implements Initializable
             
         reportButton = new Button("Show Report Directory");
         reportButton.setAlignment(Pos.CENTER);
-//        reportButton.setMaxWidth(Double.MAX_VALUE);
+        reportButton.setMaxWidth(Double.MAX_VALUE);
         reportButton.setOnAction( (event) ->
         {            
             hostServices.showDocument( reportDirectory.getAbsolutePath() );
@@ -129,10 +129,7 @@ public class FXMLController implements Initializable
 
     @FXML
     private void onTextEntered(ActionEvent event) throws FileNotFoundException, InterruptedException, ExecutionException
-    {
-//        HostServices hostServices = 
-//  Desktop.getDesktop().browse("/home/roberto/Desktop/Screenshot%20from%202018-09-09%2020-32-43.png");
-        
+    {        
         String currentInput = textField.getText();
      
         logger.info("text was received from the input field");
