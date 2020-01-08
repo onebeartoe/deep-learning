@@ -1,7 +1,6 @@
 
 package org.onebeartoe.deep.learning.interview;
 
-import com.itextpdf.tool.xml.html.Break;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,7 +20,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
