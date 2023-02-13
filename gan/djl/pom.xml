@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.onebeartoe.deep.learning.gan</groupId>
+        <artifactId>gan</artifactId>
+        <version>1.0</version>
+    </parent>
+    
+    <artifactId>djl</artifactId>
+    
+    <packaging>jar</packaging>
+    
+    <properties>
+        <exec.mainClass>org.onebeartoe.deep.learning.gan.djl.Djl</exec.mainClass>
+    </properties>
+    
+    <name>onebeartoe-deep-learning-gan-djl</name>
+
+
+        <repositories>
+        <repository>
+            <id>djl.ai</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>        
+<!--            
+    <repositories>
+        <repository>
+            <id>djl.ai</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>    
+-->        
+    
+    <dependencies>
+<dependency>
+	<groupId>ai.djl</groupId>
+	<artifactId>api</artifactId>
+	<version>0.19.0</version>
+<!--    
+None of the following worked.            
+<version>0.21.0-SNAPSHOT</version>
+        <version>0.19.0</version>
+        <version>0.18.0</version>                
+                <version>0.17.0</version>
+                <version>0.16.0</version>
+                <version>0.15.0</version>
+                <version>0.14.0</version>
+                <version>0.13.0</version>
+                <version>0.12.0</version>
+                <version>0.11.0</version>
+                <version>0.10.0</version>
+        <version>0.9.0</version>
+        <version>0.8.0</version>
+        <version>0.7.0</version>
+        <version>0.6.0</version>
+                <version>0.5.0</version>
+                <version>0.2.0</version>
+-->        
+</dependency>        
+
+
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>basicdataset</artifactId>
+            <version>0.19.0</version>
+        </dependency>
+        
+                <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-model-zoo</artifactId>
+            <version>0.19.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>model-zoo</artifactId>
+            <version>0.19.0</version>
+        </dependency>
+
+    </dependencies>
+    
+    
+</project>

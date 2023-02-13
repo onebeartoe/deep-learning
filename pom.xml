@@ -17,6 +17,7 @@
         <module>regression</module>
         <module>convolutional</module>
         <module>natural-language-processing</module>
+        <module>gan</module>
     </modules>
 
     <repositories>
