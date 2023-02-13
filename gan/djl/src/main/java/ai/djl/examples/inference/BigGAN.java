@@ -1,6 +1,4 @@
 
-
-
 package ai.djl.examples.inference;
 
 /*

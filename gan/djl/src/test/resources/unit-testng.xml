@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="deep-learning-color-prediction-test-suite" parallel="none">
+    <test name="deep-learning-color-unit-tests">
+        <packages>    
+            <package name="org.onebeartoe.deep.learning.color.predictor"/>
+        </packages>
+    </test>    
+</suite>
+
