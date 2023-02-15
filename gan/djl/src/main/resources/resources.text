@@ -1,0 +1,11 @@
+
+
+synset_imagenet.text
+
+    this file is from this repository:
+
+            https://github.com/deepjavalibrary/djl/blob/master/model-zoo/src/test/resources/mlrepo/model/cv/image_classification/ai/djl/zoo/synset_imagenet.txt
+
+    Project documentation for this file is available at this page
+
+            http://djl.ai/examples/docs/biggan.html
