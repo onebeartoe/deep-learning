@@ -26,16 +26,22 @@ import ai.djl.training.util.ProgressBar;
 import ai.djl.translate.TranslateException;
 import ai.djl.translate.Translator;
 import ai.djl.util.PairList;
+import java.io.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /** An example of generation using BigGAN. 
@@ -43,13 +49,15 @@ import java.util.stream.Stream;
  * 
  *          https://github.com/deepjavalibrary/djl/blob/master/examples/src/main/java/ai/djl/examples/inference/BigGAN.java
  * 
- *  It had a bunch of dependencies, so I just made a copy here.
+ *  That project has a bunch of dependencies that are not needed for this Java file, so I just made a copy here.
  */
-public final class BigGAN {
-
+public final class BigGAN 
+{
+    private List<String> names = null;
+    
     private static final Logger logger = LoggerFactory.getLogger(BigGAN.class);
 
-    private static void describePairList(PairList<String, Shape> input)
+    private void describePairList(PairList<String, Shape> input)
     {
         if(input == null)
         {
@@ -67,7 +75,7 @@ public final class BigGAN {
         }
     }
     
-    private static void describeInput(ZooModel<int[], Image[]> model) 
+    private void describeInput(ZooModel<int[], Image[]> model) 
     {
             PairList<String, Shape> describeInput = model.describeInput();
             
@@ -87,16 +95,8 @@ public final class BigGAN {
             } 
     }
 
-    private static void artifactNames(ZooModel<int[], Image[]> model) 
+    private void artifactNames(ZooModel<int[], Image[]> model) 
     {
-        Translator<int[], Image[]> translator = model.getTranslator();
-        
-//        translator.processOutput(tc, ndlist);
-        
-        Image i;
-        
-        
-        
         String[] artifactNames = model.getArtifactNames();
         
         System.out.println("artifactNames:");
@@ -106,20 +106,18 @@ public final class BigGAN {
                 {
                     System.out.println("n = " + n);
                 });
-        
-        
     }
-
-    private BigGAN() {}
 
     public static void main(String[] args) throws ModelException, TranslateException, IOException 
     {
-        Image[] generatedImages = BigGAN.generate();
+        BigGAN bigGan = new BigGAN();
+        
+        Image[] generatedImages = bigGan.generate();
         logger.info("Using PyTorch Engine. {} images generated.", generatedImages.length);
-        saveImages(generatedImages);
+        bigGan.saveImages(generatedImages);
     }
 
-    private static void saveImages(Image[] generatedImages) throws IOException 
+    private void saveImages(Image[] generatedImages) throws IOException 
     {
         Path outputPath = Paths.get("build/output/gan/");
         Files.createDirectories(outputPath);
@@ -128,10 +126,11 @@ public final class BigGAN {
             Path imagePath = outputPath.resolve("image" + i + ".png");
             generatedImages[i].save(Files.newOutputStream(imagePath), "png");
         }
+        
         logger.info("Generated images have been saved in: {}", outputPath);
     }
 
-    public static Image[] generate() throws IOException, ModelException, TranslateException 
+    public Image[] generate() throws IOException, ModelException, TranslateException 
     {
         Criteria<int[], Image[]> criteria =
                 Criteria.builder()
@@ -143,7 +142,6 @@ public final class BigGAN {
                         .optProgress(new ProgressBar())
                         .build();
 
-//        int[] input = {100};
 //        int[] input = {100, 207, 971, 970, 933};
         int[] input = {100, 101, 102, 103, 104};
 
@@ -164,9 +162,6 @@ public final class BigGAN {
 
             artifactNames(model);
 
-            
-            //           model.`
-//            generator.
             Map<String, Object> arguments = criteria.getArguments();
             
             Set<String> keySet = arguments.keySet();
@@ -180,5 +175,24 @@ public final class BigGAN {
             
             return generator.predict(input);
         }
+    }
+
+    public List<String> categoryNames() throws URISyntaxException, IOException 
+    {
+        URL url = getClass().getResource("/synset_imagenet.txt");
+        URI uri = url.toURI();
+        File infile = new File(uri);
+        Path inpath = infile.toPath();
+
+        if(names == null)
+        {
+            // read the mapping file from the classpath
+            try(Stream<String> nameStream = Files.lines(inpath) )
+            {
+                names = nameStream.collect(Collectors.toList() ) ;
+            };            
+        }
+        
+        return names;
     }
 }

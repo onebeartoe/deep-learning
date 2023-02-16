@@ -2,16 +2,20 @@
 package ai.djl.examples.inference;
 
 import ai.djl.ModelException;
-import ai.djl.examples.inference.BigGAN;
 import ai.djl.modality.cv.Image;
 import ai.djl.translate.TranslateException;
 import java.io.IOException;
-import static junit.framework.Assert.assertTrue;
+import java.net.URISyntaxException;
+import java.util.List;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.Test;
 
 
 public class BigGanSpecification 
 {
+    private BigGAN implementation = new BigGAN();
+    
     @Test
     /**
      * 
@@ -28,10 +32,26 @@ public class BigGanSpecification
      */
     public void generate_success() throws IOException, ModelException, TranslateException
     {
-        Image[] generatedImages = BigGAN.generate();    
+        Image[] generatedImages = implementation.generate();    
         
         int size = generatedImages.length;
                 
         assertTrue(size == 5);
+    }
+    
+    @Test
+    /**
+     * This test ensures the category names are available to the application and 
+     * that there are the correct number of expected categories.
+     */
+    public void categoryNames_success() throws URISyntaxException, IOException
+    {
+        List<String> names = implementation.categoryNames();                
+
+        final int expected = 1000;  // the documentation says there are one thousand entries in the mapping file
+        
+        int actual = names.size();
+        
+        assertEquals(expected, actual);
     }
 }
