@@ -24,7 +24,6 @@ import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ZooModel;
 import ai.djl.training.util.ProgressBar;
 import ai.djl.translate.TranslateException;
-import ai.djl.translate.Translator;
 import ai.djl.util.PairList;
 import java.io.File;
 

@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 public class BigGanSpecification 
 {
-    private BigGAN implementation = new BigGAN();
+    private final BigGAN implementation = new BigGAN();
     
     @Test
     /**
@@ -49,7 +49,7 @@ public class BigGanSpecification
         List<String> names = implementation.categoryNames();                
 
         final int expected = 1000;  // the documentation says there are one thousand entries in the mapping file
-        
+
         int actual = names.size();
         
         assertEquals(expected, actual);

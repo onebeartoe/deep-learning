@@ -13,16 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class PrimaryController 
-        implements Initializable 
+import ai.djl.examples.inference.BigGAN;
+import java.net.URISyntaxException;
+
+public class PrimaryController implements Initializable 
 {
+    private BigGAN bigGan;
 
 //TODO: document the in-memory search feature.
 //          https://gist.github.com/Da9el00/cde4381b8f17299693bab886ec700a78 
 //    
 //          https://www.youtube.com/watch?v=VUVqamT8Npc&ab_channel=Randomcode    
     
-    ArrayList<String> words = new ArrayList<>(
+    private List<String> words = new ArrayList<>(
             Arrays.asList("test", "dog","Human", "Days of our life", "The best day",
                     "Friends", "Animal", "Human", "Humans", "Bear", "Life",
                     "This is some text", "Words", "222", "Bird", "Dog", "A few words",
@@ -37,18 +40,36 @@ public class PrimaryController
     private ListView<String> listView;
 
     @FXML
-    void search(ActionEvent event) {
+    void search(ActionEvent event) 
+    {
         listView.getItems().clear();
+        
         listView.getItems().addAll(searchList(searchBar.getText(),words));
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        bigGan = new BigGAN();
+        
+        try 
+        {
+            words = bigGan.categoryNames();
+        } 
+        catch (URISyntaxException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        catch (IOException ex) 
+        {
+            ex.printStackTrace();
+        }
+        
         listView.getItems().addAll(words);
     }
 
-    private List<String> searchList(String searchWords, List<String> listOfStrings) {
-
+    private List<String> searchList(String searchWords, List<String> listOfStrings)
+    {
         List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
 
         return listOfStrings.stream().filter(input -> {
@@ -56,7 +77,6 @@ public class PrimaryController
                     input.toLowerCase().contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
-
 
     @FXML
     private void switchToSecondary() throws IOException 

@@ -5,14 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>gan</artifactId>
         <groupId>org.onebeartoe.deep.learning.gan</groupId>
+        <artifactId>gan</artifactId>
         <version>1.0</version>
     </parent>
 
-    <groupId>org.onebeartoe.deep.learning.gan</groupId>
     <artifactId>djl-desktop</artifactId>
-    <version>1.0</version>
 
     <name>onebeartoe-deep-learning-gan-djl-desktop</name>
 
@@ -24,6 +22,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onebeartoe.deep.learning.gan</groupId>
+            <artifactId>djl</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
@@ -34,6 +38,7 @@
             <version>13</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
