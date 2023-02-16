@@ -1,3 +1,4 @@
+
 package org.onebeartoe.deep.learning.gan.djl.desktop;
 
 import javafx.application.Application;
@@ -11,8 +12,8 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-public class App extends Application {
-
+public class App extends Application
+{
     private static Scene scene;
 
     @Override

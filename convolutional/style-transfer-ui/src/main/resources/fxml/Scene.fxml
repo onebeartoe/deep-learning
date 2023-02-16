@@ -10,7 +10,12 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.TilePane?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="407.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.deep.learning.style.transfer.ui.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="root" 
+            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" 
+            prefHeight="407.0" prefWidth="668.0" 
+            xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="org.onebeartoe.deep.learning.style.transfer.ui.FXMLController">
     <children>
       <SplitPane fx:id="outerSplitPane" dividerPositions="0.35" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="668.0" AnchorPane.topAnchor="0.0">
         <items>
