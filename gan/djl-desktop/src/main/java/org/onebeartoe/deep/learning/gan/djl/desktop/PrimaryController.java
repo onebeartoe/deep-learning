@@ -1,3 +1,4 @@
+
 package org.onebeartoe.deep.learning.gan.djl.desktop;
 
 import java.io.IOException;
@@ -56,11 +57,7 @@ public class PrimaryController implements Initializable
         {
             words = bigGan.categoryNames();
         } 
-        catch (URISyntaxException ex) 
-        {
-            ex.printStackTrace();
-        } 
-        catch (IOException ex) 
+        catch (URISyntaxException | IOException ex) 
         {
             ex.printStackTrace();
         }
