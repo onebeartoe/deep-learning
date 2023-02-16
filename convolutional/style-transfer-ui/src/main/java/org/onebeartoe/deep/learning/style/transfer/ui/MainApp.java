@@ -2,7 +2,7 @@
 //TODO: there is an other/newer version here 
 //
 //     https://github.com/deepjavalibrary/djl/blob/master/examples/src/main/java/ai/djl/examples/inference/StyleTransfer.java
-//          This one looks like it only has 3 or 4 artists styles.
+//          This one looks like it only has 3 or 4 artists styles, though.
 
 
 package org.onebeartoe.deep.learning.style.transfer.ui;
