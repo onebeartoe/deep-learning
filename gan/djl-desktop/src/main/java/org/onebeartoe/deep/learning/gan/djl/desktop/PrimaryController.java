@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 
 import ai.djl.examples.inference.BigGAN;
 import java.net.URISyntaxException;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 
 public class PrimaryController implements Initializable 
 {
@@ -40,8 +42,17 @@ public class PrimaryController implements Initializable
     @FXML
     private ListView<String> listView;
     
-    
+    @FXML
+    private TilePane listTilePane;
 
+    @FXML
+    void listViewItemSelected(MouseEvent event)
+    {
+        int selectedIndex = listView.getSelectionModel().getSelectedIndex();
+        
+        System.out.println("selectedIndex = " + selectedIndex);
+    }
+    
     @FXML
     void search(ActionEvent event) 
     {
@@ -65,6 +76,8 @@ public class PrimaryController implements Initializable
         }
         
         listView.getItems().addAll(words);
+        
+    //    listView.on
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings)
