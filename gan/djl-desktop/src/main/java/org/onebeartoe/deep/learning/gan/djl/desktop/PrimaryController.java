@@ -39,6 +39,8 @@ public class PrimaryController implements Initializable
 
     @FXML
     private ListView<String> listView;
+    
+    
 
     @FXML
     void search(ActionEvent event) 
@@ -69,7 +71,8 @@ public class PrimaryController implements Initializable
     {
         List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
 
-        return listOfStrings.stream().filter(input -> {
+        return listOfStrings.stream().filter(input -> 
+        {
             return searchWordsArray.stream().allMatch(word ->
                     input.toLowerCase().contains(word.toLowerCase()));
         }).collect(Collectors.toList());
