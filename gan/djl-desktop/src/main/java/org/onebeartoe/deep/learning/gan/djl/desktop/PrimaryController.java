@@ -1,6 +1,14 @@
 
 package org.onebeartoe.deep.learning.gan.djl.desktop;
 
+import ai.djl.examples.inference.BigGAN;
+import ai.djl.ModelException;
+import ai.djl.modality.cv.Image;
+import ai.djl.translate.TranslateException;
+
+
+import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,16 +16,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.net.URISyntaxException;
+import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
-import ai.djl.examples.inference.BigGAN;
-import java.net.URISyntaxException;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
+import javafx.embed.swing.SwingFXUtils;
 
 public class PrimaryController implements Initializable 
 {
@@ -46,11 +57,29 @@ public class PrimaryController implements Initializable
     private TilePane listTilePane;
 
     @FXML
-    void listViewItemSelected(MouseEvent event)
+    void listViewItemSelected(MouseEvent event) throws IOException, ModelException, TranslateException 
     {
         int selectedIndex = listView.getSelectionModel().getSelectedIndex();
         
         System.out.println("selectedIndex = " + selectedIndex);
+        
+        Image [] images = bigGan.generate();
+        
+        Image someImage = images[0];
+        
+        ImageView imageView = new ImageView();
+
+        BufferedImage bufferedImage = (BufferedImage) someImage.getWrappedImage();
+
+        javafx.scene.image.Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                
+        imageView.setImage(image);
+        
+        ObservableList<Node> children = listTilePane.getChildren();
+        
+        children.clear();
+
+        children.add(imageView);
     }
     
     @FXML
@@ -76,8 +105,6 @@ public class PrimaryController implements Initializable
         }
         
         listView.getItems().addAll(words);
-        
-    //    listView.on
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings)
