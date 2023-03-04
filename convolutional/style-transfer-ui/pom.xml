@@ -123,13 +123,18 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.onebeartoe</groupId>  
+            <artifactId>onebeartoe-application</artifactId>  
+            <version>1.0</version>
+        </dependency>
 
 <!--TODO: re-enable this -->
 <!--
         <dependency>
             <groupId>org.onebeartoe</groupId>  
             <artifactId>onebeartoe-application</artifactId>  
-            <version>1.0</version>            
+            <version>1.0</version>
                         
             <exclusions>
                 <exclusion>
@@ -206,6 +211,13 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>        
+        
+<dependency>
+	<groupId>org.openjfx</groupId>
+	<artifactId>javafx-graphics</artifactId>
+	<version>13</version>
+</dependency>
+<!-- Thanks for using https://jar-download.com -->        
         
         <dependency>
             <groupId>org.testng</groupId>

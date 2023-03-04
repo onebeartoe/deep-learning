@@ -34,7 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooserBuilder;
+//import javafx.stage.FileChooserBuilder;
 import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
@@ -244,10 +244,16 @@ public class FXMLController implements Initializable
             styleTransferer = new ConvolutionalNeuralStyleTransfer();
         }
         
-        fileChooser = FileChooserBuilder.create()
-            .title("Choose a style")
-            .initialDirectory(currentDir)
-            .build();
+        fileChooser = new FileChooser();
+        fileChooser
+            .setTitle("Choose a style");
+        fileChooser
+            .setInitialDirectory(currentDir);
+//        fileChooser = FileChooserBuilder.create()
+//            .title("Choose a style")
+//            .initialDirectory(currentDir)
+//            .build();        
+        
         
         durationService = new DurationService();
         
