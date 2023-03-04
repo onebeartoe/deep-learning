@@ -1,6 +1,6 @@
 
 //TODO: use this 'please wait' image:
-//           file:///home/roberto/Versioning/owner/github/onebeartoe/lizard-enclosure/sensor-readings-visualizer/dist/run2001416386/web-files/javafx-loading-100x100.gif
+//           C:\home\owner\betoland-subversion\Tours\Java\JavaFX\Animations\Timelines\AlienAbduction\dist\web-files\javafx-loading-100x100.gif
 
 package org.onebeartoe.deep.learning.style.transfer.ui;
 

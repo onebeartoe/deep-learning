@@ -65,6 +65,8 @@ public class PrimaryController implements Initializable
         
         Image [] images = bigGan.generate();
         
+//TODO: Refactor the BigGAN class to specify the index of the category index, and not use hardcoded values.        
+        
         Image someImage = images[0];
         
         ImageView imageView = new ImageView();
