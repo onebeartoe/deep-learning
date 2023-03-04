@@ -8,7 +8,8 @@ module org.onebeartoe.deep.learning.convolutional.style.transfer.desktop
     requires java.desktop;
     
     requires java.logging;
-            
+   
+//    requires java.*;
     
     requires javafx.controls;
     requires javafx.fxml;
@@ -25,7 +26,8 @@ module org.onebeartoe.deep.learning.convolutional.style.transfer.desktop
     //      $ jar --file=slf4j-api-1.7.36.jar --describe-module
     // Then you copy and paste whatever is before the '@' symbol.    
     
-    
+//    opens org.onebeartoe.deep.learning.style.transfer.ui to nd4j.api;
+  //  opens org.onebeartoe.deep.learning.style.transfer.ui to deeplearning4j.nn;
     
     opens org.onebeartoe.deep.learning.style.transfer.ui to javafx.fxml;
     

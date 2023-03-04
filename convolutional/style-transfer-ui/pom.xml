@@ -59,7 +59,50 @@
             <version>${nd4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.onebeartoe</groupId>  
+            <artifactId>onebeartoe-application</artifactId>  
+            <version>1.0</version>            
+                        
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-cli</groupId>
+                    <artifactId>commons-cli</artifactId>
+                </exclusion>
+                
+                <exclusion>
+                    <groupId>org.rxtx</groupId>
+                    <artifactId>rxtx</artifactId>
+                </exclusion>
+                
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-math3</artifactId>
+                </exclusion>
 
+                <exclusion>
+                    <groupId>org.apache.poi</groupId>
+                    <artifactId>poi</artifactId>
+                </exclusion>                                                                
+                
+                <exclusion>
+                    <groupId>org.apache.xmlbeans</groupId>
+                    <artifactId>xmlbeans</artifactId>
+                </exclusion>
+               
+                 <exclusion>
+                    <groupId>org.apache.xmlbeans</groupId>
+                    <artifactId>xmlbeans</artifactId>
+                </exclusion>
+                 
+                <exclusion>
+                    <groupId>poi-ooxml</groupId>
+                    <artifactId>schemas</artifactId>
+                </exclusion>
+                 
+                
+            </exclusions>
+        </dependency>
 
 <!--
         <dependency>
