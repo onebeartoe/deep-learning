@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="deep-learning-convolutional-style-transfer-test-suite" parallel="none">
+    <test name="deep-learning-style-transfer-unit-tests">
+        <packages>    
+            <package name="ai.djl.examples.inference.nope"/>
+            <package name="org.deeplearning4j.examples.styletransfer"/>
+        </packages>
+    </test>    
+</suite>
+
+
