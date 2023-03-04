@@ -2,6 +2,7 @@ module org.onebeartoe.deep.learning.gan.djl.desktop
 {
     requires ai.djl.api;
     
+//TODO: update the name of this 'requires' to org.onebeartoe.deep.learning.gan.djl
     requires gandjl;
 
     requires java.desktop;
