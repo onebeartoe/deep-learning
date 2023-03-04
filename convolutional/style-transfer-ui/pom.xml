@@ -47,6 +47,29 @@
 
         <dependency>
             <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-nn</artifactId>
+            <version>1.0.0-beta4</version>
+            
+            <exclusions>
+                <exclusion>
+                    <groupId>org.deeplearning4j</groupId>
+                    <artifactId>deeplearning4j-ui-components</artifactId>
+                </exclusion>
+                
+                <exclusion>
+                    <groupId>org.deeplearning4j</groupId>
+                    <artifactId>deeplearning4j-util</artifactId>
+                </exclusion>
+                
+                <exclusion>
+                    <groupId>org.deeplearning4j</groupId>
+                    <artifactId>deeplearning4j-utility-iterators</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-zoo</artifactId>
             <version>1.0.0-beta4</version>
             
@@ -278,7 +301,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>org.onebeartoe.deep.learning.gan.djl.desktop.App</mainClass>
+                    <mainClass>org.onebeartoe.deep.learning.style.transfer.ui.MainApp</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -320,7 +343,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
