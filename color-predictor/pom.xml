@@ -29,13 +29,6 @@
             <version>1.0.0-beta2</version>
         </dependency>
 
-<!--
-        <dependency>
-            <groupId>org.nd4j</groupId>
-            <artifactId>nd4j-buffer</artifactId>
-            <version>1.0.0-beta2</version>
-        </dependency>
--->
         <dependency>
             <groupId>org.onebeartoe</groupId>
             <artifactId>onebeartoe-application</artifactId>
@@ -49,11 +42,23 @@
             <scope>test</scope>
         </dependency>
         
-<dependency>
-	<groupId>org.openjfx</groupId>
-	<artifactId>javafx-graphics</artifactId>
-	<version>11</version>
-</dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>13</version>
+        </dependency>        
+        
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>13</version>
+        </dependency>
     
     </dependencies>
 
