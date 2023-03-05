@@ -368,7 +368,7 @@
                         <suiteXmlFile>src/test/resources/unit-testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
-            </plugin>   
+            </plugin>
         </plugins>
     </build>
 </project>
