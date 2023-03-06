@@ -21,6 +21,7 @@
     </modules>
 
     <repositories>
+<!--        
         <repository>
             <id>onebeartoe-repo</id>
             <name>onebeartoe Maven Repository</name>
@@ -30,6 +31,7 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
+-->
     </repositories>
 
     <properties>
