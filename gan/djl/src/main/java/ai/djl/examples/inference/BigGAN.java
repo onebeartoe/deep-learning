@@ -37,6 +37,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,6 +57,7 @@ public final class BigGAN
     
     private static final Logger logger = LoggerFactory.getLogger(BigGAN.class);
 
+    @Deprecated
     private void describePairList(PairList<String, Shape> input)
     {
         if(input == null)
@@ -73,7 +75,8 @@ public final class BigGAN
                 });                       
         }
     }
-    
+
+    @Deprecated
     private void describeInput(ZooModel<int[], Image[]> model) 
     {
             PairList<String, Shape> describeInput = model.describeInput();
@@ -94,6 +97,7 @@ public final class BigGAN
             } 
     }
 
+    @Deprecated
     private void artifactNames(ZooModel<int[], Image[]> model) 
     {
         String[] artifactNames = model.getArtifactNames();
@@ -111,8 +115,12 @@ public final class BigGAN
     {
         BigGAN bigGan = new BigGAN();
         
-        Image[] generatedImages = bigGan.generate();
+        int [] category = {6};
+        
+        Image[] generatedImages = bigGan.generate(category);
+        
         logger.info("Using PyTorch Engine. {} images generated.", generatedImages.length);
+        
         bigGan.saveImages(generatedImages);
     }
 
@@ -121,7 +129,8 @@ public final class BigGAN
         Path outputPath = Paths.get("build/output/gan/");
         Files.createDirectories(outputPath);
 
-        for (int i = 0; i < generatedImages.length; ++i) {
+        for (int i = 0; i < generatedImages.length; ++i) 
+        {
             Path imagePath = outputPath.resolve("image" + i + ".png");
             generatedImages[i].save(Files.newOutputStream(imagePath), "png");
         }
@@ -129,7 +138,8 @@ public final class BigGAN
         logger.info("Generated images have been saved in: {}", outputPath);
     }
 
-    public Image[] generate() throws IOException, ModelException, TranslateException 
+    @Deprecated
+    public Image[] generate(int [] categoryIds) throws IOException, ModelException, TranslateException 
     {
         Criteria<int[], Image[]> criteria =
                 Criteria.builder()
@@ -142,7 +152,8 @@ public final class BigGAN
                         .build();
 
 //        int[] input = {100, 207, 971, 970, 933};
-        int[] input = {100, 101, 102, 103, 104};
+//        int[] input = {100, 101, 102, 103, 104};
+//        int [] input = catgoryIds
 
         try (ZooModel<int[], Image[]> model = criteria.loadModel();
                 Predictor<int[], Image[]> generator = model.newPredictor()) 
@@ -150,8 +161,7 @@ public final class BigGAN
             System.out.println("called");
             
             describeInput(model);
-            
-//what is next            ????
+
             String toString = model.toString();
             System.out.println("toString = " + toString);
             
@@ -172,8 +182,17 @@ public final class BigGAN
                 System.out.println(key + " = " + value);                               
             }); 
             
-            return generator.predict(input);
+            return generator.predict(categoryIds);
         }
+    }
+    
+    public Image generate(int categoryId) throws IOException, ModelException, TranslateException
+    {
+        int [] categories = {categoryId};
+        
+        Image[] images = generate(categories);
+        
+        return images[0];
     }
 
     public List<String> categoryNames() throws URISyntaxException, IOException 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.Test;
 
@@ -15,29 +16,6 @@ import org.testng.annotations.Test;
 public class BigGanSpecification 
 {
     private final BigGAN implementation = new BigGAN();
-    
-    @Test
-    /**
-     * 
-     * This test ensures the model files are available.
-     * 
-     * If this test fails make sure the following dependecies are in the POM file:
-     * 
-     *      ai.djl:basicdataset:0.19.0
-     * 
-     *      ai.djl.pytorch:pytorch-model-zoo:0.19.0
-     * 
-     *      ai.djl:model-zoo:0.19.0         
-     * 
-     */
-    public void generate_success() throws IOException, ModelException, TranslateException
-    {
-        Image[] generatedImages = implementation.generate();    
-        
-        int size = generatedImages.length;
-                
-        assertTrue(size == 5);
-    }
     
     @Test
     /**
@@ -53,5 +31,45 @@ public class BigGanSpecification
         int actual = names.size();
         
         assertEquals(expected, actual);
+    }    
+    
+    
+    @Test
+    /**
+     * 
+     * This test ensures the model files are available.
+     * 
+     * If this test fails make sure the following dependencies are in the POM file (classpath):
+     * 
+     *      ai.djl:basicdataset:0.19.0
+     * 
+     *      ai.djl.pytorch:pytorch-model-zoo:0.19.0
+     * 
+     *      ai.djl:model-zoo:0.19.0         
+     * 
+     */
+    public void generate_success() throws IOException, ModelException, TranslateException
+    {
+        int categoryIndex = 101;
+
+        Image output = implementation.generate(categoryIndex);
+        
+        assertNotNull(output);
+    }
+    
+    @Test    
+    /**
+     * This test verifies that generate() method returns the correct number of 
+     * images.
+     */
+    public void generate_multiple_success() throws IOException, ModelException, TranslateException
+    {
+        int [] categoryIndecies = {100, 207, 971};
+        
+        Image[] generatedImages = implementation.generate(categoryIndecies);    
+        
+        int size = generatedImages.length;
+
+        assertTrue(size == 3);
     }
 }
