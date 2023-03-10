@@ -57,12 +57,28 @@ public class PrimaryController implements Initializable
     private TilePane listTilePane;
 
     @FXML
-    void listViewItemSelected(MouseEvent event) throws IOException, ModelException, TranslateException 
+    void listViewItemSelected(MouseEvent event) throws IOException, ModelException, TranslateException
     {
         int selectedIndex = listView.getSelectionModel().getSelectedIndex();
         
         System.out.println("selectedIndex = " + selectedIndex);
-
+        
+        ObservableList<Node> children = listTilePane.getChildren();
+        
+        children.clear();
+        
+        ImageView imageView = oneImage(selectedIndex);
+        children.add(imageView);
+        
+        imageView = oneImage(selectedIndex);
+        children.add(imageView);
+        
+        imageView = oneImage(selectedIndex);
+        children.add(imageView);
+    }
+    
+    ImageView oneImage(int selectedIndex) throws IOException, ModelException, TranslateException
+    {
         Image someImage = bigGan.generate(selectedIndex);
         
         ImageView imageView = new ImageView();
@@ -72,12 +88,8 @@ public class PrimaryController implements Initializable
         javafx.scene.image.Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 
         imageView.setImage(image);
-        
-        ObservableList<Node> children = listTilePane.getChildren();
-        
-        children.clear();
 
-        children.add(imageView);
+        return imageView;        
     }
     
     @FXML
