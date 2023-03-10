@@ -62,12 +62,8 @@ public class PrimaryController implements Initializable
         int selectedIndex = listView.getSelectionModel().getSelectedIndex();
         
         System.out.println("selectedIndex = " + selectedIndex);
-        
-        Image [] images = bigGan.generate();
-        
-//TODO: Refactor the BigGAN class to specify the index of the category index, and not use hardcoded values.        
-        
-        Image someImage = images[0];
+
+        Image someImage = bigGan.generate(selectedIndex);
         
         ImageView imageView = new ImageView();
 
