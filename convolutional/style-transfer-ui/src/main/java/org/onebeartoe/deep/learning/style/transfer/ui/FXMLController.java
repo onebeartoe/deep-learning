@@ -83,7 +83,8 @@ public class FXMLController implements Initializable
 
     private DurationService durationService;
 
-    private final boolean guiDevelopment = false;
+    private final boolean guiDevelopment = true;
+//    private final boolean guiDevelopment = false;
     
     private NeuralStyleTransfer styleTransferer;
     

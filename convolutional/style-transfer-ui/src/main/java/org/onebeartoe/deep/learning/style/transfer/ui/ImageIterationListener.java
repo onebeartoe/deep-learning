@@ -14,7 +14,7 @@ import javafx.scene.layout.TilePane;
 import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 /**
- * This class receives messages about when an image is created.
+ * This class listens for and receives messages about an image being created.
  * 
  * @author Roberto Marquez
  */
