@@ -147,39 +147,39 @@ public class FXMLController implements Initializable
             ObservableList<Node> children = tilePane.getChildren();
             children.clear();
 
-        Task<Void> task = new Task<Void>() 
-        {
-            @Override 
-            public Void call() throws Exception 
+            Task<Void> task = new Task<Void>() 
             {
-                logger.info("-in call");
-
-                try
+                @Override 
+                public Void call() throws Exception 
                 {
-                    applyStyle();
-                }
-                catch(Exception e)
-                {
-                    String message = e.getMessage();
+                    logger.info("-in call");
 
-                    logger.log(Level.SEVERE, message, e);
-
-                    applyStyleButton.setText("Error: see log");
-                }
-                finally
-                {
-                    Platform.runLater(() ->
+                    try
                     {
-                        waitAlert.close();
+                        applyStyle();
+                    }
+                    catch(Exception e)
+                    {
+                        String message = e.getMessage();
 
-                        toggleButtons(false);
-                    });
+                        logger.log(Level.SEVERE, message, e);
+
+                        applyStyleButton.setText("Error: see log");
+                    }
+                    finally
+                    {
+                        Platform.runLater(() ->
+                        {
+                            waitAlert.close();
+
+                            toggleButtons(false);
+                        });
+                    }
+
+                    return null ;
                 }
-
-                return null ;
-            }
-        };
-        new Thread(task).start();
+            };
+            new Thread(task).start();
         
         logger.info("apply style done");
         }
