@@ -6,7 +6,7 @@ module org.onebeartoe.deep.learning.gan.djl.desktop
     requires gandjl;
 
     requires java.desktop;
-    
+    requires java.logging;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.swing;
