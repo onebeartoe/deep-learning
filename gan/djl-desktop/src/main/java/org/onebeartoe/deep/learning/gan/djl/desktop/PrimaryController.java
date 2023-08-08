@@ -105,8 +105,6 @@ public class PrimaryController implements Initializable
         thread.start();
     }
     
-
-    
     @FXML
     void search(ActionEvent event) 
     {
