@@ -7,7 +7,11 @@ import ai.djl.modality.cv.Image;
 import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
@@ -20,7 +24,7 @@ import javafx.scene.image.ImageView;
  *          https://www.youtube.com/watch?v=pdRX6CLP0tM&ab_channel=GenuineCoder
  * 
  */
-public class GanTask extends Task<ImageView>
+public class GanTask extends Task<List<ImageView>>
 {
     private int selectedIndex;
     
@@ -38,21 +42,40 @@ public class GanTask extends Task<ImageView>
     }
 
     @Override
-    protected ImageView call() throws Exception 
+    protected List<ImageView> call() throws Exception 
     {
                         
         logger.info("platform runlater start");
-        ImageView imageView = oneImage(selectedIndex);
+        
+        List<ImageView> viewList = new ArrayList();
+        
+        Stream.of(1,2,3)
+                .forEach(n -> 
+                {
+                    
+                    
+            try 
+            {
+                ImageView imageView = oneImage(selectedIndex);
+                
+                viewList.add(imageView);
+            } 
+            catch (IOException ex) {
+                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ModelException ex) {
+                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (TranslateException ex) {
+                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
+                    
+                });
 
-        imageView = oneImage(selectedIndex);
-
-//TODO: is this second call needed/correct?        
-        imageView = oneImage(selectedIndex);  //?!?!?!?!???? why is oneImage called twice in a row???
         logger.info("platform runlater end");        
         
-        updateValue(imageView);
+//        updateValue(viewList);
         
-        return imageView;
+        return viewList;
     }
 
 

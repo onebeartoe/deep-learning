@@ -74,12 +74,23 @@ public class PrimaryController implements Initializable
         children.clear();
 
         GanTask task = new GanTask(categoryIndex, bigGan);
-        task.valueProperty().addListener( new ChangeListener<ImageView>()
+        task.valueProperty().addListener( new ChangeListener<List<ImageView>>()
         {
             @Override
-            public void changed(ObservableValue<? extends ImageView> ov, ImageView t, ImageView t1) 
+            public void changed(ObservableValue<? extends List<ImageView>> ov, List<ImageView> t, List<ImageView> t1) 
             {
-                children.add(t1);
+                
+                
+                int size = t1.size();
+                System.out.println("size = " + size);
+                
+                t1.stream()
+                  .forEach(imageView -> {                      
+                      listTilePane.getChildren().add(imageView);
+//                      children.add(imageView);
+
+                      System.out.println("child addedddd");
+                  });                
                 
                 listView.setDisable(false);
             }
@@ -128,6 +139,9 @@ public class PrimaryController implements Initializable
         }
         
         listView.getItems().addAll(categories);
+        
+        listTilePane.setPrefColumns(5);
+        listTilePane.setHgap(8.8);
     }
         
     private List<Category> searchList(String searchWords, List<Category> listOfStrings)
