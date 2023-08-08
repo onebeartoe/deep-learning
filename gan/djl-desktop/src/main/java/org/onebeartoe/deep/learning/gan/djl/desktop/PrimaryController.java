@@ -50,7 +50,9 @@ public class PrimaryController implements Initializable
     private TextField searchBar;
 
     @FXML
-    private ListView<String> listView;
+    private ListView<Category> listView;
+    
+    private List<Category> categories;
     
     @FXML
     private TilePane listTilePane;
@@ -62,13 +64,16 @@ public class PrimaryController implements Initializable
     {
         listView.setDisable(true);
         final int selectedIndex = listView.getSelectionModel().getSelectedIndex();
+    
+        Category selectedCategory = listView.getSelectionModel().getSelectedItem();
+        int categoryIndex = selectedCategory.index;
         
-        System.out.println("selectedIndex = " + selectedIndex);
+        System.out.println("categoryIndex = " + categoryIndex);
         
         ObservableList<Node> children = listTilePane.getChildren();
         children.clear();
 
-        GanTask task = new GanTask(selectedIndex, bigGan);
+        GanTask task = new GanTask(categoryIndex, bigGan);
         task.valueProperty().addListener( new ChangeListener<ImageView>()
         {
             @Override
@@ -80,7 +85,6 @@ public class PrimaryController implements Initializable
             }
         });
 
-        
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
@@ -93,7 +97,9 @@ public class PrimaryController implements Initializable
     {
         listView.getItems().clear();
         
-        listView.getItems().addAll(searchList(searchBar.getText(),words));
+        List<Category> searchList = searchList(searchBar.getText(), categories);
+        
+        listView.getItems().addAll(searchList);
     }
 
     @Override
@@ -112,17 +118,27 @@ public class PrimaryController implements Initializable
             ex.printStackTrace();
         }
         
-        listView.getItems().addAll(words);
+        listView.setCellFactory( new CategoryCellFactory() );
+        
+        categories = new ArrayList();
+        int index = 0;
+        words.stream()
+                .forEach(word -> {
+                    Category c = new Category(index, word);
+                    categories.add(c);
+                });
+        
+        listView.getItems().addAll(categories);
     }
-
-    private List<String> searchList(String searchWords, List<String> listOfStrings)
+        
+    private List<Category> searchList(String searchWords, List<Category> listOfStrings)
     {
         List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
 
         return listOfStrings.stream().filter(input -> 
         {
-            return searchWordsArray.stream().allMatch(word ->
-                    input.toLowerCase().contains(word.toLowerCase()));
+            return searchWordsArray.stream()
+                                   .allMatch(word -> input.name.toLowerCase().contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
 
