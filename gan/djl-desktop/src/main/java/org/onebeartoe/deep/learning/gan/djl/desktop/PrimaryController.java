@@ -87,7 +87,10 @@ public class PrimaryController implements Initializable
                 System.out.println("size = " + size);
                 
                 t1.stream()
-                  .forEach(imageView -> {                      
+                  .forEach(imageView -> 
+                  {
+                      imageView.setPreserveRatio(true);
+                      
                       listTilePane.getChildren().add(imageView);
 //                      children.add(imageView);
 
@@ -149,9 +152,9 @@ public class PrimaryController implements Initializable
         
         listTilePane.setMargin(listTilePane, new Insets(20.0));
         
-        listTilePane.setPadding(Insets.EMPTY);
+        listTilePane.setPadding( new Insets(50) );
         
-//        listTilePane.setAlignment(Pos.CENTER);
+        listTilePane.setAlignment(Pos.CENTER);
     }
         
     private List<Category> searchList(String searchWords, List<Category> listOfStrings)
