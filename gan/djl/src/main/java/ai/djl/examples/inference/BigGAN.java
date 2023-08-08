@@ -197,9 +197,15 @@ public final class BigGAN
 
     public List<String> categoryNames() throws URISyntaxException, IOException 
     {
+//        URL url = getClass().getResource("classpath:///synset_imagenet.txt");
         URL url = getClass().getResource("/synset_imagenet.txt");
-        URI uri = url.toURI();
-        File infile = new File(uri);
+//        URI uri = url.toURI();
+
+        
+        File infile = new File("/home/roberto/Versioning/owner/github/deep-learning/gan/djl/src/main/resources/synset_imagenet.txt");
+//        File infile = new File(uri);
+
+
         Path inpath = infile.toPath();
 
         if(names == null)
