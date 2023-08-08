@@ -91,10 +91,9 @@ public class PrimaryController implements Initializable
                   {
                       imageView.setPreserveRatio(true);
                       
-                      listTilePane.getChildren().add(imageView);
-//                      children.add(imageView);
+                      children.add(imageView);
 
-                      System.out.println("child addedddd");
+                      System.out.println("child addeddddwww");
                   });                
                 
                 listView.setDisable(false);
