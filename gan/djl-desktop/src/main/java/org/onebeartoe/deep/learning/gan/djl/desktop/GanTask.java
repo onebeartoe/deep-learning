@@ -46,7 +46,8 @@ public class GanTask extends Task<ImageView>
 
         imageView = oneImage(selectedIndex);
 
-        imageView = oneImage(selectedIndex);                        
+//TODO: is this second call needed/correct?        
+        imageView = oneImage(selectedIndex);  //?!?!?!?!???? why is oneImage called twice in a row???
         logger.info("platform runlater end");        
         
         updateValue(imageView);
