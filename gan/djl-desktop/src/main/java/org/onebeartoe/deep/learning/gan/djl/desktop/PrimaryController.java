@@ -22,6 +22,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.Node;
@@ -140,8 +142,16 @@ public class PrimaryController implements Initializable
         
         listView.getItems().addAll(categories);
         
-        listTilePane.setPrefColumns(5);
-        listTilePane.setHgap(8.8);
+        listTilePane.setPrefColumns(3);
+        double gap = 250;
+        listTilePane.setHgap(gap);
+        listTilePane.setVgap(gap);
+        
+        listTilePane.setMargin(listTilePane, new Insets(20.0));
+        
+        listTilePane.setPadding(Insets.EMPTY);
+        
+//        listTilePane.setAlignment(Pos.CENTER);
     }
         
     private List<Category> searchList(String searchWords, List<Category> listOfStrings)
