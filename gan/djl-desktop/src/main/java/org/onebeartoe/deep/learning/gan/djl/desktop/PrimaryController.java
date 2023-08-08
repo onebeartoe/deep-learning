@@ -29,7 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.FlowPane;
 
 public class PrimaryController implements Initializable 
 {
@@ -57,7 +57,7 @@ public class PrimaryController implements Initializable
     private List<Category> categories;
     
     @FXML
-    private TilePane listTilePane;
+    private FlowPane flowPane;
     
     private Logger logger;
 
@@ -72,7 +72,7 @@ public class PrimaryController implements Initializable
         
         System.out.println("categoryIndex = " + categoryIndex);
         
-        ObservableList<Node> children = listTilePane.getChildren();
+        ObservableList<Node> children = flowPane.getChildren();
         children.clear();
 
         GanTask task = new GanTask(categoryIndex, bigGan);
@@ -142,16 +142,10 @@ public class PrimaryController implements Initializable
         
         listView.getItems().addAll(categories);
         
-        listTilePane.setPrefColumns(3);
-        double gap = 250;
-        listTilePane.setHgap(gap);
-        listTilePane.setVgap(gap);
-        
-        listTilePane.setMargin(listTilePane, new Insets(20.0));
-        
-        listTilePane.setPadding( new Insets(50) );
-        
-        listTilePane.setAlignment(Pos.CENTER);
+
+        double gap = 5;
+        flowPane.setHgap(gap);
+        flowPane.setVgap(gap);
     }
         
     private List<Category> searchList(String searchWords, List<Category> listOfStrings)
