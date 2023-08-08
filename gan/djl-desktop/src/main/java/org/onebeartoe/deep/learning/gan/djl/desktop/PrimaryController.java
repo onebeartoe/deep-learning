@@ -121,12 +121,11 @@ public class PrimaryController implements Initializable
         listView.setCellFactory( new CategoryCellFactory() );
         
         categories = new ArrayList();
-        int index = 0;
-        words.stream()
-                .forEach(word -> {
-                    Category c = new Category(index, word);
-                    categories.add(c);
-                });
+        for(int i=0; i<words.size(); i++)
+        {
+            Category c = new Category(i, words.get(i) );
+            categories.add(c);
+        }
         
         listView.getItems().addAll(categories);
     }
