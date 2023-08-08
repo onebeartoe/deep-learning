@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
-import org.onebeartoe.application.logging.SysoutLoggerFactory;
+//import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
-import org.onebeartoe.system.Sleeper;
+//import org.onebeartoe.system.Sleeper;
 
 /**
  * This class is used during GUI development to avoid long build/run times of the 
@@ -23,7 +23,8 @@ public class MockNeuralStyleTransfer implements NeuralStyleTransfer
 
     public MockNeuralStyleTransfer()
     {
-        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
+        logger = Logger.getLogger( getClass().getName() );
+//        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
     }
     
     @Override
@@ -45,7 +46,8 @@ public class MockNeuralStyleTransfer implements NeuralStyleTransfer
 
             long fiveSeconds = 5 * 1000;
 
-            Sleeper.sleepo(fiveSeconds);
+            sleepo(fiveSeconds);
+//            Sleeper.sleepo(fiveSeconds);
             
             imageListener.imageCreated(imageFile);
         }
@@ -62,4 +64,19 @@ public class MockNeuralStyleTransfer implements NeuralStyleTransfer
     {
         cancel = true;
     }    
+    
+    
+    public static void sleepo(long durationInMillis)
+    {
+        try 
+        {
+            Thread.sleep(durationInMillis);
+        } 
+        catch (InterruptedException ex) 
+        {
+            System.err.println("could not sleep");
+            
+            Thread.currentThread().interrupt();
+        }                
+    }
 }

@@ -11,7 +11,7 @@ import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import org.onebeartoe.application.logging.SysoutLoggerFactory;
+//import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 /**
  * This class listens for and receives messages about an image being created.
@@ -26,7 +26,8 @@ public class ImageIterationListener
     
     ImageIterationListener(TilePane tilePane)
     {
-        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
+        logger = Logger.getLogger( getClass().getName() );
+//        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
 
         this.tilePane = tilePane;
     }

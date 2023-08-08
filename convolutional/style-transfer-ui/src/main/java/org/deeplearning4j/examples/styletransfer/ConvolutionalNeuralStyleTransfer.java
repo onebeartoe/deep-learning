@@ -46,8 +46,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
-import org.onebeartoe.application.duration.DurationService;
-import org.onebeartoe.application.logging.SysoutLoggerFactory;
+import static org.onebeartoe.deep.learning.style.transfer.ui.FXMLController.durationMessage;
+//import org.onebeartoe.application.duration.DurationService;
+//import org.onebeartoe.application.logging.SysoutLoggerFactory;
 import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 
 /**
@@ -76,8 +77,9 @@ import org.onebeartoe.deep.learning.style.transfer.ui.ImageIterationListener;
 public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 {
 //TODO: change this to a SysoutLogger    
-    protected static final Logger logger = SysoutLoggerFactory.getLogger(ConvolutionalNeuralStyleTransfer.class.getName() );
-//    protected static final Logger log = LoggerFactory.getLogger(NeuralStyleTransfer.class);
+    protected static final Logger logger = Logger.getLogger(ConvolutionalNeuralStyleTransfer.class.getName() );
+//    protected static final Logger logger = SysoutLoggerFactory.getLogger(ConvolutionalNeuralStyleTransfer.class.getName() );
+
 
 //TODO update the string array definitions to not use the 'new' operator    
     String [] strs =
@@ -157,7 +159,7 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 
     public List<ImageIterationListener> listeners;
 
-    private DurationService durationService;
+//    private DurationService durationService;
 
     private boolean cancel;
     
@@ -165,7 +167,7 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
     {
         listeners = new ArrayList();
 
-        durationService = new  DurationService();
+//        durationService = new  DurationService();
     }
     
     @Override
@@ -207,7 +209,8 @@ public class ConvolutionalNeuralStyleTransfer implements NeuralStyleTransfer
 //      is it this -> vgg16FineTune.save();  Or it looks like ModelSerializer is the way to go for saving.
 
         Instant end = Instant.now();
-        String durationMessage = durationService.durationMessage(start, end);
+        String durationMessage = durationMessage(start, end);
+//        String durationMessage = durationService.durationMessage(start, end);
         logger.info(durationMessage);
 
         contentFile = new File(contentPath);

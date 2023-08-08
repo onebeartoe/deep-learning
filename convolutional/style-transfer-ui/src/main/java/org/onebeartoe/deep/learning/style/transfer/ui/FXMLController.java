@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,8 +40,8 @@ import org.deeplearning4j.examples.styletransfer.ConvolutionalNeuralStyleTransfe
 import org.deeplearning4j.examples.styletransfer.NeuralStyleTransfer;
 import org.deeplearning4j.examples.styletransfer.mock.MockNeuralStyleTransfer;
 
-import org.onebeartoe.application.duration.DurationService;
-import org.onebeartoe.application.logging.SysoutLoggerFactory;
+//import org.onebeartoe.application.duration.DurationService;
+//import org.onebeartoe.application.logging.SysoutLoggerFactory;
 
 public class FXMLController implements Initializable 
 {
@@ -81,7 +82,7 @@ public class FXMLController implements Initializable
     
     private File styleFile;
 
-    private DurationService durationService;
+//    private DurationService durationService;
 
     private final boolean guiDevelopment = true;
 //    private final boolean guiDevelopment = false;
@@ -106,7 +107,8 @@ public class FXMLController implements Initializable
         }
             
         Instant end = Instant.now();
-        String durationMessage = durationService.durationMessage(start, end);
+        String durationMessage = durationMessage(start, end);
+//        String durationMessage = durationService.durationMessage(start, end);
         logger.info(durationMessage);
     }
     
@@ -231,7 +233,7 @@ public class FXMLController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        logger = SysoutLoggerFactory.getLogger( getClass().getName() );
+        logger = Logger.getLogger( getClass().getName() );
         
         logger.info("url: " + url.toString() );
         
@@ -256,7 +258,7 @@ public class FXMLController implements Initializable
 //            .build();        
         
         
-        durationService = new DurationService();
+//        durationService = new DurationService();
         
         ImageIterationListener imageListener = new ImageIterationListener(tilePane);
         
@@ -275,4 +277,21 @@ public class FXMLController implements Initializable
         contentButton.setDisable(disabled);
         styleButton.setDisable(disabled);
     }
+    
+    public static String durationMessage(Instant start, Instant end)
+    {
+        ChronoUnit units = ChronoUnit.SECONDS;
+        
+        long duration = units.between(start,end);
+        
+        long minutes = duration / 60;
+        long seconds = duration % 60;
+        
+  //      String prepend = prependText == null ? "" : prependText;
+        
+        String message = minutes + " minutes " + seconds + " seconds";
+//        String message = prepend + minutes + " minutes " + seconds + " seconds";
+                
+        return message;
+    } 
 }
