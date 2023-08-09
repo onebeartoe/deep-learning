@@ -18,7 +18,8 @@
              <Tab text="Untitled Tab 1">
                <content>
                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <BorderPane prefHeight="545.0" prefWidth="625.0">
+                  <BorderPane prefHeight="545.0" prefWidth="625.0"
+                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <top>
                         <HBox prefHeight="26.0" prefWidth="426.0" BorderPane.alignment="CENTER">
                            <children>
@@ -35,7 +36,8 @@
                             
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                  <content>
-                                    <FlowPane fx:id="flowPane" prefHeight="519.0" prefWidth="436.0" />
+                                    <FlowPane fx:id="flowPane" prefHeight="519.0" prefWidth="436.0" 
+                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                  </content>
                               </ScrollPane>
                           </items>
