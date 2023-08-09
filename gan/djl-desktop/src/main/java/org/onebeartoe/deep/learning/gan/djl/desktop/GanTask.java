@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
@@ -49,31 +49,29 @@ public class GanTask extends Task<List<ImageView>>
         
         List<ImageView> viewList = new ArrayList();
         
-        Stream.of(1,2,3)
+        IntStream.range(0, 3)
                 .forEach(n -> 
                 {
-                    
-                    
-            try 
-            {
-                ImageView imageView = oneImage(selectedIndex);
-                
-                viewList.add(imageView);
-            } 
-            catch (IOException ex) {
-                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ModelException ex) {
-                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (TranslateException ex) {
-                Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                    
-                    
+                    try 
+                    {
+                        ImageView imageView = oneImage(selectedIndex);
+
+                        viewList.add(imageView);
+                    } 
+                    catch (IOException ex) {
+                        Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ModelException ex) {
+                        Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (TranslateException ex) {
+                        Logger.getLogger(GanTask.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 });
 
         logger.info("platform runlater end");        
-        
-//        updateValue(viewList);
+
+// TODO: is this needed?        
+// this is only needed for updating on the UI thread.  right?!?        
+        updateValue(viewList);
         
         return viewList;
     }
