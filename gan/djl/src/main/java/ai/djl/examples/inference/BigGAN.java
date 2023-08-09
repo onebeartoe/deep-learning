@@ -34,9 +34,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -154,10 +152,6 @@ public final class BigGAN
                         .optProgress(new ProgressBar())
                         .build();
 
-//        int[] input = {100, 207, 971, 970, 933};
-//        int[] input = {100, 101, 102, 103, 104};
-//        int [] input = catgoryIds
-
         try (ZooModel<int[], Image[]> model = criteria.loadModel();
                 Predictor<int[], Image[]> generator = model.newPredictor()) 
         {
@@ -200,46 +194,18 @@ public final class BigGAN
 
     public List<String> categoryNames() throws URISyntaxException, IOException 
     {
-        InputStream resourceAsStream = BigGAN.class.getResourceAsStream("/synset_imagenet.txt");        
-        
-        Stream<String> lines = new BufferedReader( new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8))
-                .lines();
-        
-        
-        System.out.println("resourceAsStream = " + resourceAsStream);
-        
-        
-//        URL url = BigGAN.class.getResource("/synset_imagenet.txt");        
-//        URL url = getClass().getResource("classpath:synset_imagenet.txt");
-        
-        
-//        URL url = getClass().getResource("/synset_imagenet.txt");
-//        URI uri = url.toURI();
-//        File infile = new File(uri);
-
-        
-        
-        
-        
-        
-File pwd = new File(".");
-        System.out.println("pwd = " + pwd.getAbsolutePath());
-        
-        
-//        File infile = new File("/home/roberto/Versioning/owner/github/deep-learning/gan/djl/src/main/resources/synset_imagenet.txt");
-//        File infile = new File("../djl/src/main/resources/synset_imagenet.txt");
-//                                  /home/roberto/Versioning/owner/github/deep-learning/gan/djl/src/main/java/ai/djl/examples/inference/BigGAN.java
-//                                  /home/roberto/Versioning/owner/github/deep-learning/gan/djl-desktop/
-//        Path inpath = infile.toPath();
-
         if(names == null)
         {
+            InputStream resourceAsStream = BigGAN.class.getResourceAsStream("/synset_imagenet.txt");        
+
+            Stream<String> lines = new BufferedReader( new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8))
+                    .lines();
+        
+System.out.println("resourceAsStream is: " + resourceAsStream);
+File pwd = new File(".");
+System.out.println("pwds = " + pwd.getAbsolutePath());
+
             names = lines.collect(Collectors.toList());
-            // read the mapping file from the classpath
-//            try(Stream<String> nameStream = Files.lines(inpath) )
-//            {
-//                names = nameStream.collect(Collectors.toList() ) ;
-//            };            
         }
         
         return names;
