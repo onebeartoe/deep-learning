@@ -49,10 +49,8 @@
           
                 Here is a screenshot of the application.
             
-            
-            <img src='screenshot-a.png'
-                 width='50%'
-                 height=''50'>
+
+            ![application screenshot](screenshot-a.png)
             
           
                 Displayed on the left side of the split pane is a list of the category names
