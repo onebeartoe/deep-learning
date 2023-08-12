@@ -17,7 +17,7 @@
             
         
                 
-                https://github.com/deepjavalibrary/djl/blob/master/model-zoo/src/test/resources/mlrepo/model/cv/image_classification/ai/djl/zoo/synset_imagenet.txt
+     https://github.com/deepjavalibrary/djl/blob/master/model-zoo/src/test/resources/mlrepo/model/cv/image_classification/ai/djl/zoo/synset_imagenet.txt
                         They are mapped by this file.
                       
            
@@ -44,13 +44,10 @@
                 
               
                     https://github.com/deepjavalibrary/djl/blob/master/examples/src/main/java/ai/djl/examples/inference/BigGAN.java
-                
-
-          
+                          
                 Here is a screenshot of the application.
             
-
-            ![application screenshot](screenshot-a.png)
+![application screenshot](screenshot-a.png)
             
           
                 Displayed on the left side of the split pane is a list of the category names
@@ -65,17 +62,11 @@
          
                 The category names are searchable via the text field and button above the 
                 list.
-           
-        
-              
+ 
 
             Going Further
-            
-           		
       
-                
-                 
-          
+            
 Add a tabbed interface
     Dropdown
     
@@ -97,11 +88,3 @@ Add a tabbed interface
                
                     https://machinelearningmastery.com/a-gentle-introduction-to-the-biggan/
                         A Gentle Introduction to the Big GAN
-                        
-                
-
-
-                
-                                
-            
-      
