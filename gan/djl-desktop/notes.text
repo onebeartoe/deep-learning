@@ -1,0 +1,40 @@
+Deep Learning - Image Generation
+
+    Share
+
+
+    Documentation
+        Writeup on the background and usage of the application
+        
+        Screenshots
+
+
+    BigGAN
+        https://github.com/deepjavalibrary/djl/blob/master/examples/docs/biggan.md
+
+
+        /home/roberto/Versioning/group/github/deepjavalibrary/djl/examples/src/main/java/ai/djl/examples/inference/BigGAN.java
+            Run it and see where it can be improved.
+
+
+        Determine where a writeup for this goes in oneweb.
+        
+        Make the writeup.
+
+        Can this API do what is needed for the multithreaded aspects of the GUI?
+            https://medium.com/@victorlaertedoliveira/archive-javafx-asynctask-a-easy-way-to-handle-multithreading-in-javafx-26689f3cd8fa
+                Nope
+
+                
+    Implementation
+        Provide a search bar
+        
+        Use the Javafx Task to do the image generation asynchronously with the GUI (event dispatch) thread.
+
+        When a user selects a category from the list, 3-5 sample images are shown in the tiled preview pane.
+
+        Display the 3-5 images nicely on the UI
+            TileView is giving some problems
+            
+            Try FlowPane or GridPane
+                FlowPane seems okay.
